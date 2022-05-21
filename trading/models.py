@@ -17,8 +17,13 @@ class Trade(models.Model):
     api_response = response.json()
     if api_response['code'] == 200:
         api_display = api_response['data']
+        newlist = []
         for item in api_display:
             item['profit'] = round(item['trade_price_sell'] - item['trade_price_buy'], 2)
+
+            if item['kind'] != 'Temporary' and item['kind'] != 'Drug':
+                if item['trade_price_buy'] > 0.01 and item['trade_price_sell'] > 0.01:
+                    newlist.append(item)
 
     def __str__(self):
         return self.commodity

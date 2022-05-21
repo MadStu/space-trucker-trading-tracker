@@ -5,6 +5,6 @@ from .models import Trade
 
 def index(request):
     context = {
-        'api': Trade.api_display
+        'api': Trade.newlist
     }
     return render(request, "trading/index.html", context)
