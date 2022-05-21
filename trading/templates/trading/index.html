@@ -9,6 +9,8 @@
 <body>
     <h1>Space Trucker</h1>
     <h2>A Trading Tool for Star Citizen</h2>
+    <h3>!! NON-FUNCTIONAL - UNDER CONSTRUCTION !!</h3>
+    <br><br>
 
     <div>
         <table>
@@ -28,7 +30,29 @@
                     <td>{{ trade.buy }}</td>
                     <td></td>
                 </tr>
+                {% empty %}
+                <tr>
+                    <td>No Trades</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
                 {% endfor %}
+                <tr>
+                    <td></td>
+                    <td>Total Units:</td>
+                    <td>0</td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <th>Add A New Trade</th>
+                    <th>Buy Price</th>
+                    <th>Amount</th>
+                    <th>Buy / Sell</th>
+                    <th></th>
+                </tr>
                 <tr>
                     <td>
                         <select name="commodity" id="commodity">
@@ -48,7 +72,7 @@
             </form>
         </table>
     </div>
-
+    <br><br>
     <div>
         <table>
             <tr>
