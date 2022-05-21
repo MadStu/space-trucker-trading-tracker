@@ -16,14 +16,14 @@
             <th>Sell Price</th>
             <th>Profit</th>
         </tr>
-        {% for commodity in api.data %}
+        {% for commodity in api|dictsort:"profit" reversed %}
             {% if commodity.trade_price_buy > 0.01  and commodity.kind != "Temporary" %}
                 {% if commodity.trade_price_sell > 0.01 and commodity.kind != "Drug" %}
                 <tr>
                     <td>{{ commodity.name }}</td>
                     <td>{{ commodity.trade_price_buy }}</td>
                     <td>{{ commodity.trade_price_sell }}</td>
-                    <td>{{ commodity.code }}</td>
+                    <td>{{ commodity.profit }}</td>
                 </tr>
             {% endif %}
         {% endif %}

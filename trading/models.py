@@ -14,7 +14,11 @@ class Trade(models.Model):
         "api_key": os.environ.get("UEX_API_KEY")
     }
     response = requests.get(API_URL, headers=data)
-    api_display = response.json()
+    api_response = response.json()
+    if api_response['code'] == 200:
+        api_display = api_response['data']
+        for item in api_display:
+            item['profit'] = round(item['trade_price_sell'] - item['trade_price_buy'], 2)
 
     def __str__(self):
         return self.commodity
