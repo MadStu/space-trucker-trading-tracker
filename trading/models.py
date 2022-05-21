@@ -39,7 +39,8 @@ class Trade(models.Model):
         item['profit'] = round(item['trade_price_sell'] - item['trade_price_buy'], 2)
 
         # Only add tradeable commodities to the new list
-        if item['kind'] != 'Temporary' and item['kind'] != 'Drug':
+        # if item['kind'] != 'Temporary' and item['kind'] != 'Drug':
+        if item['kind'] != 'Drug':
             if item['trade_price_buy'] > 0.01 and item['trade_price_sell'] > 0.01:
                 commodity_data.append(item)
 
