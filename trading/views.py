@@ -1,16 +1,13 @@
-import os
-import requests
 from django.shortcuts import render
+from .models import Trade
 
 # Create your views here.
 
 def index(request):
-
-    API_URL = "https://api.uexcorp.space/systems"
-    data = {
-        "api_key": os.environ.get("UEX_API_KEY")
+    items = Trade.objects.all()
+    context = {
+        'items': items,
+        'api': Trade.api_display,
+        'data': Trade.data
     }
-    response = requests.post(API_URL, data)
-    api_display = response.json()
-
-    return render(request, "trading/index.html")
+    return render(request, "trading/index.html", context)
