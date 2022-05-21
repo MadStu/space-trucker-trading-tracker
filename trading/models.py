@@ -9,7 +9,7 @@ class Trade(models.Model):
     amount = models.IntegerField()
     buy = models.BooleanField(null=False, blank=False, default=False)
 
-    API_URL = "https://api.uexcorp.space/systems"
+    API_URL = "https://api.uexcorp.space/commodities"
     data = {
         "api_key": os.environ.get("UEX_API_KEY")
     }

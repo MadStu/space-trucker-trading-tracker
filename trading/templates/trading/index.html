@@ -9,6 +9,25 @@
 <body>
     <h1>Space Trucker</h1>
     <h2>A Trading Tool for Star Citizen</h2>
-    <p>{{ api }}</p>
+    <table>
+        <tr>
+            <th>Commodity</th>
+            <th>Buy Price</th>
+            <th>Sell Price</th>
+            <th>Profit</th>
+        </tr>
+        {% for commodity in api.data %}
+            {% if commodity.trade_price_buy > 0.01  and commodity.kind != "Temporary" %}
+                {% if commodity.trade_price_sell > 0.01 and commodity.kind != "Drug" %}
+                <tr>
+                    <td>{{ commodity.name }}</td>
+                    <td>{{ commodity.trade_price_buy }}</td>
+                    <td>{{ commodity.trade_price_sell }}</td>
+                    <td>{{ commodity.code }}</td>
+                </tr>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    </table>
 </body>
 </html>
