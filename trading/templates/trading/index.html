@@ -9,6 +9,46 @@
 <body>
     <h1>Space Trucker</h1>
     <h2>A Trading Tool for Star Citizen</h2>
+
+    <div>
+        <table>
+            <form action="">
+                <tr>
+                    <th>Commodity</th>
+                    <th>Buy Price</th>
+                    <th>Amount</th>
+                    <th>Buy / Sell</th>
+                    <th></th>
+                </tr>
+                {% for trade in trades %}
+                <tr>
+                    <td>{{ trade.commodity }}</td>
+                    <td>{{ trade.price }}</td>
+                    <td>{{ trade.amount }}</td>
+                    <td>{{ trade.buy }}</td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td>
+                        <select name="commodity" id="commodity">
+                            {% for commodity in api|dictsort:"profit" reversed %}
+                            <option value="{{ commodity.name }}">{{ commodity.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td><input type="textfield" size="5" name="price" id="price"></td>
+                    <td><input type="textfield" size="5" name="amount" id="amount"></td>
+                    <td><select name="buy">
+                        <option value="True">Buy</option>
+                        <option value="False">Sell</option>
+                    </select></td>
+                    <td><input type="submit"></td>
+                </tr>
+            </form>
+        </table>
+    </div>
+
     <div>
         <table>
             <tr>
