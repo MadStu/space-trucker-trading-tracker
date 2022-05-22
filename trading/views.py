@@ -30,22 +30,27 @@ def index(request, *args, **kwargs):
         if api_response['code'] == 200:
             api_display = api_response['data']
             print("API Retrieve Successful", api_response['code'], api_response['status'])
+
             for item in api_display:
                 # Calculate the profit and round down to 2 decimal places
                 item['profit'] = round(item['trade_price_sell'] - item['trade_price_buy'], 2)
 
                 # Update Database
                 if CommodityPrice.objects.get(code=item['code']):
-                    # Update existing details
                     entry = CommodityPrice.objects.get(code=item['code'])
-                    entry.code = item['code']
-                    entry.name = item['name']
-                    entry.kind = item['kind']
-                    entry.trade_price_buy = item['trade_price_buy']
-                    entry.trade_price_sell = item['trade_price_sell']
-                    entry.date_modified = item['date_modified']
-                    entry.profit = item['profit']
-                    entry.save()
+
+                    # Check if API data is newer than the DB entry
+                    if item['date_modified'] > entry.date_modified:
+
+                        # Update existing details
+                        entry.code = item['code']
+                        entry.name = item['name']
+                        entry.kind = item['kind']
+                        entry.trade_price_buy = item['trade_price_buy']
+                        entry.trade_price_sell = item['trade_price_sell']
+                        entry.date_modified = item['date_modified']
+                        entry.profit = item['profit']
+                        entry.save()
                 else:
                     # Insert new commodity
                     CommodityPrice.objects.create(
