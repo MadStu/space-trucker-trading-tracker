@@ -4,6 +4,7 @@ import time
 from django.shortcuts import render
 from .models import Trade, CommodityPrice
 
+
 def index(request, *args, **kwargs):
 
     epoch_time = time.time()
@@ -17,7 +18,7 @@ def index(request, *args, **kwargs):
         print("Current Time:", epoch_time)
         print("Retrieving UEX API...")
 
-        # Date last modified updated in DB 
+        # Date last modified updated in DB
         update_db.date_modified = int(epoch_time)
         update_db.save()
 
@@ -30,11 +31,16 @@ def index(request, *args, **kwargs):
         # Check API is working
         if api_response['code'] == 200:
             api_display = api_response['data']
-            print("API Retrieve Successful", api_response['code'], api_response['status'])
+            print(
+                "API Retrieve Successful",
+                api_response['code'],
+                api_response['status']
+            )
 
             for item in api_display:
                 # Calculate the profit and round down to 2 decimal places
-                item['profit'] = round(item['trade_price_sell'] - item['trade_price_buy'], 2)
+                item['profit'] = round(
+                    item['trade_price_sell'] - item['trade_price_buy'], 2)
 
                 # Update Database
                 if CommodityPrice.objects.filter(code=item['code']).exists():
@@ -57,17 +63,21 @@ def index(request, *args, **kwargs):
                 else:
                     # Insert new commodity
                     CommodityPrice.objects.create(
-                        code = item['code'],
-                        name = item['name'],
-                        kind = item['kind'],
-                        trade_price_buy = item['trade_price_buy'],
-                        trade_price_sell = item['trade_price_sell'],
-                        date_modified = item['date_modified'],
-                        profit = item['profit']
+                        code=item['code'],
+                        name=item['name'],
+                        kind=item['kind'],
+                        trade_price_buy=item['trade_price_buy'],
+                        trade_price_sell=item['trade_price_sell'],
+                        date_modified=item['date_modified'],
+                        profit=item['profit']
                     )
                     print("Commodity Inserted:", item['code'])
         else:
-            print("API Retrieve Failed", api_response['code'], api_response['status'])
+            print(
+                "API Retrieve Failed",
+                api_response['code'],
+                api_response['status']
+            )
 
     # Create a new list from the database.....
     commodity_data = []
