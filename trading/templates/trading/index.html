@@ -80,6 +80,7 @@
                 <th>Buy Price</th>
                 <th>Sell Price</th>
                 <th>Profit</th>
+                <th>Kind</th>
             </tr>
             {% for commodity in api|dictsort:"profit" reversed %}
             <tr>
@@ -87,6 +88,7 @@
                 <td>{{ commodity.trade_price_buy }}</td>
                 <td>{{ commodity.trade_price_sell }}</td>
                 <td>{{ commodity.profit }}</td>
+                <td>{{ commodity.kind }}</td>
             </tr>
             {% endfor %}
         </table>

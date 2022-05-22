@@ -24,7 +24,7 @@ class Trade(models.Model):
             {
             "code": "ERRR",
             "name": f"Response Code: {api_response['code']}",
-            "kind": "ERROR",
+            "kind": f"Status: {api_response['status']}",
             "trade_price_buy": 1,
             "trade_price_sell": 1000,
             "date_added": 1,
