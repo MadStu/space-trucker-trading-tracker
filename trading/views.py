@@ -14,6 +14,7 @@ def index(request, *args, **kwargs):
     if epoch_time - 3600 > last_update:
         print("Last modified:", update_db.date_modified)
         print("Current Time:", epoch_time)
+        print("Retrieving UEX API...")
 
         # Date last modified updated in DB 
         update_db.date_modified = int(epoch_time)
@@ -28,6 +29,7 @@ def index(request, *args, **kwargs):
         # Check API is working
         if api_response['code'] == 200:
             api_display = api_response['data']
+            print("API Retrieve Successful", api_response['code'], api_response['status'])
             for item in api_display:
                 # Calculate the profit and round down to 2 decimal places
                 item['profit'] = round(item['trade_price_sell'] - item['trade_price_buy'], 2)
@@ -55,6 +57,8 @@ def index(request, *args, **kwargs):
                         date_modified = item['date_modified'],
                         profit = item['profit']
                     )
+        else:
+            print("API Retrieve Failed", api_response['code'], api_response['status'])
 
     # Create a new list from the database.....
     commodity_data = []
@@ -69,7 +73,9 @@ def index(request, *args, **kwargs):
     context = {
         'api': commodity_data,
         'com': Trade.commodity,
-        'trades': trades
+        'trades': trades,
+        'time_now': time.ctime(epoch_time),
+        'last_updated': time.ctime(last_update)
     }
 
     return render(request, "trading/index.html", context)
