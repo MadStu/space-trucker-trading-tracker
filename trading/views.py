@@ -12,7 +12,7 @@ def index(request, *args, **kwargs):
 
     # Check if it's been more than 1 hour since last update
     # 3600 = 1 hour
-    if epoch_time - 1800 > last_update:
+    if epoch_time - 3600 > last_update:
         print("Last modified:", update_db.date_modified)
         print("Current Time:", epoch_time)
         print("Retrieving UEX API...")
@@ -37,7 +37,7 @@ def index(request, *args, **kwargs):
                 item['profit'] = round(item['trade_price_sell'] - item['trade_price_buy'], 2)
 
                 # Update Database
-                if CommodityPrice.objects.get(code=item['code']):
+                if CommodityPrice.objects.filter(code=item['code']).exists():
                     entry = CommodityPrice.objects.get(code=item['code'])
 
                     # Check if API data is newer than the DB entry
@@ -53,8 +53,7 @@ def index(request, *args, **kwargs):
                         entry.profit = item['profit']
                         entry.save()
                         print("Commodity Updated:", item['code'])
-                    else:
-                        print("No action required:", item['code'])
+
                 else:
                     # Insert new commodity
                     CommodityPrice.objects.create(
