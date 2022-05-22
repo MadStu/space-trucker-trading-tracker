@@ -11,7 +11,8 @@ def index(request, *args, **kwargs):
     last_update = update_db.date_modified
 
     # Check if it's been more than 1 hour since last update
-    if epoch_time - 3600 > last_update:
+    # 3600 = 1 hour
+    if epoch_time - 1800 > last_update:
         print("Last modified:", update_db.date_modified)
         print("Current Time:", epoch_time)
         print("Retrieving UEX API...")
@@ -51,6 +52,9 @@ def index(request, *args, **kwargs):
                         entry.date_modified = item['date_modified']
                         entry.profit = item['profit']
                         entry.save()
+                        print("Commodity Updated:", item['code'])
+                    else:
+                        print("No action required:", item['code'])
                 else:
                     # Insert new commodity
                     CommodityPrice.objects.create(
@@ -62,6 +66,7 @@ def index(request, *args, **kwargs):
                         date_modified = item['date_modified'],
                         profit = item['profit']
                     )
+                    print("Commodity Inserted:", item['code'])
         else:
             print("API Retrieve Failed", api_response['code'], api_response['status'])
 
@@ -70,8 +75,8 @@ def index(request, *args, **kwargs):
 
     for item in CommodityPrice.objects.values():
         # Only add legal tradeable commodities to the new list
-        if item['kind'] != 'Drug':
-            if item['trade_price_buy'] > 0 and item['trade_price_sell'] > 0:
+        if item['profit'] > 0 and item['kind'] != 'Drug':
+            if item['trade_price_buy']:
                 commodity_data.append(item)
 
     trades = Trade.objects.all()
