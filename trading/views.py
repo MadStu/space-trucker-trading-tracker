@@ -11,9 +11,9 @@ def index(request):
     update_db = CommodityPrice.objects.get(code='UPDA')
     last_update = update_db.date_modified
 
-    # Check if it's been more than 1 hour since last update
-    # 3600 = 1 hour
-    if epoch_time - 3600 > last_update:
+    # Check if it's been more than * hours since last update
+    # 3600 = 1 hour, 21600 = 6 hours
+    if epoch_time - 21600 > last_update:
         print("Last modified:", update_db.date_modified)
         print("Current Time:", epoch_time)
         print("Retrieving UEX API...")
