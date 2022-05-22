@@ -1,12 +1,12 @@
 import os
-import requests
 import time
+import requests
 from django.shortcuts import render
 from .models import Trade, CommodityPrice
 
 
-def index(request, *args, **kwargs):
-
+def index(request):
+    # Get the Date/Time in epoch format
     epoch_time = time.time()
     update_db = CommodityPrice.objects.get(code='UPDA')
     last_update = update_db.date_modified
@@ -18,14 +18,14 @@ def index(request, *args, **kwargs):
         print("Current Time:", epoch_time)
         print("Retrieving UEX API...")
 
-        # Date last modified updated in DB
+        # Update last date modified in DB
         update_db.date_modified = int(epoch_time)
         update_db.save()
 
         # Connect to UEX API and get latest commodity prices
-        API_URL = "https://api.uexcorp.space/commodities"
-        data = {"api_key": os.environ.get("UEX_API_KEY")}
-        response = requests.get(API_URL, headers=data)
+        api_url = "https://api.uexcorp.space/commodities"
+        headers = {"api_key": os.environ.get("UEX_API_KEY")}
+        response = requests.get(api_url, headers=headers)
         api_response = response.json()
 
         # Check API is working
@@ -79,18 +79,17 @@ def index(request, *args, **kwargs):
                 api_response['status']
             )
 
-    # Create a new list from the database.....
+    # Create a new list from the database
     commodity_data = []
-
     for item in CommodityPrice.objects.values():
         # Only add legal tradeable commodities to the new list
         if item['profit'] > 0 and item['kind'] != 'Drug':
-            if item['trade_price_buy']:
+            if item['trade_price_buy'] > 0:
                 commodity_data.append(item)
 
     trades = Trade.objects.all()
     context = {
-        'api': commodity_data,
+        'commodity_data': commodity_data,
         'com': Trade.commodity,
         'trades': trades,
         'time_now': time.ctime(epoch_time),

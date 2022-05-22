@@ -56,7 +56,7 @@
                 <tr>
                     <td>
                         <select name="commodity" id="commodity">
-                            {% for commodity in api|dictsort:"profit" reversed %}
+                            {% for commodity in commodity_data|dictsort:"profit" reversed %}
                             <option value="{{ commodity.name }}">{{ commodity.name }}</option>
                             {% endfor %}
                         </select>
@@ -81,14 +81,18 @@
                 <th>Sell Price</th>
                 <th>Profit</th>
                 <th>Kind</th>
+                <th>Full C2 Cost</th>
+                <th>Full C2 Profit</th>
             </tr>
-            {% for commodity in api|dictsort:"profit" reversed %}
+            {% for commodity in commodity_data|dictsort:"profit" reversed %}
             <tr>
                 <td>{{ commodity.name }}</td>
                 <td>{{ commodity.trade_price_buy }}</td>
                 <td>{{ commodity.trade_price_sell }}</td>
                 <td>{{ commodity.profit }}</td>
                 <td>{{ commodity.kind }}</td>
+                <td>{% widthratio commodity.trade_price_buy 1 69600 %}</td>
+                <td>{% widthratio commodity.profit 1 69600 %}</td>
             </tr>
             {% endfor %}
         </table>
