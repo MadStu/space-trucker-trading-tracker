@@ -4,8 +4,6 @@ import time
 from django.shortcuts import render
 from .models import Trade, CommodityPrice
 
-# Create your views here.
-
 def index(request, *args, **kwargs):
 
     epoch_time = time.time()
@@ -57,27 +55,11 @@ def index(request, *args, **kwargs):
                         date_modified = item['date_modified'],
                         profit = item['profit']
                     )
-        else:
-            api_display = [
-                {
-                    "code": "ERRR",
-                    "name": f"Response Code: {api_response['code']}",
-                    "kind": f"Status: {api_response['status']}",
-                    "trade_price_buy": 1,
-                    "trade_price_sell": 1000,
-                    "date_added": 1,
-                    "date_modified": 1
-                }
-            ]
-
-
-
-
-
 
     # Create a new list from the database.....
     commodity_data = []
 
+    for item in CommodityPrice.objects.values():
         # Only add legal tradeable commodities to the new list
         if item['kind'] != 'Drug':
             if item['trade_price_buy'] > 0 and item['trade_price_sell'] > 0:
