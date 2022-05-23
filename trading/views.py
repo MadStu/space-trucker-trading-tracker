@@ -87,13 +87,14 @@ def index(request):
             if item['trade_price_buy'] > 0:
                 commodity_data.append(item)
 
+    # Handle Form posts to add a trade to the list
     if request.method == 'POST':
         form_commodity = request.POST.get('form_commodity')
         form_price = request.POST.get('form_price')
         form_amount = request.POST.get('form_amount')
         form_buy = True if request.POST.get('form_buy') == "True" else False
 
-        # Insert new commodity
+        # Insert new trade
         Trade.objects.create(
             commodity=form_commodity,
             price=form_price,

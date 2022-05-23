@@ -55,15 +55,15 @@
                 </tr>
                 <tr>
                     <td>
-                        <select name="form_commodity" id="form_commodity">
+                        <select name="form_commodity" id="form_commodity" required>
                             {% for commodity in commodity_data|dictsort:"profit" reversed %}
                             <option value="{{ commodity.name }}">{{ commodity.name }}</option>
                             {% endfor %}
                         </select>
                     </td>
-                    <td><input type="textfield" size="5" name="form_price" id="form_price"></td>
-                    <td><input type="textfield" size="5" name="form_amount" id="form_amount"></td>
-                    <td><select name="form_buy" id="form_buy">
+                    <td><input type="textfield" size="5" name="form_price" id="form_price" required></td>
+                    <td><input type="textfield" size="5" name="form_amount" id="form_amount" required></td>
+                    <td><select name="form_buy" id="form_buy" required>
                         <option value="True">Buy</option>
                         <option value="False">Sell</option>
                     </select></td>
