@@ -11,6 +11,10 @@ def index(request):
     update_db = CommodityPrice.objects.get(code='UPDA')
     last_update = update_db.date_modified
 
+    # Set error message to blank
+    error_message = []
+    form_error = ''
+
     # Check if it's been more than * hours since last update
     # 3600 = 1 hour, 21600 = 6 hours
     if epoch_time - 21600 > last_update:
@@ -34,7 +38,8 @@ def index(request):
             print(
                 "API Retrieve Successful",
                 api_response['code'],
-                api_response['status']
+                api_response['status'],
+                time.ctime(epoch_time)
             )
 
             for item in api_display:
@@ -73,10 +78,12 @@ def index(request):
                     )
                     print("Commodity Inserted:", item['code'])
         else:
+            # Tell the logs the API retrieve failed
             print(
                 "API Retrieve Failed",
                 api_response['code'],
-                api_response['status']
+                api_response['status'],
+                time.ctime(epoch_time)
             )
 
     # Create a new list from the database
@@ -92,6 +99,7 @@ def index(request):
         form_commodity = request.POST.get('form_commodity')
         form_price = request.POST.get('form_price')
         form_amount = request.POST.get('form_amount')
+        form_error = request.POST.get('error_message')
         form_buy = True if request.POST.get('form_buy') == "True" else False
 
         # Check if the trade exists in the database
@@ -104,9 +112,15 @@ def index(request):
             if form_buy:
                 entry.amount = entry.amount + int(form_amount)
             else:
-                entry.amount = entry.amount - int(form_amount)
+                if int(form_amount) > entry.amount:
+                    # Sold more than is in cargo hold
+                    error_message.append("AMOUNT TOO HIGH")
+                    print(error_message, "1")
+                else:
+                    entry.amount = entry.amount - int(form_amount)
             entry.price = form_price
-            entry.save()
+            if not error_message:
+                entry.save()
         else:
             # Insert new trade if there isn't one with that commodity
             Trade.objects.create(
@@ -119,21 +133,32 @@ def index(request):
         # Retrieve CommodityPrice data
         entry = CommodityPrice.objects.get(name=form_commodity)
 
-        # Update existing prices to CommodityPrice
-        #if entry.name == form_commodity:
-        if form_buy:
-            # Update if Buying
-            entry.trade_price_buy = float(form_price)
-        else:
-            # Update if Selling
-            entry.trade_price_sell = float(form_price)
-        entry.profit = round(
-            entry.trade_price_sell - entry.trade_price_buy, 2)
-        entry.date_modified = int(epoch_time)
-        entry.save()
-        print("Commodity Updated:", item['code'])
+        if not error_message:
+            # Update existing prices to CommodityPrice
+            if form_buy:
+                # Update if Buying
+                entry.trade_price_buy = float(form_price)
+            else:
+                # Update if Selling
+                entry.trade_price_sell = float(form_price)
+            entry.profit = round(
+                entry.trade_price_sell - entry.trade_price_buy, 2)
+            entry.date_modified = int(epoch_time)
+
+            if entry.profit < 0.01:
+                error_message.append("PRICE WAS NOT CORRECT")
+
+            if not error_message:
+                entry.save()
+                print("Commodity Updated:", item['code'])
 
         return redirect('index')
+
+    # print(error_message, "2")
+    # if form_error:
+    #     form_error = f"- - - - - ERROR: {form_error} - - - - -"
+    print(error_message, "3")
+    
 
     trades = Trade.objects.all()
     context = {
@@ -141,7 +166,8 @@ def index(request):
         'com': Trade.commodity,
         'trades': trades,
         'time_now': time.ctime(epoch_time),
-        'last_updated': time.ctime(last_update)
+        'last_updated': time.ctime(last_update),
+        'error_message': form_error
     }
 
     return render(request, "trading/index.html", context)

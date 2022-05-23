@@ -70,8 +70,10 @@
                     <td><button type="submit">Submit</button></td>
                     {% csrf_token %}
                 </tr>
+                <input type="hidden" name="error_message" value="{{ error_message }}">    
             </form>
         </table>
+        <h1>{{ error_message }}</h1>
     </div>
     <br><br>
     <div>
