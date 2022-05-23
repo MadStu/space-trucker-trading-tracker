@@ -116,13 +116,28 @@ def index(request):
 
             # Update existing trade details
             if form_buy:
-                entry.amount = entry.amount + int(form_amount)
+                entry.amount += int(form_amount)
+
+                # Work out stock cost and profit margin
+                cost = float(form_amount) * float(form_price)
+                entry.cost += int(cost)
+                entry.profit += (
+                    float(form_amount) * cp_data.trade_price_sell
+                ) - cost
             else:
                 if int(form_amount) > entry.amount:
                     # Sold more than is in cargo hold
                     add_error_message("AMOUNT TOO HIGH", "TOP")
                 else:
-                    entry.amount = entry.amount - int(form_amount)
+                    entry.amount -= int(form_amount)
+
+                    # Work out stock cost and profit margin
+                    cost = float(form_amount) * cp_data.trade_price_buy
+                    entry.cost -= int(cost)
+                    entry.profit -= (
+                        float(form_amount) * cp_data.trade_price_sell
+                    ) - cost
+
             entry.price = form_price
 
             # Work out stock sell value
@@ -138,12 +153,18 @@ def index(request):
             # Work out stock sell value
             value = int(form_amount) * cp_data.trade_price_sell
 
+            # Work out stock profit margin
+            cost = float(form_amount) * float(form_price)
+            profit = (float(form_amount) * cp_data.trade_price_sell) - cost
+
             # Insert new trade
             Trade.objects.create(
                 commodity=form_commodity,
                 price=form_price,
                 amount=form_amount,
+                cost=cost,
                 value=value,
+                profit=profit,
                 session=form_session
             )
 
@@ -177,9 +198,11 @@ def index(request):
 
     total_cargo = 0
     total_value = 0
+    total_profit = 0
     for trade in trades:
         total_cargo += trade.amount
         total_value += trade.value
+        total_profit += trade.profit
 
     errors = ErrorList.objects.all()
     ErrorList.objects.all().delete()
@@ -192,7 +215,8 @@ def index(request):
         'session_key': session_key,
         'errors': errors,
         'total_cargo': total_cargo,
-        'total_value': total_value
+        'total_value': round(total_value),
+        'total_profit': round(total_profit)
     }
 
     return render(request, "trading/index.html", context)

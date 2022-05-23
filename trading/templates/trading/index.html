@@ -17,7 +17,7 @@
             <form method="POST" action="">
                 <tr>
                     <th>Commodity</th>
-                    <th>Price</th>
+                    <th>Cost</th>
                     <th>Amount</th>
                     <th>Sale Value</th>
                     <th>Profit</th>
@@ -25,10 +25,10 @@
                 {% for trade in trades %}
                 <tr>
                     <td>{{ trade.commodity }}</td>
-                    <td>{{ trade.price }}</td>
+                    <td>{{ trade.cost|floatformat:0 }}</td>
                     <td>{{ trade.amount }}</td>
-                    <td>{{ trade.value }}</td>
-                    <td>{{ trade.profit }}</td>
+                    <td>{{ trade.value|floatformat:0 }}</td>
+                    <td>{{ trade.profit|floatformat:0 }}</td>
                 </tr>
                 {% empty %}
                 <tr>
@@ -44,7 +44,7 @@
                     <td>Totals:</td>
                     <td>{{ total_cargo }}</td>
                     <td>{{ total_value }}</td>
-                    <td></td>
+                    <td>{{ total_profit }}</td>
                 </tr>
                 <tr>
                     <th>Add A New Trade</th>
@@ -92,9 +92,9 @@
             {% for commodity in commodity_data|dictsort:"profit" reversed %}
             <tr>
                 <td>{{ commodity.name }}</td>
-                <td>{{ commodity.trade_price_buy }}</td>
-                <td>{{ commodity.trade_price_sell }}</td>
-                <td>{{ commodity.profit }}</td>
+                <td>{{ commodity.trade_price_buy|floatformat:2 }}</td>
+                <td>{{ commodity.trade_price_sell|floatformat:2 }}</td>
+                <td>{{ commodity.profit|floatformat:2 }}</td>
                 <td>{{ commodity.kind }}</td>
                 <td>{% widthratio commodity.trade_price_buy 1 69600 %}</td>
                 <td>{% widthratio commodity.profit 1 69600 %}</td>
