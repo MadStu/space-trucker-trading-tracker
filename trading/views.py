@@ -120,7 +120,12 @@ def index(request):
                     entry.amount = entry.amount - int(form_amount)
             entry.price = form_price
             if not error_message:
-                entry.save()
+                print("Amount left in cargo:", entry.amount)
+                if entry.amount == 0:
+                    entry.delete()
+                else:
+                    entry.save()
+
         else:
             # Insert new trade if there isn't one with that commodity
             Trade.objects.create(
@@ -141,6 +146,7 @@ def index(request):
             else:
                 # Update if Selling
                 entry.trade_price_sell = float(form_price)
+
             entry.profit = round(
                 entry.trade_price_sell - entry.trade_price_buy, 2)
             entry.date_modified = int(epoch_time)
@@ -158,7 +164,6 @@ def index(request):
     # if form_error:
     #     form_error = f"- - - - - ERROR: {form_error} - - - - -"
     print(error_message, "3")
-    
 
     trades = Trade.objects.all()
     context = {
