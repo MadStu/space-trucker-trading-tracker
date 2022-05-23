@@ -2,6 +2,7 @@ import os
 import time
 import requests
 from django.shortcuts import render, redirect
+from django.db.models import Max
 from .models import Trade, CommodityPrice, ErrorList
 from .db_interactions import add_error_message
 
@@ -10,6 +11,8 @@ def index(request):
     global form_commodity
     global form_price
     global form_amount
+
+    session_key = request.session._get_or_create_session_key()
 
     # Get the Date/Time in epoch format
     epoch_time = time.time()
@@ -198,12 +201,26 @@ def index(request):
                 print("Commodity Updated:", item['code'])
 
         return redirect('index')
+
+    # Check if user has a trade entry
+    if Trade.objects.filter(
+        session=session_key
+    ).exists():
+
+        # Get the most recent object from the database
+        latest_trade = Trade.objects.filter(
+            session=session_key
+        ).aggregate(time=Max('time'))['time']
+        entry = Trade.objects.get(session=session_key, time=latest_trade)
+
+        form_commodity = entry.commodity
+        form_price = entry.price
+        form_amount = entry.amount
     else:
         form_commodity = "Laranite"
         form_price = 27.83
         form_amount = 5000
 
-    session_key = request.session._get_or_create_session_key()
     trades = Trade.objects.all().filter(session=session_key)
 
     total_cargo = 0
