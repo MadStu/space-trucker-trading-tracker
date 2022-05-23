@@ -20,7 +20,7 @@
                     <th>Price</th>
                     <th>Amount</th>
                     <th>Buy / Sell</th>
-                    <th></th>
+                    <th>Value</th>
                 </tr>
                 {% for trade in trades %}
                 <tr>
@@ -28,7 +28,7 @@
                     <td>{{ trade.price }}</td>
                     <td>{{ trade.amount }}</td>
                     <td>{{ trade.buy }}</td>
-                    <td></td>
+                    <td>{% widthratio trade.price 1 trade.amount %}</td>
                 </tr>
                 {% empty %}
                 <tr>
@@ -48,7 +48,7 @@
                 </tr>
                 <tr>
                     <th>Add A New Trade</th>
-                    <th>Buy Price</th>
+                    <th>Unit Price</th>
                     <th>Amount</th>
                     <th>Buy / Sell</th>
                     <th></th>

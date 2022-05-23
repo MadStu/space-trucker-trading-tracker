@@ -94,33 +94,42 @@ def index(request):
         form_amount = request.POST.get('form_amount')
         form_buy = True if request.POST.get('form_buy') == "True" else False
 
-        # Insert new trade
-        Trade.objects.create(
-            commodity=form_commodity,
-            price=form_price,
-            amount=form_amount,
-            buy=form_buy
-        )
+        # Get the object from the database
+        entry = Trade.objects.get(commodity=form_commodity)
+
+        if entry.commodity == form_commodity:
+            # Update existing trade details
+            if form_buy:
+                entry.amount = entry.amount + int(form_amount)
+            else:
+                entry.amount = entry.amount - int(form_amount)
+            entry.price = form_price
+            entry.save()
+        else:
+            # Insert new trade
+            Trade.objects.create(
+                commodity=form_commodity,
+                price=form_price,
+                amount=form_amount,
+                buy=form_buy
+            )
 
         # retrieve CommodityPrice data
-        for item in CommodityPrice.objects.values():
-            entry = CommodityPrice.objects.get(name=item['name'])
+        entry = CommodityPrice.objects.get(name=form_commodity)
 
-            # Update existing prices to CommodityPrice
-            if entry.name == form_commodity:
-                if form_buy:
-                    # Update if Buying
-                    entry.trade_price_buy = float(form_price)
-                    entry.profit = round(
-                        item['trade_price_sell'] - float(form_price), 2)
-                else:
-                    # Update if Selling
-                    entry.trade_price_sell = float(form_price)
-                    entry.profit = round(
-                        float(form_price) - item['trade_price_buy'], 2)
-                entry.date_modified = int(epoch_time)
-                entry.save()
-                print("Commodity Updated:", item['code'])
+        # Update existing prices to CommodityPrice
+        if entry.name == form_commodity:
+            if form_buy:
+                # Update if Buying
+                entry.trade_price_buy = float(form_price)
+            else:
+                # Update if Selling
+                entry.trade_price_sell = float(form_price)
+            entry.profit = round(
+                entry.trade_price_sell - entry.trade_price_buy, 2)
+            entry.date_modified = int(epoch_time)
+            entry.save()
+            print("Commodity Updated:", item['code'])
 
         return redirect('index')
 
