@@ -107,10 +107,16 @@ def index(request):
         cp_data = CommodityPrice.objects.get(name=form_commodity)
 
         # Check if the trade exists in the database
-        if Trade.objects.filter(commodity=form_commodity, session=form_session).exists():
+        if Trade.objects.filter(
+            commodity=form_commodity,
+            session=form_session
+        ).exists():
 
             # Get the object from the database
-            entry = Trade.objects.get(commodity=form_commodity, session=form_session)
+            entry = Trade.objects.get(
+                commodity=form_commodity,
+                session=form_session
+            )
 
             # Update existing trade details
             if form_buy:
