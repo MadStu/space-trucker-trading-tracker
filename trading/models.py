@@ -5,6 +5,7 @@ class Trade(models.Model):
     commodity = models.CharField(max_length=150, null=False, blank=False)
     price = models.FloatField()
     amount = models.IntegerField()
+    cost = models.IntegerField(default=0)
     value = models.IntegerField(default=0)
     session = models.CharField(max_length=150, blank=False, default=0)
 

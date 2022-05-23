@@ -173,8 +173,14 @@ def index(request):
         return redirect('index')
 
     session_key = request.session._get_or_create_session_key()
-
     trades = Trade.objects.all().filter(session=session_key)
+
+    total_cargo = 0
+    total_value = 0
+    for trade in trades:
+        total_cargo += trade.amount
+        total_value += trade.value
+
     errors = ErrorList.objects.all()
     ErrorList.objects.all().delete()
     context = {
@@ -184,7 +190,9 @@ def index(request):
         'time_now': time.ctime(epoch_time),
         'last_updated': time.ctime(last_update),
         'session_key': session_key,
-        'errors': errors
+        'errors': errors,
+        'total_cargo': total_cargo,
+        'total_value': total_value
     }
 
     return render(request, "trading/index.html", context)
