@@ -87,7 +87,7 @@ def index(request):
             if item['trade_price_buy'] > 0:
                 commodity_data.append(item)
 
-    # Handle Form posts to add a trade to the list
+    # Handle Form posts to add or edit a trade in the database
     if request.method == 'POST':
         form_commodity = request.POST.get('form_commodity')
         form_price = request.POST.get('form_price')
@@ -101,6 +101,26 @@ def index(request):
             amount=form_amount,
             buy=form_buy
         )
+
+        # retrieve CommodityPrice data
+        for item in CommodityPrice.objects.values():
+            entry = CommodityPrice.objects.get(name=item['name'])
+
+            # Update existing prices to CommodityPrice
+            if entry.name == form_commodity:
+                if form_buy:
+                    # Update if Buying
+                    entry.trade_price_buy = float(form_price)
+                    entry.profit = round(
+                        item['trade_price_sell'] - float(form_price), 2)
+                else:
+                    # Update if Selling
+                    entry.trade_price_sell = float(form_price)
+                    entry.profit = round(
+                        float(form_price) - item['trade_price_buy'], 2)
+                entry.date_modified = int(epoch_time)
+                entry.save()
+                print("Commodity Updated:", item['code'])
 
         return redirect('index')
 
