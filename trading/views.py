@@ -101,15 +101,16 @@ def index(request):
         form_amount = request.POST.get('form_amount')
         form_error = request.POST.get('error_message')
         form_buy = True if request.POST.get('form_buy') == "True" else False
+        form_session = request.POST.get('session_key')
 
         # Retrieve CommodityPrice data
         cp_data = CommodityPrice.objects.get(name=form_commodity)
 
         # Check if the trade exists in the database
-        if Trade.objects.filter(commodity=form_commodity).exists():
+        if Trade.objects.filter(commodity=form_commodity, session=form_session).exists():
 
             # Get the object from the database
-            entry = Trade.objects.get(commodity=form_commodity)
+            entry = Trade.objects.get(commodity=form_commodity, session=form_session)
 
             # Update existing trade details
             if form_buy:
@@ -135,14 +136,15 @@ def index(request):
 
         else:
             # Work out stock sell value
-            value = form_amount * cp_data.trade_price_sell
+            value = int(form_amount) * cp_data.trade_price_sell
 
             # Insert new trade if there isn't one with that commodity
             Trade.objects.create(
                 commodity=form_commodity,
                 price=form_price,
                 amount=form_amount,
-                value=value
+                value=value,
+                session=form_session
             )
 
         # Retrieve CommodityPrice data
@@ -175,14 +177,17 @@ def index(request):
     #     form_error = f"- - - - - ERROR: {form_error} - - - - -"
     print(error_message, "3")
 
-    trades = Trade.objects.all()
+    session_key = request.session._get_or_create_session_key()
+
+    trades = Trade.objects.all().filter(session=session_key)
     context = {
         'commodity_data': commodity_data,
         'com': Trade.commodity,
         'trades': trades,
         'time_now': time.ctime(epoch_time),
         'last_updated': time.ctime(last_update),
-        'error_message': form_error
+        'error_message': form_error,
+        'session_key': session_key
     }
 
     return render(request, "trading/index.html", context)

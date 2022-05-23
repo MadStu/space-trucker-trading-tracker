@@ -7,9 +7,9 @@
     <title>Space Trucker</title>
 </head>
 <body>
-    <h1>Space Trucker</h1>
-    <h2>A Trading Tool for Star Citizen</h2>
-    <h3>!! NON-FUNCTIONAL - UNDER CONSTRUCTION !!</h3>
+    <h1>The Space Trucker Trading Tracker</h1>
+    <h2>Keep track of your cargo.</h2>
+    <h4>!! UNDER CONSTRUCTION !! - There will be bugs, please report them :)</h4>
     <br><br>
 
     <div>
@@ -70,10 +70,10 @@
                     <td><button type="submit">Submit</button></td>
                     {% csrf_token %}
                 </tr>
-                <input type="hidden" name="error_message" value="{{ error_message }}">    
+                <input type="hidden" name="session_key" value="{{ session_key }}">    
             </form>
         </table>
-        <h1>{{ error_message }}</h1>
+        <h1></h1>
     </div>
     <br><br>
     <div>
