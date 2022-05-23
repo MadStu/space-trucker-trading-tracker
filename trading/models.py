@@ -9,6 +9,7 @@ class Trade(models.Model):
     value = models.FloatField(default=0)
     profit = models.FloatField(default=0)
     session = models.CharField(max_length=150, blank=False, default=0)
+    time = models.IntegerField(default=0)
 
     def __str__(self):
         return self.commodity

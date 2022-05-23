@@ -7,6 +7,10 @@ from .db_interactions import add_error_message
 
 
 def index(request):
+    global form_commodity
+    global form_price
+    global form_amount
+
     # Get the Date/Time in epoch format
     epoch_time = time.time()
     update_db = CommodityPrice.objects.get(code='UPDA')
@@ -137,8 +141,9 @@ def index(request):
                     entry.profit -= (
                         float(form_amount) * cp_data.trade_price_sell
                     ) - cost
-
+            # Update price paid and current time
             entry.price = form_price
+            entry.time = epoch_time
 
             # Work out stock sell value
             entry.value = entry.amount * cp_data.trade_price_sell
@@ -165,7 +170,8 @@ def index(request):
                 cost=cost,
                 value=value,
                 profit=profit,
-                session=form_session
+                session=form_session,
+                time=epoch_time
             )
 
         # Retrieve CommodityPrice data
@@ -192,6 +198,10 @@ def index(request):
                 print("Commodity Updated:", item['code'])
 
         return redirect('index')
+    else:
+        form_commodity = "Laranite"
+        form_price = 27.83
+        form_amount = 5000
 
     session_key = request.session._get_or_create_session_key()
     trades = Trade.objects.all().filter(session=session_key)
@@ -216,7 +226,10 @@ def index(request):
         'errors': errors,
         'total_cargo': total_cargo,
         'total_value': round(total_value),
-        'total_profit': round(total_profit)
+        'total_profit': round(total_profit),
+        'populate_commodity': form_commodity,
+        'populate_price': float(form_price),
+        'populate_amount': int(form_amount)
     }
 
     return render(request, "trading/index.html", context)

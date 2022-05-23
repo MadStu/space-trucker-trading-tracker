@@ -18,7 +18,7 @@
                 <tr>
                     <th>Commodity</th>
                     <th>Cost</th>
-                    <th>Amount</th>
+                    <th>Units</th>
                     <th>Sale Value</th>
                     <th>Profit</th>
                 </tr>
@@ -49,7 +49,7 @@
                 <tr>
                     <th>Add A New Trade</th>
                     <th>Unit Price</th>
-                    <th>Amount</th>
+                    <th>Units</th>
                     <th>Buy / Sell</th>
                     <th></th>
                 </tr>
@@ -57,12 +57,12 @@
                     <td>
                         <select name="form_commodity" id="form_commodity" required>
                             {% for commodity in commodity_data|dictsort:"profit" reversed %}
-                            <option value="{{ commodity.name }}">{{ commodity.name }}</option>
+                            <option value="{{ commodity.name }}"{% if commodity.name == populate_commodity %} selected{% endif %}>{{ commodity.name }}</option>
                             {% endfor %}
                         </select>
                     </td>
-                    <td><input type="textfield" size="5" name="form_price" id="form_price" required></td>
-                    <td><input type="textfield" size="5" name="form_amount" id="form_amount" required></td>
+                    <td><input type="textfield" size="5" name="form_price" id="form_price" autocomplete="off" value="{{ populate_price }}" required></td>
+                    <td><input type="textfield" size="5" name="form_amount" id="form_amount" autocomplete="off" value="{{ populate_amount }}" required></td>
                     <td><select name="form_buy" id="form_buy" required>
                         <option value="True">Buy</option>
                         <option value="False">Sell</option>
