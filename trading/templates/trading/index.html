@@ -14,7 +14,7 @@
 
     <div>
         <table>
-            <form action="">
+            <form method="POST" action="">
                 <tr>
                     <th>Commodity</th>
                     <th>Buy Price</th>
@@ -55,19 +55,20 @@
                 </tr>
                 <tr>
                     <td>
-                        <select name="commodity" id="commodity">
+                        <select name="form_commodity" id="form_commodity">
                             {% for commodity in commodity_data|dictsort:"profit" reversed %}
                             <option value="{{ commodity.name }}">{{ commodity.name }}</option>
                             {% endfor %}
                         </select>
                     </td>
-                    <td><input type="textfield" size="5" name="price" id="price"></td>
-                    <td><input type="textfield" size="5" name="amount" id="amount"></td>
-                    <td><select name="buy">
+                    <td><input type="textfield" size="5" name="form_price" id="form_price"></td>
+                    <td><input type="textfield" size="5" name="form_amount" id="form_amount"></td>
+                    <td><select name="form_buy" id="form_buy">
                         <option value="True">Buy</option>
                         <option value="False">Sell</option>
                     </select></td>
-                    <td><input type="submit"></td>
+                    <td><button type="submit">Submit</button></td>
+                    {% csrf_token %}
                 </tr>
             </form>
         </table>

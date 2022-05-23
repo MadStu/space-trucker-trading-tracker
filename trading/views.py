@@ -1,7 +1,7 @@
 import os
 import time
 import requests
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .models import Trade, CommodityPrice
 
 
@@ -86,6 +86,22 @@ def index(request):
         if item['profit'] > 0 and item['kind'] != 'Drug':
             if item['trade_price_buy'] > 0:
                 commodity_data.append(item)
+
+    if request.method == 'POST':
+        form_commodity = request.POST.get('form_commodity')
+        form_price = request.POST.get('form_price')
+        form_amount = request.POST.get('form_amount')
+        form_buy = True if request.POST.get('form_buy') == "True" else False
+
+        # Insert new commodity
+        Trade.objects.create(
+            commodity=form_commodity,
+            price=form_price,
+            amount=form_amount,
+            buy=form_buy
+        )
+
+        return redirect('index')
 
     trades = Trade.objects.all()
     context = {
