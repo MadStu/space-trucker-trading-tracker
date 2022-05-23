@@ -2,7 +2,8 @@ import os
 import time
 import requests
 from django.shortcuts import render, redirect
-from .models import Trade, CommodityPrice
+from .models import Trade, CommodityPrice, ErrorList
+from .db_interactions import add_error_message
 
 
 def index(request):
@@ -10,10 +11,6 @@ def index(request):
     epoch_time = time.time()
     update_db = CommodityPrice.objects.get(code='UPDA')
     last_update = update_db.date_modified
-
-    # Set error message to blank
-    error_message = []
-    form_error = ''
 
     # Check if it's been more than * hours since last update
     # 3600 = 1 hour, 21600 = 6 hours
@@ -98,8 +95,7 @@ def index(request):
     if request.method == 'POST':
         form_commodity = request.POST.get('form_commodity')
         form_price = request.POST.get('form_price')
-        form_amount = request.POST.get('form_amount')
-        form_error = request.POST.get('error_message')
+        form_amount = int(request.POST.get('form_amount'))
         form_buy = True if request.POST.get('form_buy') == "True" else False
         form_session = request.POST.get('session_key')
 
@@ -124,8 +120,7 @@ def index(request):
             else:
                 if int(form_amount) > entry.amount:
                     # Sold more than is in cargo hold
-                    error_message.append("AMOUNT TOO HIGH")
-                    print(error_message, "1")
+                    add_error_message("AMOUNT TOO HIGH", "TOP")
                 else:
                     entry.amount = entry.amount - int(form_amount)
             entry.price = form_price
@@ -133,8 +128,7 @@ def index(request):
             # Work out stock sell value
             entry.value = entry.amount * cp_data.trade_price_sell
 
-            if not error_message:
-                print("Amount left in cargo:", entry.amount)
+            if not ErrorList.objects.exists():
                 if entry.amount == 0:
                     entry.delete()
                 else:
@@ -144,7 +138,7 @@ def index(request):
             # Work out stock sell value
             value = int(form_amount) * cp_data.trade_price_sell
 
-            # Insert new trade if there isn't one with that commodity
+            # Insert new trade
             Trade.objects.create(
                 commodity=form_commodity,
                 price=form_price,
@@ -156,7 +150,7 @@ def index(request):
         # Retrieve CommodityPrice data
         cp_data = CommodityPrice.objects.get(name=form_commodity)
 
-        if not error_message:
+        if not ErrorList.objects.exists():
             # Update existing prices to CommodityPrice
             if form_buy:
                 # Update if Buying
@@ -170,30 +164,27 @@ def index(request):
             cp_data.date_modified = int(epoch_time)
 
             if cp_data.profit < 0.01:
-                error_message.append("PRICE WAS NOT CORRECT")
+                add_error_message("PRICE WAS NOT CORRECT", "TOP")
 
-            if not error_message:
+            if not ErrorList.objects.exists():
                 cp_data.save()
                 print("Commodity Updated:", item['code'])
 
         return redirect('index')
 
-    # print(error_message, "2")
-    # if form_error:
-    #     form_error = f"- - - - - ERROR: {form_error} - - - - -"
-    print(error_message, "3")
-
     session_key = request.session._get_or_create_session_key()
 
     trades = Trade.objects.all().filter(session=session_key)
+    errors = ErrorList.objects.all()
+    ErrorList.objects.all().delete()
     context = {
         'commodity_data': commodity_data,
         'com': Trade.commodity,
         'trades': trades,
         'time_now': time.ctime(epoch_time),
         'last_updated': time.ctime(last_update),
-        'error_message': form_error,
-        'session_key': session_key
+        'session_key': session_key,
+        'errors': errors
     }
 
     return render(request, "trading/index.html", context)

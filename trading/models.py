@@ -2,8 +2,6 @@ from django.db import models
 
 
 class Trade(models.Model):
-
-    # Set Database fields
     commodity = models.CharField(max_length=150, null=False, blank=False)
     price = models.FloatField()
     amount = models.IntegerField()
@@ -15,7 +13,6 @@ class Trade(models.Model):
 
 
 class CommodityPrice(models.Model):
-    # Set CommodityPrices Database fields
     code = models.CharField(max_length=4, null=False, blank=False)
     name = models.CharField(max_length=150, null=False, blank=False)
     kind = models.CharField(max_length=150, null=False, blank=False)
@@ -26,3 +23,11 @@ class CommodityPrice(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class ErrorList(models.Model):
+    error_message = models.CharField(max_length=150, null=False, blank=False)
+    error_location = models.CharField(max_length=150, null=False, blank=False)
+
+    def __str__(self):
+        return self.error_message
