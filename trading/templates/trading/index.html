@@ -19,16 +19,16 @@
                     <th>Commodity</th>
                     <th>Price</th>
                     <th>Amount</th>
-                    <th>Buy / Sell</th>
-                    <th>Value</th>
+                    <th>Sale Value</th>
+                    <th></th>
                 </tr>
                 {% for trade in trades %}
                 <tr>
                     <td>{{ trade.commodity }}</td>
                     <td>{{ trade.price }}</td>
                     <td>{{ trade.amount }}</td>
-                    <td>{{ trade.buy }}</td>
-                    <td>{% widthratio trade.price 1 trade.amount %}</td>
+                    <td>{{ trade.value }}</td>
+                    <td></td>
                 </tr>
                 {% empty %}
                 <tr>

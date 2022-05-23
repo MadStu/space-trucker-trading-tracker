@@ -102,6 +102,9 @@ def index(request):
         form_error = request.POST.get('error_message')
         form_buy = True if request.POST.get('form_buy') == "True" else False
 
+        # Retrieve CommodityPrice data
+        cp_data = CommodityPrice.objects.get(name=form_commodity)
+
         # Check if the trade exists in the database
         if Trade.objects.filter(commodity=form_commodity).exists():
 
@@ -119,6 +122,10 @@ def index(request):
                 else:
                     entry.amount = entry.amount - int(form_amount)
             entry.price = form_price
+
+            # Work out stock sell value
+            entry.value = entry.amount * cp_data.trade_price_sell
+
             if not error_message:
                 print("Amount left in cargo:", entry.amount)
                 if entry.amount == 0:
@@ -127,35 +134,38 @@ def index(request):
                     entry.save()
 
         else:
+            # Work out stock sell value
+            value = form_amount * cp_data.trade_price_sell
+
             # Insert new trade if there isn't one with that commodity
             Trade.objects.create(
                 commodity=form_commodity,
                 price=form_price,
                 amount=form_amount,
-                buy=form_buy
+                value=value
             )
 
         # Retrieve CommodityPrice data
-        entry = CommodityPrice.objects.get(name=form_commodity)
+        cp_data = CommodityPrice.objects.get(name=form_commodity)
 
         if not error_message:
             # Update existing prices to CommodityPrice
             if form_buy:
                 # Update if Buying
-                entry.trade_price_buy = float(form_price)
+                cp_data.trade_price_buy = float(form_price)
             else:
                 # Update if Selling
-                entry.trade_price_sell = float(form_price)
+                cp_data.trade_price_sell = float(form_price)
 
-            entry.profit = round(
-                entry.trade_price_sell - entry.trade_price_buy, 2)
-            entry.date_modified = int(epoch_time)
+            cp_data.profit = round(
+                cp_data.trade_price_sell - cp_data.trade_price_buy, 2)
+            cp_data.date_modified = int(epoch_time)
 
-            if entry.profit < 0.01:
+            if cp_data.profit < 0.01:
                 error_message.append("PRICE WAS NOT CORRECT")
 
             if not error_message:
-                entry.save()
+                cp_data.save()
                 print("Commodity Updated:", item['code'])
 
         return redirect('index')
