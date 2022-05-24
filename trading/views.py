@@ -185,27 +185,13 @@ def index(request):
                 units=form_amount
             )
 
-        # Retrieve CommodityPrice data
-        cp_data = CommodityPrice.objects.get(name=form_commodity)
-
-        if not ErrorList.objects.exists() and request.user.is_superuser:
-            # Update existing prices to CommodityPrice
-            if form_buy:
-                # Update if Buying
-                cp_data.trade_price_buy = float(form_price)
-            else:
-                # Update if Selling
-                cp_data.trade_price_sell = float(form_price)
-
-            cp_data.profit = round(
-                cp_data.trade_price_sell - cp_data.trade_price_buy, 2)
-            cp_data.date_modified = int(epoch_time)
-
-            if cp_data.profit < 0.01:
-                add_error_message("PRICE WAS NOT CORRECT", "TOP")
-
-            if not ErrorList.objects.exists():
-                cp_data.save()
+        # Update CommodityPrice data
+        update_commodity_prices(
+            form_commodity,
+            form_buy,
+            form_price,
+            epoch_time
+        )
 
         return redirect('index')
 

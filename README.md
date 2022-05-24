@@ -19,7 +19,6 @@ I will take a design thinking and agile approach to creating the app.
 - Readme
 - Single login social accounts
 - Refactor Code
-- Only update Commodity PRices if admin
 - Click Trade to populate fields
 - Click Buy/Sell to populate price fields
 
