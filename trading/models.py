@@ -10,6 +10,8 @@ class Trade(models.Model):
     profit = models.FloatField(default=0)
     session = models.CharField(max_length=150, blank=False, default=0)
     time = models.IntegerField(default=0)
+    buy = models.BooleanField(default=True)
+    units = models.IntegerField(default=5000)
 
     def __str__(self):
         return self.commodity

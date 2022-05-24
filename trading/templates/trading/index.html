@@ -65,7 +65,7 @@
                     <td><input type="textfield" size="5" name="form_amount" id="form_amount" autocomplete="off" value="{{ populate_amount }}" required></td>
                     <td><select name="form_buy" id="form_buy" required>
                         <option value="True">Buy</option>
-                        <option value="False">Sell</option>
+                        <option value="False"{% if not populate_buy %} selected{% endif %}>Sell</option>
                     </select></td>
                     <td><button type="submit">Submit</button></td>
                     {% csrf_token %}

@@ -11,6 +11,7 @@ def index(request):
     global form_commodity
     global form_price
     global form_amount
+    global form_buy
 
     session_key = request.session._get_or_create_session_key()
 
@@ -148,6 +149,10 @@ def index(request):
             entry.price = form_price
             entry.time = epoch_time
 
+            # Set whether trade was buy or sell, and for how many units
+            entry.buy = form_buy
+            entry.units = form_amount
+
             # Work out stock sell value
             entry.value = entry.amount * cp_data.trade_price_sell
 
@@ -174,7 +179,9 @@ def index(request):
                 value=value,
                 profit=profit,
                 session=form_session,
-                time=epoch_time
+                time=epoch_time,
+                buy=form_buy,
+                units=form_amount
             )
 
         # Retrieve CommodityPrice data
@@ -202,24 +209,28 @@ def index(request):
 
         return redirect('index')
 
+    # Get the user's last trade to retrieve the values
     # Check if user has a trade entry
     if Trade.objects.filter(
         session=session_key
     ).exists():
-
         # Get the most recent object from the database
         latest_trade = Trade.objects.filter(
             session=session_key
         ).aggregate(time=Max('time'))['time']
         entry = Trade.objects.get(session=session_key, time=latest_trade)
 
+        # Send the values to the index page
         form_commodity = entry.commodity
         form_price = entry.price
-        form_amount = entry.amount
+        form_amount = entry.units
+        form_buy = entry.buy
     else:
+        # Default values
         form_commodity = "Laranite"
         form_price = 27.83
         form_amount = 5000
+        form_buy = True
 
     trades = Trade.objects.all().filter(session=session_key)
 
@@ -246,7 +257,8 @@ def index(request):
         'total_profit': round(total_profit),
         'populate_commodity': form_commodity,
         'populate_price': float(form_price),
-        'populate_amount': int(form_amount)
+        'populate_amount': int(form_amount),
+        'populate_buy': form_buy
     }
-
+    print(form_buy)
     return render(request, "trading/index.html", context)
