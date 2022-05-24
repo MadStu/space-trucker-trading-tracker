@@ -237,10 +237,12 @@ def index(request):
     total_cargo = 0
     total_value = 0
     total_profit = 0
+    total_cost = 0
     for trade in trades:
         total_cargo += trade.amount
         total_value += trade.value
         total_profit += trade.profit
+        total_cost += trade.cost
 
     errors = ErrorList.objects.all()
     ErrorList.objects.all().delete()
@@ -255,6 +257,7 @@ def index(request):
         'total_cargo': total_cargo,
         'total_value': round(total_value),
         'total_profit': round(total_profit),
+        'total_cost': round(total_cost),
         'populate_commodity': form_commodity,
         'populate_price': float(form_price),
         'populate_amount': int(form_amount),
