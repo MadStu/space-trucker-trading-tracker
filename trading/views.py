@@ -69,11 +69,17 @@ def index(request):
 
     # Handle the received Form data
     if request.method == 'POST':
-        form_commodity = request.POST.get('form_commodity')
-        form_price = request.POST.get('form_price')
-        form_amount = int(request.POST.get('form_amount'))
         form_buy = True if request.POST.get('form_buy') == "True" else False
         form_session = request.POST.get('session_key')
+
+        if form_buy:
+            form_commodity = request.POST.get('form_buy_commodity')
+            form_price = request.POST.get('form_buy_price')
+            form_amount = int(request.POST.get('form_buy_amount'))
+        else:
+            form_commodity = request.POST.get('form_sell_commodity')
+            form_price = request.POST.get('form_sell_price')
+            form_amount = int(request.POST.get('form_sell_amount'))
 
         # Insert the form data in db_interactions
         handle_form_data(
