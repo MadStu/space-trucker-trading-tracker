@@ -22,18 +22,19 @@
         <table>
             <tr>
                 <th>Commodity</th>
-                <th>Cost</th>
+                <th>My Cost</th>
                 <th>Units</th>
                 <th>Sale Value</th>
-                <th>Profit Due</th>
+                <th>Profit To Be Earned</th>
             </tr>
+            {% load humanize %}
             {% for trade in trades %}
             <tr>
-                <td><a href="#" onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')">{{ trade.commodity }}</a></td>
-                <td>{{ trade.cost|floatformat:0 }}</td>
-                <td>{{ trade.amount }}</td>
-                <td>{{ trade.value|floatformat:0 }}</td>
-                <td>{{ trade.profit|floatformat:0 }}</td>
+                <td><span onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')"><u>{{ trade.commodity }}</u></span></td>
+                <td>{{ trade.cost|floatformat:0|intcomma }}</td>
+                <td>{{ trade.amount|intcomma }}</td>
+                <td>{{ trade.value|floatformat:0|intcomma }}</td>
+                <td>{{ trade.profit|floatformat:0|intcomma }}</td>
             </tr>
             {% empty %}
             <tr>
@@ -45,11 +46,18 @@
             </tr>
             {% endfor %}
             <tr>
-                <td>Totals:</td>
-                <td>{{ total_cost }}</td>
-                <td>{{ total_cargo }}</td>
-                <td>{{ total_value }}</td>
-                <td>{{ total_profit }}</td>
+                <td</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            <tr>
+                <td><b>Current Stock:</b></td>
+                <td><b>{{ total_cost|intcomma }}</b></td>
+                <td><b>{{ total_cargo|intcomma }}</b></td>
+                <td><b>{{ total_value|intcomma }}</b></td>
+                <td><b>{{ total_profit|intcomma }}</b></td>
             </tr>
         </table>
         
