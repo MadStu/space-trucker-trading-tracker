@@ -13,7 +13,7 @@ def index(request):
     global form_amount
     global form_buy
 
-    # Retrieve session key for non logged in users or the user details
+    # Retrieve either a unique session key or the user details
     session_key = request.session._get_or_create_session_key()
     if request.user.is_authenticated:
         session_key = request.user.username
@@ -71,7 +71,6 @@ def index(request):
                         entry.date_modified = item['date_modified']
                         entry.profit = item['profit']
                         entry.save()
-                        print("Commodity Updated:", item['code'])
 
                 else:
                     # Insert new commodity
@@ -84,7 +83,6 @@ def index(request):
                         date_modified=item['date_modified'],
                         profit=item['profit']
                     )
-                    print("Commodity Inserted:", item['code'])
         else:
             # Tell the logs the API retrieve failed
             print(
