@@ -9,20 +9,18 @@
 <body>
     <nav>
         <div>
-            <p>{% if user.is_authenticated %}<a href="{% url 'account_logout' %}">Logout</a>{% else %}<a href="{% url 'account_signup' %}">Register</a> | <a href="{% url 'account_login' %}">Login</a>{% endif %}</p>
+            <p>{% if user.is_authenticated %}<a href="{% url 'account_logout' %}">Logout</a>
+                {% else %}
+                <a href="{% url 'account_signup' %}">Register</a> | <a href="{% url 'account_login' %}">Login</a>{% endif %}</p>
         </div>
     </nav>
     <h1>The Space Trucker Trading Tracker</h1>
     <h2>Keep track of your cargo.</h2>
-    <h4>!! UNDER CONSTRUCTION !! - There will be bugs, please report them :)</h4>
-    <ul>
-        <li>STTT requires your browser to accept a session cookie, or for you to be logged in.</li>
-    </ul>
     <br>
 
     <div>
         <table>
-            <form method="POST" action="">
+            <form name ="trade_form" method="POST" action="">
                 <tr>
                     <th>Commodity</th>
                     <th>Cost</th>
@@ -41,10 +39,10 @@
                 {% empty %}
                 <tr>
                     <td>No Trades</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
                 </tr>
                 {% endfor %}
                 <tr>
@@ -63,14 +61,14 @@
                 </tr>
                 <tr>
                     <td>
-                        <select name="form_commodity" id="form_commodity" required>
+                        <select name="form_commodity" id="form_commodity" onChange="return setFields()">
                             {% for commodity in commodity_data|dictsort:"profit" reversed %}
-                            <option value="{{ commodity.name }}"{% if commodity.name == populate_commodity %} selected{% endif %}>{{ commodity.name }}</option>
+                            <option data-buy="{{ commodity.trade_price_buy|floatformat:2 }}" data-sell="{{ commodity.trade_price_sell|floatformat:2 }}" value="{{ commodity.name }}"{% if commodity.name == populate_commodity %} selected{% endif %}>{{ commodity.name }}</option>
                             {% endfor %}
                         </select>
                     </td>
-                    <td><input type="textfield" size="5" name="form_price" id="form_price" autocomplete="off" value="{{ populate_price }}" required></td>
-                    <td><input type="textfield" size="5" name="form_amount" id="form_amount" autocomplete="off" value="{{ populate_amount }}" required></td>
+                    <td><input type="number" size="5" name="form_price" id="form_price" autocomplete="off" value="{{ populate_price }}" min="0.01" max="500" step="0.01" required></td>
+                    <td><input type="number" size="5" name="form_amount" id="form_amount" autocomplete="off" value="{{ populate_amount }}" min="1" max="69600" required></td>
                     <td><select name="form_buy" id="form_buy" required>
                         <option value="True">Buy</option>
                         <option value="False"{% if not populate_buy %} selected{% endif %}>Sell</option>
@@ -81,13 +79,14 @@
                 </tr>  
             </form>
         </table>
+        <span id="textchange"></span>
         {% for error in errors %}
         <h1>- - - - - {{ error.error_message }} - - - - -</h1>
         {% endfor %}
     </div>
     <br><br>
     <div>
-        <table>
+        <!-- <table>
             <tr>
                 <th>Commodity</th>
                 <th>Buy Price</th>
@@ -108,9 +107,27 @@
                 <td>{% widthratio commodity.profit 1 69600 %}</td>
             </tr>
             {% endfor %}
-        </table>
+        </table> -->
         <p>{{ time_now }} | Server Time</p>
         <p>{{ last_updated }} | Last Update from <a href="https://uexcorp.space/" target="_blank">UEX</a></p>
     </div>
+    <script>
+        function setFields(){
+            // Get the selection box
+            var selectBox = document.getElementById("form_commodity");
+            // Get the selected option
+            var selectedOption = selectBox.options[selectBox.selectedIndex];
+            // Get the attribute value
+            var buyValue = selectedOption.getAttribute("data-buy");
+            var sellValue = selectedOption.getAttribute("data-sell");
+            // Get the fields
+            var buyPrice = document.getElementById("form_buy_price");
+            var sellPrice = document.getElementById("form_sell_price");
+            // Insert the values
+            buyPrice.value = buyValue
+            sellPrice.value = sellValue
+        }
+    </script>
+
 </body>
 </html>
