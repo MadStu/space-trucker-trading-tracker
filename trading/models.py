@@ -43,4 +43,4 @@ class UserProfit(models.Model):
     profit = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.user
+        return self.session

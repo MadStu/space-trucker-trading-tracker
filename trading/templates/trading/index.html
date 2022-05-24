@@ -17,7 +17,7 @@
         </div>
     </nav>
         <div>
-            <h1>Current Profit: <span id="user_profit">{{ user_profit|floatformat:0 }}</span> aUEC</h1>
+            <h1>Current Profit: <span id="user_profit">{{ user_profit|floatformat:0 }}</span> aUEC<form name="reset_profit" id ="reset_profit" method="POST" action="">{% csrf_token %}<input type="hidden" name="session_key" value="{{ session_key }}"><input type="hidden" name="reset_profit" value=True><button>RESET</button></form></h1>
         </div>
 
     <div>

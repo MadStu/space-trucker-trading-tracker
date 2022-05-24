@@ -72,37 +72,42 @@ def index(request):
 
     # Handle the received Form data
     if request.method == 'POST':
-        form_buy = True if request.POST.get('form_buy') == "True" else False
         form_session = request.POST.get('session_key')
-
-        if form_buy:
-            form_commodity = request.POST.get('form_buy_commodity')
-            form_price = request.POST.get('form_buy_price')
-            form_amount = int(request.POST.get('form_buy_amount'))
+        if request.POST.get('reset_profit'):
+            up_data = UserProfit.objects.get(session=form_session)
+            up_data.profit = 0
+            up_data.save()
         else:
-            form_commodity = request.POST.get('form_sell_commodity')
-            form_price = request.POST.get('form_sell_price')
-            form_amount = int(request.POST.get('form_sell_amount'))
+            form_buy = True if request.POST.get('form_buy') == "True" else False
 
-        # Insert the form data in db_interactions
-        handle_form_data(
-            form_commodity,
-            form_price,
-            form_amount,
-            form_buy,
-            form_session,
-            epoch_time
-        )
+            if form_buy:
+                form_commodity = request.POST.get('form_buy_commodity')
+                form_price = request.POST.get('form_buy_price')
+                form_amount = int(request.POST.get('form_buy_amount'))
+            else:
+                form_commodity = request.POST.get('form_sell_commodity')
+                form_price = request.POST.get('form_sell_price')
+                form_amount = int(request.POST.get('form_sell_amount'))
 
-        # Update CommodityPrice data in db_interactions
-        update_commodity_prices(
-            request,
-            form_commodity,
-            form_buy,
-            form_price,
-            epoch_time
-        )
-        return redirect('index')
+            # Insert the form data in db_interactions
+            handle_form_data(
+                form_commodity,
+                form_price,
+                form_amount,
+                form_buy,
+                form_session,
+                epoch_time
+            )
+
+            # Update CommodityPrice data in db_interactions
+            update_commodity_prices(
+                request,
+                form_commodity,
+                form_buy,
+                form_price,
+                epoch_time
+            )
+            return redirect('index')
 
     # Get the user's last trade to retrieve the values
     # Check if user has a trade entry
@@ -141,8 +146,8 @@ def index(request):
 
     # Get currently trading profit
     if UserProfit.objects.filter(session=session_key).exists():
-        user_profit = UserProfit.objects.all().filter(session=session_key)
-        user_profit = user_profit.profit
+        up_data = UserProfit.objects.get(session=session_key)
+        user_profit = up_data.profit
     else:
         user_profit = 0
 

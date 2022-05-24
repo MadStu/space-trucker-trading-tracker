@@ -1,4 +1,4 @@
-from .models import Trade, CommodityPrice, ErrorList
+from .models import Trade, CommodityPrice, ErrorList, UserProfit
 
 
 def handle_api_data(api_display):
@@ -75,6 +75,7 @@ def handle_form_data(
             entry.profit += (
                 float(form_amount) * cp_data.trade_price_sell
             ) - cost
+
         else:
             if int(form_amount) > entry.amount:
                 # Sold more than is in cargo hold
@@ -88,6 +89,7 @@ def handle_form_data(
                 entry.profit -= (
                     float(form_amount) * cp_data.trade_price_sell
                 ) - cost
+
         # Update price paid and current time
         entry.price = form_price
         entry.time = epoch_time
@@ -104,6 +106,8 @@ def handle_form_data(
                 entry.delete()
             else:
                 entry.save()
+            # Save UserProfit data
+            user_profit_calc(form_session, cost, form_buy)
 
     else:
         # Work out stock sell value
@@ -126,6 +130,8 @@ def handle_form_data(
             buy=form_buy,
             units=form_amount
         )
+        # Save UserProfit data
+        user_profit_calc(form_session, cost, form_buy)
 
 
 def update_commodity_prices(request, commodity, buy, price, epoch_time):
@@ -180,3 +186,23 @@ def commodity_data():
             if item['trade_price_buy'] > 0:
                 commodity_data_list.append(item)
     return commodity_data_list
+
+
+def user_profit_calc(session, cost, buy):
+    """
+    Handle the UserProfit queries
+    """
+    # Check if record exists
+    if not UserProfit.objects.filter(session=session).exists():
+        # Insert new record
+        UserProfit.objects.create(session=session, profit=0)
+
+    # Retrieve UserProfit data
+    up_data = UserProfit.objects.get(session=session)
+    print("Before", up_data.profit)
+    if buy:
+        up_data.profit -= int(cost)
+    else:
+        up_data.profit += int(cost)
+    print("After", up_data.profit)
+    up_data.save()
