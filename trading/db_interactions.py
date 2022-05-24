@@ -75,6 +75,7 @@ def handle_form_data(
             entry.profit += (
                 float(form_amount) * cp_data.trade_price_sell
             ) - cost
+            cost_amount = cost
 
         else:
             if int(form_amount) > entry.amount:
@@ -89,6 +90,7 @@ def handle_form_data(
                 entry.profit -= (
                     float(form_amount) * cp_data.trade_price_sell
                 ) - cost
+                cost_amount = float(form_amount) * cp_data.trade_price_sell
 
         # Update price paid and current time
         entry.price = form_price
@@ -107,7 +109,7 @@ def handle_form_data(
             else:
                 entry.save()
             # Save UserProfit data
-            user_profit_calc(form_session, cost, form_buy)
+            user_profit_calc(form_session, cost_amount, form_buy)
 
     else:
         # Work out stock sell value

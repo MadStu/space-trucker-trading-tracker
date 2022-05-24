@@ -175,13 +175,13 @@ def index(request):
         'errors': errors,
         'total_cargo': total_cargo,
         'total_value': round(total_value),
-        'total_profit': round(total_profit),
+        'total_profit': round(total_profit+user_profit+total_cost),
         'total_cost': round(total_cost),
         'populate_commodity': form_commodity,
         'populate_price': float(form_price),
         'populate_amount': int(form_amount),
         'populate_buy': form_buy,
-        'user_profit': user_profit
+        'user_profit': int(user_profit)
     }
 
     return render(request, "trading/index.html", context)

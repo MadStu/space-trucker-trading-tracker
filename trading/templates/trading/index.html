@@ -10,14 +10,14 @@
     <h1>The Space Trucker Trading Tracker</h1>
     <h3>Keeping track of your space cargo since 2952</h3>
     <nav>
-        <div>
+        <div>{% load humanize %}
             <p>{% if user.is_authenticated %}<a href="{% url 'account_logout' %}">Logout</a>
                 {% else %}
                 <a href="{% url 'account_signup' %}">Register</a> | <a href="{% url 'account_login' %}">Login</a>{% endif %}</p>
         </div>
     </nav>
         <div>
-            <h1>Current Profit: <span id="user_profit">{{ user_profit|floatformat:0 }}</span> aUEC<form name="reset_profit" id ="reset_profit" method="POST" action="">{% csrf_token %}<input type="hidden" name="session_key" value="{{ session_key }}"><input type="hidden" name="reset_profit" value=True><button>RESET</button></form></h1>
+            <h1>Current Profit: <span id="user_profit">{{ user_profit|intcomma }}</span> aUEC<form name="reset_profit" id ="reset_profit" method="POST" action="">{% csrf_token %}<input type="hidden" name="session_key" value="{{ session_key }}"><input type="hidden" name="reset_profit" value=True><button>RESET</button></form></h1>
         </div>
 
     <div>
@@ -29,7 +29,6 @@
                 <th>Sale Value</th>
                 <th>Due Profit</th>
             </tr>
-            {% load humanize %}
             {% for trade in trades %}
             <tr>
                 <td><span onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')"><u>{{ trade.commodity }}</u></span></td>
