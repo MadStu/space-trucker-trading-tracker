@@ -12,15 +12,15 @@ I will take a design thinking and agile approach to creating the app.
 - Entering other values into int form field produces error
 - API limitations meant the request limit had exceeded
 - Sessions won't work on all browsers due to session id's not staying the same
+- Current profit will only add and minus the same cost amount
 
 ### Todo
 - Main Styling
 - Admin Area
 - Readme
 - Single login social accounts
-- Refactor Code
-- Click Trade to populate fields
-- Click Buy/Sell to populate price fields
+- Refactor Code again
+- Error messages
 
 ### Credits
 - [UEX](https://uexcorp.space/) for providing an amazing API.

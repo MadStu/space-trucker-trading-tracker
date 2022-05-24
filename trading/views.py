@@ -20,18 +20,30 @@ def index(request):
     # Time since last API call 3600 = 1 hour, 21600 = 6 hours
     time_in_seconds = 21600
 
-    # Seconds to make 930 years (the current timezone in Star Citizen)
+    # Get the Date/Time in epoch format
+    epoch_time = time.time()
+
+    # Get the last API update time
+    update_db = CommodityPrice.objects.get(code='UPDA')
+    last_update = update_db.date_modified
+
+    # Seconds to make 930 years from now (the current timezone in Star Citizen)
     sc_time = 29348006400
+
+    # Friendly Star Citizen date formats
+    time_now = time.strftime(
+        '%B %-d, %Y %H:%M:%S',
+        time.localtime(epoch_time+sc_time)
+    )
+    last_updated = time.strftime(
+        '%B %-d, %Y %H:%M:%S',
+        time.localtime(last_update+sc_time)
+    )
 
     # Retrieve either a unique session key or the user details
     session_key = request.session._get_or_create_session_key()
     if request.user.is_authenticated:
         session_key = request.user.username
-
-    # Get the Date/Time in epoch format
-    epoch_time = time.time()
-    update_db = CommodityPrice.objects.get(code='UPDA')
-    last_update = update_db.date_modified
 
     # Check if it's been more than * hours since last update
     # 3600 = 1 hour, 21600 = 6 hours
@@ -157,8 +169,8 @@ def index(request):
         'commodity_data': commodity_data(),  # List from db_interactions
         'com': Trade.commodity,
         'trades': trades,
-        'time_now': time.ctime(epoch_time+sc_time),
-        'last_updated': time.ctime(last_update+sc_time),
+        'time_now': time_now,
+        'last_updated': last_updated,
         'session_key': session_key,
         'errors': errors,
         'total_cargo': total_cargo,
