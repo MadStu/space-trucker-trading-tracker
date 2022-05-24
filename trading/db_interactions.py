@@ -1,9 +1,10 @@
 from .models import Trade, CommodityPrice, ErrorList
 
 
-def handle_api_data(
-    api_display
-):
+def handle_api_data(api_display):
+    """
+    Handles the data received by the API
+    """
     # Loop through the records
     for item in api_display:
         # Calculate the profit and round down to 2 decimal places
@@ -46,6 +47,9 @@ def handle_form_data(
     form_session,
     epoch_time
 ):
+    """
+    Handles the data received submitted on the form
+    """
     # Retrieve CommodityPrice data
     cp_data = CommodityPrice.objects.get(name=form_commodity)
 
@@ -125,6 +129,9 @@ def handle_form_data(
 
 
 def update_commodity_prices(request, commodity, buy, price, epoch_time):
+    """
+    Updates the Commodity prices if the user is an admin
+    """
     if not ErrorList.objects.exists() and request.user.is_superuser:
         cp_data = CommodityPrice.objects.get(name=commodity)
 
@@ -151,6 +158,9 @@ def update_commodity_prices(request, commodity, buy, price, epoch_time):
 
 
 def add_error_message(message, location):
+    """
+    Inserts an error message into the database
+    """
     ErrorList.objects.create(
         error_message=message,
         error_location=location
@@ -159,6 +169,9 @@ def add_error_message(message, location):
 
 
 def commodity_data():
+    """
+    Returns a list with the tradeable commodity data
+    """
     # Create a new list from the database
     commodity_data_list = []
     for item in CommodityPrice.objects.values():

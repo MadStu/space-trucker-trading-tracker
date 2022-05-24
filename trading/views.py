@@ -4,10 +4,14 @@ import requests
 from django.shortcuts import render, redirect
 from django.db.models import Max
 from .models import Trade, CommodityPrice, ErrorList
-from .db_interactions import update_commodity_prices, handle_form_data, handle_api_data, commodity_data
+from .db_interactions import update_commodity_prices, handle_form_data
+from .db_interactions import handle_api_data, commodity_data
 
 
 def index(request):
+    """
+    Handles the logic on the index page
+    """
     global form_commodity
     global form_price
     global form_amount
@@ -62,12 +66,6 @@ def index(request):
                 api_response['status'],
                 time.ctime(epoch_time)
             )
-
-
-
-
-
-
 
     # Handle the received Form data
     if request.method == 'POST':
@@ -136,7 +134,7 @@ def index(request):
     errors = ErrorList.objects.all()
     ErrorList.objects.all().delete()
     context = {
-        'commodity_data': commodity_data(),
+        'commodity_data': commodity_data(),  # List from db_interactions
         'com': Trade.commodity,
         'trades': trades,
         'time_now': time.ctime(epoch_time),
