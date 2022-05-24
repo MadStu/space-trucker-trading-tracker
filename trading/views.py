@@ -3,7 +3,7 @@ import time
 import requests
 from django.shortcuts import render, redirect
 from django.db.models import Max
-from .models import Trade, CommodityPrice, ErrorList
+from .models import Trade, CommodityPrice, ErrorList, UserProfit
 from .db_interactions import update_commodity_prices, handle_form_data
 from .db_interactions import handle_api_data, commodity_data
 
@@ -19,6 +19,9 @@ def index(request):
 
     # Time since last API call 3600 = 1 hour, 21600 = 6 hours
     time_in_seconds = 21600
+
+    # Seconds to make 930 years (the current timezone in Star Citizen)
+    sc_time = 29348006400
 
     # Retrieve either a unique session key or the user details
     session_key = request.session._get_or_create_session_key()
@@ -124,9 +127,8 @@ def index(request):
         form_amount = 5000
         form_buy = True
 
-    trades = Trade.objects.all().filter(session=session_key)
-
     # Calculate the totals for display
+    trades = Trade.objects.all().filter(session=session_key)
     total_cargo = 0
     total_value = 0
     total_profit = 0
@@ -137,14 +139,21 @@ def index(request):
         total_profit += trade.profit
         total_cost += trade.cost
 
+    # Get currently trading profit
+    if UserProfit.objects.filter(session=session_key).exists():
+        user_profit = UserProfit.objects.all().filter(session=session_key)
+        user_profit = user_profit.profit
+    else:
+        user_profit = 0
+
     errors = ErrorList.objects.all()
     ErrorList.objects.all().delete()
     context = {
         'commodity_data': commodity_data(),  # List from db_interactions
         'com': Trade.commodity,
         'trades': trades,
-        'time_now': time.ctime(epoch_time),
-        'last_updated': time.ctime(last_update),
+        'time_now': time.ctime(epoch_time+sc_time),
+        'last_updated': time.ctime(last_update+sc_time),
         'session_key': session_key,
         'errors': errors,
         'total_cargo': total_cargo,
@@ -154,7 +163,8 @@ def index(request):
         'populate_commodity': form_commodity,
         'populate_price': float(form_price),
         'populate_amount': int(form_amount),
-        'populate_buy': form_buy
+        'populate_buy': form_buy,
+        'user_profit': user_profit
     }
 
     return render(request, "trading/index.html", context)
