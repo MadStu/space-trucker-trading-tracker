@@ -4,7 +4,7 @@ import requests
 from django.shortcuts import render, redirect
 from django.db.models import Max
 from .models import Trade, CommodityPrice, ErrorList
-from .db_interactions import add_error_message
+from .db_interactions import update_commodity_prices, handle_form_data
 
 
 def index(request):
@@ -108,85 +108,19 @@ def index(request):
         form_buy = True if request.POST.get('form_buy') == "True" else False
         form_session = request.POST.get('session_key')
 
-        # Retrieve CommodityPrice data
-        cp_data = CommodityPrice.objects.get(name=form_commodity)
-
-        # Check if the trade exists in the database
-        if Trade.objects.filter(
-            commodity=form_commodity,
-            session=form_session
-        ).exists():
-
-            # Get the object from the database
-            entry = Trade.objects.get(
-                commodity=form_commodity,
-                session=form_session
-            )
-
-            # Update existing trade details
-            if form_buy:
-                entry.amount += int(form_amount)
-
-                # Work out stock cost and profit margin
-                cost = float(form_amount) * float(form_price)
-                entry.cost += int(cost)
-                entry.profit += (
-                    float(form_amount) * cp_data.trade_price_sell
-                ) - cost
-            else:
-                if int(form_amount) > entry.amount:
-                    # Sold more than is in cargo hold
-                    add_error_message("AMOUNT TOO HIGH", "TOP")
-                else:
-                    entry.amount -= int(form_amount)
-
-                    # Work out stock cost and profit margin
-                    cost = float(form_amount) * cp_data.trade_price_buy
-                    entry.cost -= int(cost)
-                    entry.profit -= (
-                        float(form_amount) * cp_data.trade_price_sell
-                    ) - cost
-            # Update price paid and current time
-            entry.price = form_price
-            entry.time = epoch_time
-
-            # Set whether trade was buy or sell, and for how many units
-            entry.buy = form_buy
-            entry.units = form_amount
-
-            # Work out stock sell value
-            entry.value = entry.amount * cp_data.trade_price_sell
-
-            if not ErrorList.objects.exists():
-                if entry.amount == 0:
-                    entry.delete()
-                else:
-                    entry.save()
-
-        else:
-            # Work out stock sell value
-            value = int(form_amount) * cp_data.trade_price_sell
-
-            # Work out stock profit margin
-            cost = float(form_amount) * float(form_price)
-            profit = (float(form_amount) * cp_data.trade_price_sell) - cost
-
-            # Insert new trade
-            Trade.objects.create(
-                commodity=form_commodity,
-                price=form_price,
-                amount=form_amount,
-                cost=cost,
-                value=value,
-                profit=profit,
-                session=form_session,
-                time=epoch_time,
-                buy=form_buy,
-                units=form_amount
-            )
+        # Insert the form data
+        handle_form_data(
+            form_commodity,
+            form_price,
+            form_amount,
+            form_buy,
+            form_session,
+            epoch_time
+        )
 
         # Update CommodityPrice data
         update_commodity_prices(
+            request,
             form_commodity,
             form_buy,
             form_price,
