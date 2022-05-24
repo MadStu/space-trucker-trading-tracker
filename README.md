@@ -25,4 +25,4 @@ I will take a design thinking and agile approach to creating the app.
 
 ### Credits
 - [UEX](https://uexcorp.space/) for providing an amazing API.
-- Cloud Imperium for creating [Star Citizen](https://tinyurl.com/2yet2hz9). 
+- Cloud Imperium for creating [Star Citizen](https://tinyurl.com/2yet2hz9)

@@ -188,7 +188,7 @@ def index(request):
         # Retrieve CommodityPrice data
         cp_data = CommodityPrice.objects.get(name=form_commodity)
 
-        if not ErrorList.objects.exists():
+        if not ErrorList.objects.exists() and request.user.is_superuser:
             # Update existing prices to CommodityPrice
             if form_buy:
                 # Update if Buying
