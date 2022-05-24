@@ -4,7 +4,7 @@ import requests
 from django.shortcuts import render, redirect
 from django.db.models import Max
 from .models import Trade, CommodityPrice, ErrorList
-from .db_interactions import update_commodity_prices, handle_form_data, handle_api_data
+from .db_interactions import update_commodity_prices, handle_form_data, handle_api_data, commodity_data
 
 
 def index(request):
@@ -52,7 +52,7 @@ def index(request):
                 api_response['status'],
                 time.ctime(epoch_time)
             )
-
+            # Handle the API data in db_interactions
             handle_api_data(api_display)
         else:
             # Tell the logs the API retrieve failed
@@ -63,15 +63,13 @@ def index(request):
                 time.ctime(epoch_time)
             )
 
-    # Create a new list from the database
-    commodity_data = []
-    for item in CommodityPrice.objects.values():
-        # Only add legal tradeable commodities to the new list
-        if item['profit'] > 0 and item['kind'] != 'Drug':
-            if item['trade_price_buy'] > 0:
-                commodity_data.append(item)
 
-    # Handle Form posts to add or edit a trade in the database
+
+
+
+
+
+    # Handle the received Form data
     if request.method == 'POST':
         form_commodity = request.POST.get('form_commodity')
         form_price = request.POST.get('form_price')
@@ -79,7 +77,7 @@ def index(request):
         form_buy = True if request.POST.get('form_buy') == "True" else False
         form_session = request.POST.get('session_key')
 
-        # Insert the form data
+        # Insert the form data in db_interactions
         handle_form_data(
             form_commodity,
             form_price,
@@ -89,7 +87,7 @@ def index(request):
             epoch_time
         )
 
-        # Update CommodityPrice data
+        # Update CommodityPrice data in db_interactions
         update_commodity_prices(
             request,
             form_commodity,
@@ -138,7 +136,7 @@ def index(request):
     errors = ErrorList.objects.all()
     ErrorList.objects.all().delete()
     context = {
-        'commodity_data': commodity_data,
+        'commodity_data': commodity_data(),
         'com': Trade.commodity,
         'trades': trades,
         'time_now': time.ctime(epoch_time),

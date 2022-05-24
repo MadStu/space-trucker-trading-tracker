@@ -156,3 +156,14 @@ def add_error_message(message, location):
         error_location=location
     )
     print(message)
+
+
+def commodity_data():
+    # Create a new list from the database
+    commodity_data_list = []
+    for item in CommodityPrice.objects.values():
+        # Only add legal tradeable commodities to the new list
+        if item['profit'] > 0 and item['kind'] != 'Drug':
+            if item['trade_price_buy'] > 0:
+                commodity_data_list.append(item)
+    return commodity_data_list
