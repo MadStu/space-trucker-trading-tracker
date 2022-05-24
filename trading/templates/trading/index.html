@@ -7,6 +7,11 @@
     <title>Space Trucker</title>
 </head>
 <body>
+    <nav>
+        <div>
+            <p><a href="{% url 'index' %}">Home</a> | {% if user.is_authenticated %}<a href="{% url 'account_logout' %}">Logout</a>{% else %}<a href="{% url 'account_signup' %}">Register</a> | <a href="{% url 'account_login' %}">Login</a>{% endif %}</p>
+        </div>
+    </nav>
     <h1>The Space Trucker Trading Tracker</h1>
     <h2>Keep track of your cargo.</h2>
     <h4>!! UNDER CONSTRUCTION !! - There will be bugs, please report them :)</h4>

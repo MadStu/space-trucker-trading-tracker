@@ -234,6 +234,7 @@ def index(request):
 
     trades = Trade.objects.all().filter(session=session_key)
 
+    # Calculate the totals for display
     total_cargo = 0
     total_value = 0
     total_profit = 0
@@ -263,5 +264,5 @@ def index(request):
         'populate_amount': int(form_amount),
         'populate_buy': form_buy
     }
-    print(form_buy)
+
     return render(request, "trading/index.html", context)
