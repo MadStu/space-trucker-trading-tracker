@@ -2,11 +2,11 @@
 
 ## A Trading Tool for Star Citizen
 
-A useful tool for Star Citizen Traders, to help keep track of a ship's current cargo inventory and estimated value.
+https://space-trucker.herokuapp.com/
+
+[Star Citizen](https://tinyurl.com/2yet2hz9) is a futuristic, deep space, science fiction game / simulation. This tool allows Star Citizen Traders, to keep track of their ship's current cargo inventory and estimated value.
 
 I will take a design thinking and agile approach to creating the app.
-
-
 
 ### Bugs
 - Entering other values into int form field produces error
@@ -19,6 +19,10 @@ I will take a design thinking and agile approach to creating the app.
 - Readme
 - Single login social accounts
 - Refactor Code
+- Only update Commodity PRices if admin
+- Click Trade to populate fields
+- Click Buy/Sell to populate price fields
 
 ### Credits
 - UEX for their awesome API https://uexcorp.space/
+- Cloud Imperium for the awesome game. 

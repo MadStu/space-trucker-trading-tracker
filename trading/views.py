@@ -206,7 +206,6 @@ def index(request):
 
             if not ErrorList.objects.exists():
                 cp_data.save()
-                print("Commodity Updated:", item['code'])
 
         return redirect('index')
 
