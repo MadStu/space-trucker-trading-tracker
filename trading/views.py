@@ -13,7 +13,10 @@ def index(request):
     global form_amount
     global form_buy
 
+    # Retrieve session key for non logged in users or the user details
     session_key = request.session._get_or_create_session_key()
+    if request.user.is_authenticated:
+        session_key = request.user.username
 
     # Get the Date/Time in epoch format
     epoch_time = time.time()
