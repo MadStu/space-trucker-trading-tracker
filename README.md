@@ -10,3 +10,5 @@ I will take a design thinking and agile approach to creating the app.
 
 Bugs
 - Entering boolean value into int form field produces error
+- API limitations meant I exceeded my request limit
+- Sessions won't work on all browsers due to session id's not staying the same
