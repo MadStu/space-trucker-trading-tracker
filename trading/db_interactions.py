@@ -1,6 +1,43 @@
 from .models import Trade, CommodityPrice, ErrorList
 
 
+def handle_api_data(
+    api_display
+):
+    # Loop through the records
+    for item in api_display:
+        # Calculate the profit and round down to 2 decimal places
+        item['profit'] = round(
+            item['trade_price_sell'] - item['trade_price_buy'], 2)
+
+        # Check if the record exists
+        if CommodityPrice.objects.filter(code=item['code']).exists():
+            entry = CommodityPrice.objects.get(code=item['code'])
+
+            # Check if API data is newer than the DB entry
+            if item['date_modified'] > entry.date_modified:
+                # Update existing details
+                entry.code = item['code']
+                entry.name = item['name']
+                entry.kind = item['kind']
+                entry.trade_price_buy = item['trade_price_buy']
+                entry.trade_price_sell = item['trade_price_sell']
+                entry.date_modified = item['date_modified']
+                entry.profit = item['profit']
+                entry.save()
+        else:
+            # Doesn't exist so insert new commodity
+            CommodityPrice.objects.create(
+                code=item['code'],
+                name=item['name'],
+                kind=item['kind'],
+                trade_price_buy=item['trade_price_buy'],
+                trade_price_sell=item['trade_price_sell'],
+                date_modified=item['date_modified'],
+                profit=item['profit']
+            )
+
+
 def handle_form_data(
     form_commodity,
     form_price,
@@ -8,7 +45,7 @@ def handle_form_data(
     form_buy,
     form_session,
     epoch_time
-    ):
+):
     # Retrieve CommodityPrice data
     cp_data = CommodityPrice.objects.get(name=form_commodity)
 
@@ -87,30 +124,6 @@ def handle_form_data(
         )
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-def add_error_message(message, location):
-    ErrorList.objects.create(
-        error_message=message,
-        error_location=location
-    )
-    print(message)
-
-
 def update_commodity_prices(request, commodity, buy, price, epoch_time):
     if not ErrorList.objects.exists() and request.user.is_superuser:
         cp_data = CommodityPrice.objects.get(name=commodity)
@@ -135,3 +148,11 @@ def update_commodity_prices(request, commodity, buy, price, epoch_time):
         # If no errors, save the data
         if not ErrorList.objects.exists():
             cp_data.save()
+
+
+def add_error_message(message, location):
+    ErrorList.objects.create(
+        error_message=message,
+        error_location=location
+    )
+    print(message)

@@ -4,7 +4,7 @@ import requests
 from django.shortcuts import render, redirect
 from django.db.models import Max
 from .models import Trade, CommodityPrice, ErrorList
-from .db_interactions import update_commodity_prices, handle_form_data
+from .db_interactions import update_commodity_prices, handle_form_data, handle_api_data
 
 
 def index(request):
@@ -12,6 +12,9 @@ def index(request):
     global form_price
     global form_amount
     global form_buy
+
+    # Time since last API call 3600 = 1 hour, 21600 = 6 hours
+    time_in_seconds = 21600
 
     # Retrieve either a unique session key or the user details
     session_key = request.session._get_or_create_session_key()
@@ -25,7 +28,7 @@ def index(request):
 
     # Check if it's been more than * hours since last update
     # 3600 = 1 hour, 21600 = 6 hours
-    if epoch_time - 21600 > last_update:
+    if epoch_time - time_in_seconds > last_update:
         print("Last modified:", update_db.date_modified)
         print("Current Time:", epoch_time)
         print("Retrieving UEX API...")
@@ -50,39 +53,7 @@ def index(request):
                 time.ctime(epoch_time)
             )
 
-            for item in api_display:
-                # Calculate the profit and round down to 2 decimal places
-                item['profit'] = round(
-                    item['trade_price_sell'] - item['trade_price_buy'], 2)
-
-                # Update Database
-                if CommodityPrice.objects.filter(code=item['code']).exists():
-                    entry = CommodityPrice.objects.get(code=item['code'])
-
-                    # Check if API data is newer than the DB entry
-                    if item['date_modified'] > entry.date_modified:
-
-                        # Update existing details
-                        entry.code = item['code']
-                        entry.name = item['name']
-                        entry.kind = item['kind']
-                        entry.trade_price_buy = item['trade_price_buy']
-                        entry.trade_price_sell = item['trade_price_sell']
-                        entry.date_modified = item['date_modified']
-                        entry.profit = item['profit']
-                        entry.save()
-
-                else:
-                    # Insert new commodity
-                    CommodityPrice.objects.create(
-                        code=item['code'],
-                        name=item['name'],
-                        kind=item['kind'],
-                        trade_price_buy=item['trade_price_buy'],
-                        trade_price_sell=item['trade_price_sell'],
-                        date_modified=item['date_modified'],
-                        profit=item['profit']
-                    )
+            handle_api_data(api_display)
         else:
             # Tell the logs the API retrieve failed
             print(
@@ -126,7 +97,6 @@ def index(request):
             form_price,
             epoch_time
         )
-
         return redirect('index')
 
     # Get the user's last trade to retrieve the values
