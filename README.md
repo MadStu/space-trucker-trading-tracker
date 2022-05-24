@@ -24,5 +24,5 @@ I will take a design thinking and agile approach to creating the app.
 - Click Buy/Sell to populate price fields
 
 ### Credits
-- UEX for their awesome API https://uexcorp.space/
-- Cloud Imperium for the awesome game. 
+- [UEX](https://uexcorp.space/) for providing an amazing API.
+- Cloud Imperium for creating [Star Citizen](https://tinyurl.com/2yet2hz9). 
