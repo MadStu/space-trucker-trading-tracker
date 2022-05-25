@@ -86,9 +86,10 @@ def index(request):
     if request.method == 'POST':
         form_session = request.POST.get('session_key')
         if request.POST.get('reset_profit'):
-            up_data = UserProfit.objects.get(session=form_session)
-            up_data.profit = 0
-            up_data.save()
+            if UserProfit.objects.filter(session=form_session).exists():
+                up_data = UserProfit.objects.get(session=form_session)
+                up_data.profit = 0
+                up_data.save()
         else:
             form_buy = True if request.POST.get('form_buy') == "True" else False
 

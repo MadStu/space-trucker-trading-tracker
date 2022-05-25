@@ -13,6 +13,7 @@ I will take a design thinking and agile approach to creating the app.
 - API limitations meant the request limit had exceeded
 - Sessions won't work on all browsers due to session id's not staying the same
 - Profit tracker will only add and minus the same cost amount
+- Resetting profit when entry didn't exist would cause error
 
 ### Todo
 - Main Styling
