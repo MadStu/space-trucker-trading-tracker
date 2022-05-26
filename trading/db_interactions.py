@@ -50,6 +50,7 @@ def handle_form_data(
     """
     Handles the data received submitted on the form
     """
+
     # Retrieve CommodityPrice data
     cp_data = CommodityPrice.objects.get(name=form_commodity)
 
@@ -91,7 +92,7 @@ def handle_form_data(
                     float(form_amount) * cp_data.trade_price_sell
                 ) - cost
                 cost_amount = float(form_amount) * cp_data.trade_price_sell
-                sold_for = float(form_amount) * float(form_price)
+                cost_amount = float(form_amount) * float(form_price)
 
         # Update price paid and current time
         entry.price = form_price
@@ -110,7 +111,7 @@ def handle_form_data(
             else:
                 entry.save()
             # Save UserProfit data
-            user_profit_calc(form_session, sold_for, form_buy)
+            user_profit_calc(form_session, cost_amount, form_buy)
 
     else:
         # No stock of this commodity on board so create a new record
