@@ -87,9 +87,11 @@ def handle_form_data(
                 # Work out stock cost and profit margin
                 cost = float(form_amount) * cp_data.trade_price_buy
                 entry.cost -= int(cost)
+                entry.profit -= (
+                    float(form_amount) * cp_data.trade_price_sell
+                ) - cost
+                cost_amount = float(form_amount) * cp_data.trade_price_sell
                 sold_for = float(form_amount) * float(form_price)
-                profit_this_trade = sold_for - cost
-                entry.profit -= profit_this_trade
 
         # Update price paid and current time
         entry.price = form_price

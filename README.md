@@ -20,7 +20,9 @@ I will take a design thinking and agile approach to creating the app.
 - Resetting profit when entry didn't exist would cause error
     - Solved. Added a check to see if the record existed
 - Total profit is only being worked out by the commodity database sell price
-    - Unsolved. 
+    - Solved. Was sending the wrong variable
+- Due Profit wasn't calculating correctly
+    - Solved. Was calculating the wrong price
 
 ### Todo
 - Main Styling
