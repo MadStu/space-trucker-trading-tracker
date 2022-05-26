@@ -8,6 +8,15 @@ p, h1, h2, h3, a, table {
     color: Ivory;
 }
 
-h1 {
+h1, h2 {
     font-family: 'Michroma', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: LightPink;
+    text-decoration: underline;
 }

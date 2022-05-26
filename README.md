@@ -31,7 +31,10 @@ I will take a design thinking and agile approach to creating the app.
 - Single login social accounts
 - Refactor Code again
 - Error messages
+- Option to choose unit amount size by ship
+- Recall user's previous trading price instead of using the sotred commodity prices
 
 ### Credits
 - [UEX](https://uexcorp.space/) for providing an amazing API.
 - Cloud Imperium for creating [Star Citizen](https://tinyurl.com/2yet2hz9)
+- https://www.w3schools.com/colors/color_tryit.asp?color=DarkSlateGray

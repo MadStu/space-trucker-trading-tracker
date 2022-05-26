@@ -12,8 +12,8 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
-    <h1>Space Trucker Trading Tracker</h1>
-    <h3>Keeping track of your space cargo since 2952</h3>
+    <h1>Space Trucker<br>Trading Tracker</h1>
+    <h3>Tracking Your Cargo Since 2952</h3>
     <nav>
         <div>
             <p>{% if user.is_authenticated %}<a href="{% url 'account_logout' %}">Logout</a>
@@ -22,7 +22,15 @@
         </div>
     </nav>
         <div>
-            <h1>Current Profit: <span id="user_profit">{{ user_profit|intcomma }}</span> aUEC<form name="reset_profit" id ="reset_profit" method="POST" action="">{% csrf_token %}<input type="hidden" name="session_key" value="{{ session_key }}"><input type="hidden" name="reset_profit" value=True><button>RESET</button></form></h1>
+            <p>Current Profit</p>
+            <h2><span id="user_profit">{{ user_profit|intcomma }}</span> aUEC</h2>
+            
+            <form name="reset_profit" id ="reset_profit" method="POST" action="">
+                {% csrf_token %}
+                <input type="hidden" name="session_key" value="{{ session_key }}">
+                <input type="hidden" name="reset_profit" value=True>
+                <button>RESET</button>
+            </form>
         </div>
 
     <div>
