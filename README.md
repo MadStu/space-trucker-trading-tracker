@@ -14,6 +14,7 @@ I will take a design thinking and agile approach to creating the app.
 - Sessions won't work on all browsers due to session id's not staying the same
 - Profit tracker will only add and minus the same cost amount
 - Resetting profit when entry didn't exist would cause error
+- Total profit isn't being worked out by actual sell price
 
 ### Todo
 - Main Styling
