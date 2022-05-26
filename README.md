@@ -24,7 +24,7 @@ I will take a design thinking and agile approach to creating the app.
 - Due Profit wasn't calculating correctly
     - Solved. Was calculating the wrong price. I compared code with a previous commit to see where I'd made the mistake
 - Static files not loading on Heroku
-    - Unsolved. 
+    - Solved. I installed whitenoise to allow the app to serve its own static files
 
 ### Todo
 - Main Styling
