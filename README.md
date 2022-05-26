@@ -10,11 +10,17 @@ I will take a design thinking and agile approach to creating the app.
 
 ### Bugs
 - Entering other values into int form field produces error
+    - Solved. Changed input type to correct input for form validation
 - API limitations meant the request limit had exceeded
+    - Solved. Saved API details to a databsse so doesn't require updating so often
 - Sessions won't work on all browsers due to session id's not staying the same
+    - Solved. Added option for users to register instead of relying on their session cookies
 - Profit tracker will only add and minus the same cost amount
+    - Solved. corrected an incorrect variable used to send to the profit tracker function
 - Resetting profit when entry didn't exist would cause error
-- Total profit isn't being worked out by actual sell price
+    - Solved. Added a check to see if the record existed
+- Total profit is only being worked out by the commodity database sell price
+    - Unsolved. 
 
 ### Todo
 - Main Styling

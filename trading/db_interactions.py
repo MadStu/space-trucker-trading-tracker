@@ -69,7 +69,7 @@ def handle_form_data(
         if form_buy:
             entry.amount += int(form_amount)
 
-            # Work out stock cost and profit margin
+            # Work out stock cost and potential profit margin
             cost = float(form_amount) * float(form_price)
             entry.cost += int(cost)
             entry.profit += (
@@ -87,10 +87,9 @@ def handle_form_data(
                 # Work out stock cost and profit margin
                 cost = float(form_amount) * cp_data.trade_price_buy
                 entry.cost -= int(cost)
-                entry.profit -= (
-                    float(form_amount) * cp_data.trade_price_sell
-                ) - cost
-                cost_amount = float(form_amount) * cp_data.trade_price_sell
+                sold_for = float(form_amount) * float(form_price)
+                profit_this_trade = sold_for - cost
+                entry.profit -= profit_this_trade
 
         # Update price paid and current time
         entry.price = form_price
@@ -100,7 +99,7 @@ def handle_form_data(
         entry.buy = form_buy
         entry.units = form_amount
 
-        # Work out stock sell value
+        # Work out potential stock sell value
         entry.value = entry.amount * cp_data.trade_price_sell
 
         if not ErrorList.objects.exists():
@@ -109,13 +108,15 @@ def handle_form_data(
             else:
                 entry.save()
             # Save UserProfit data
-            user_profit_calc(form_session, cost_amount, form_buy)
+            user_profit_calc(form_session, sold_for, form_buy)
 
     else:
+        # No stock of this commodity on board so create a new record
+
         # Work out stock sell value
         value = int(form_amount) * cp_data.trade_price_sell
 
-        # Work out stock profit margin
+        # Work out potential stock profit margin
         cost = float(form_amount) * float(form_price)
         profit = (float(form_amount) * cp_data.trade_price_sell) - cost
 
@@ -196,15 +197,16 @@ def user_profit_calc(session, cost, buy):
     """
     # Check if record exists
     if not UserProfit.objects.filter(session=session).exists():
+
         # Insert new record
         UserProfit.objects.create(session=session, profit=0)
 
     # Retrieve UserProfit data
     up_data = UserProfit.objects.get(session=session)
-    print("Before", up_data.profit)
+
     if buy:
         up_data.profit -= int(cost)
     else:
         up_data.profit += int(cost)
-    print("After", up_data.profit)
+
     up_data.save()
