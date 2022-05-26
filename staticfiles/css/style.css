@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+
+body {
+    background-color: DarkSlateGray;
+}
+
+p, h1, h2, h3, a, table {
+    color: Ivory;
+}
+
+h1, h2 {
+    font-family: 'Michroma', sans-serif;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: LightPink;
+    text-decoration: underline;
+}

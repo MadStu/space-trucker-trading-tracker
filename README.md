@@ -22,7 +22,9 @@ I will take a design thinking and agile approach to creating the app.
 - Total profit is only being worked out by the commodity database sell price
     - Solved. Was sending the wrong variable
 - Due Profit wasn't calculating correctly
-    - Solved. Was calculating the wrong price
+    - Solved. Was calculating the wrong price. I compared code with a previous commit to see where I'd made the mistake
+- Static files not loading on Heroku
+    - Unsolved. 
 
 ### Todo
 - Main Styling
@@ -38,3 +40,4 @@ I will take a design thinking and agile approach to creating the app.
 - [UEX](https://uexcorp.space/) for providing an amazing API.
 - Cloud Imperium for creating [Star Citizen](https://tinyurl.com/2yet2hz9)
 - https://www.w3schools.com/colors/color_tryit.asp?color=DarkSlateGray
+- https://fonts.google.com/specimen/Michroma#standard-styles
