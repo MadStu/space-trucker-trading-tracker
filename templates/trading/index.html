@@ -57,11 +57,32 @@
         </div>
     </nav>
 
-    <h3>Tracking Your Cargo Since 2952</h3>
+
+
+
+
+
+
+
+
+
+    
     <div>
-
-
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="in_commodity" id="in_commodity" onChange="return setFields()">
+            {% for commodity in commodity_data|dictsort:"profit" reversed %}
+            <option data-buy="{{ commodity.trade_price_buy|floatformat:2 }}"
+                data-sell="{{ commodity.trade_price_sell|floatformat:2 }}" value="{{ commodity.name }}"
+                {% if commodity.name == populate_commodity %} selected{% endif %}>{{ commodity.name }}</option>
+            {% endfor %}
+        </select>
     </div>
+
+
+
+
+
+
+
 
     <div>
         <table>
@@ -107,15 +128,33 @@
             </tr>
         </table>
 
-        <div>
-            <select name="in_commodity" id="in_commodity" onChange="return setFields()">
-                {% for commodity in commodity_data|dictsort:"profit" reversed %}
-                <option data-buy="{{ commodity.trade_price_buy|floatformat:2 }}"
-                    data-sell="{{ commodity.trade_price_sell|floatformat:2 }}" value="{{ commodity.name }}"
-                    {% if commodity.name == populate_commodity %} selected{% endif %}>{{ commodity.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         <div>
             <form name="trade_buy_form" id="trade_buy_form" method="POST" action="">

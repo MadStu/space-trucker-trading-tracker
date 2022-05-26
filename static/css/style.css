@@ -4,19 +4,21 @@ body {
     background-color: DarkSlateGray;
 }
 
-p, h1, h2, h3, a, table {
-    color: Ivory;
+p,
+h1,
+h2,
+h3,
+a,
+table {
+    color: ivory;
 }
 
-h1, h2 {
+h1,
+h2 {
     font-family: 'Michroma', sans-serif;
 }
 
-a {
-    text-decoration: none;
-}
-
-a:hover {
-    color: LightPink;
-    text-decoration: underline;
+.form-select {
+    background-color: #181D27;
+    color: ivory;
 }

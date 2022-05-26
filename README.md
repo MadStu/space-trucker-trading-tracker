@@ -25,6 +25,8 @@ I will take a design thinking and agile approach to creating the app.
     - Solved. Was calculating the wrong price. I compared code with a previous commit to see where I'd made the mistake
 - Static files not loading on Heroku
     - Solved. I installed whitenoise to allow the app to serve its own static files
+- local variable 'sold_for' referenced before assignment
+    - Unsolved.
 
 ### Todo
 - Main Styling
