@@ -1,8 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
 
+html {
+    background-image: url("/static/images/star-citizen-caterpillar-bg.jpg");
+    background-color: DarkSlateGray;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 body {
+    min-height: 100vh;
     background-color: DarkSlateGray;
     color: ivory;
+    max-width: 900px;
+    margin: auto;
 }
 
 p,
@@ -25,6 +35,10 @@ a:hover, a:active {
 
 h1, h2 {
     font-family: 'Michroma', sans-serif;
+}
+
+.main-padding {
+    padding: 15px;
 }
 
 .sttt-button {
@@ -56,6 +70,8 @@ h1, h2 {
     background-color: rgb(94, 214, 130);
     border-radius: 10px;
     border: 2px solid #212529;
+    color: #212529;
+    font-weight: bold;
 }
 
 .sell-box {
@@ -76,5 +92,9 @@ h1, h2 {
 
     .header-block {
         display: block;
+    }
+
+    .main-padding {
+        padding: 5px;
     }
 }

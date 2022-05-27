@@ -8,6 +8,8 @@ https://space-trucker.herokuapp.com/
 
 I will take a design thinking and agile approach to creating the app.
 
+I have taken a mobile first design approach
+
 ### Bugs
 - Entering other values into int form field produces error
     - Solved. Changed input type to correct input for form validation
@@ -25,8 +27,8 @@ I will take a design thinking and agile approach to creating the app.
     - Solved. Was calculating the wrong price. I compared code with a previous commit to see where I'd made the mistake
 - Static files not loading on Heroku
     - Solved. I installed whitenoise to allow the app to serve its own static files
-- local variable 'sold_for' referenced before assignment
-    - Unsolved.
+- Error: local variable referenced before assignment
+    - Solved. It was working with sell trades, but I'd forgot to create the variable in the right place for the buy trades.
 
 ### Todo
 - Main Styling
