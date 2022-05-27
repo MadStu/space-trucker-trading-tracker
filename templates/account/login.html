@@ -1,0 +1,58 @@
+{% extends "trading/base.html" %}
+{% load i18n %}
+{% load account socialaccount %}
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+{% block content %}
+
+
+<div class="container">
+    <div class="col-md-12">
+        <h1>{% trans "Log In" %}</h1>
+
+
+
+        <p>{% blocktrans %}If you have not created an account yet, then please
+            <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
+            
+
+
+
+
+              <form class="login" method="POST" action="{% url 'account_login' %}">
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                {% csrf_token %}
+
+
+                <div class="form-group">
+                  <label for="id_login">Username</label>
+                  <input type="text" class="form-control" name="login" id="id_login" placeholder="Username" autocomplete="username" maxlength="150" required>
+                </div>
+                <div class="form-group">
+                  <label for="id_password">Password</label>
+                  <input type="password" class="form-control" id="id_password" name="password" autocomplete="current-password" placeholder="Password" required>
+                </div>
+                <div class="form-check">
+                  <input type="checkbox" class="form-check-input" name="remember" id="id_remember">
+                  <label class="form-check-label" for="id_remember">Remember Me</label>
+                </div>
+
+
+
+
+
+
+                <button type="submit" class="primaryAction btn btn-primary sttt-button">Log In</button>
+              </form>
+
+
+
+
+
+
+            
+    </div>
+</div>
+<br>
+{% endblock %}

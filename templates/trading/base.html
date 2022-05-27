@@ -30,7 +30,7 @@
         <div class="d-flex justify-content-center">
             <div class="p-2">
                 <h2>
-                    <span id="user_profit">{{ user_profit|intcomma }}</span> aUEC<br>
+                    <span id="user_profit">{% if user_profit %}{{ user_profit|intcomma }}{% else %}0{% endif %}</span> aUEC<br>
                 </h2>
             </div>
         </div>
@@ -71,7 +71,7 @@
             
             <p class="lower-login lower-login-top">The Space Trucker Trading Trucker app uses a browser cookie to keep
                 track of the trades in the database that belong to you. If your browser does not accept cookies, please
-                log in with google instead. If you're unable to log in with Google, please <a href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Login</a>.</p>
+                log in via google. If you're unable to log in via Google, please <a href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Log In</a>.</p>
             {% endif %}
         </section>
     
@@ -87,9 +87,10 @@
                     &copy; <a href="https://www.linkedin.com/in/sturaynor/" target="_blank">Stuart Raynor</a> 2022
                     <br>Player Name: <b>Max_Hamilton</b></p>
             </div>
-            <div>
-                <p>> {{ time_now }} | Server Time<br>> | {{ last_updated }} | Last Update from <a href="https://uexcorp.space/" target="_blank">UEX</a></p>
-            </div>
+            <!-- <div>
+                <p>> {{ time_now }} | Server Time<br>
+                   > {{ last_updated }} | Last Update from <a href="https://uexcorp.space/" target="_blank">UEX</a></p>
+            </div> -->
         </footer>
     </div>
 
