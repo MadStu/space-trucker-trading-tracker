@@ -146,13 +146,22 @@
 
                                 <div class="p-2">
 
+                                    <div class="container">
+                                        <div class="row">
+                                        <div class="col-md-6 trade-box-inside">
+                                            <label for="form_buy_price">Buy Price</label>
+                                        </div>
+                                        <div class="col-md-6 trade-box-inside">
+                                            <input type="number" size="5" name="form_buy_price" id="form_buy_price"
+                                            autocomplete="off" value="{{ populate_price }}" min="0.01" max="500" step="0.01"
+                                            required>
+                                        </div>
+                                    </div>
+                                    </div>
 
-
-
-                                    <label for="form_buy_price">Buy Price</label>
-                                    <input type="number" size="5" name="form_buy_price" id="form_buy_price"
-                                        autocomplete="off" value="{{ populate_price }}" min="0.01" max="500" step="0.01"
-                                        required>
+                                        
+                                        
+                                    
 
 
 
@@ -161,13 +170,22 @@
                                 <div class="p-2">
 
 
-
-
-
-
-                                    <label for="form_buy_amount">Units</label>
-                                    <input type="number" size="5" name="form_buy_amount" id="form_buy_amount"
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 trade-box-inside">
+            <label for="form_buy_amount">Units</label>
+        </div>
+        <div class="col-md-6 trade-box-inside">
+            <input type="number" size="5" name="form_buy_amount" id="form_buy_amount"
                                         autocomplete="off" value="{{ populate_amount }}" min="1" max="69600" required>
+        </div>
+    </div>
+</div>
+
+
+
+                                    
+                                    
 
 
 
@@ -232,23 +250,41 @@
                             <div class="d-flex flex-column">
                                 <div class="p-2">
 
-
-
-                                    <label for="form_sell_price">Sell Price</label>
-                                    <input type="number" size="5" name="form_sell_price" id="form_sell_price"
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 trade-box-inside">
+            <label for="form_sell_price">Sell Price</label>
+        </div>
+        <div class="col-md-6 trade-box-inside">
+            <input type="number" size="5" name="form_sell_price" id="form_sell_price"
                                         autocomplete="off" value="{{ populate_price }}" min="0.01" max="500" step="0.01"
                                         required>
+        </div>
+    </div>
+</div>
+
+                                    
+                                    
 
 
                                 </div>
 
                                 <div class="p-2">
 
-
-
-                                    <label for="form_sell_amount">Units</label>
-                                    <input type="number" size="5" name="form_sell_amount" id="form_sell_amount"
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-6 trade-box-inside">
+                                                <label for="form_sell_amount">Units</label>
+                                            </div>
+                                            <div class="col-md-6 trade-box-inside">
+                                                <input type="number" size="5" name="form_sell_amount" id="form_sell_amount"
                                         autocomplete="off" value="{{ populate_amount }}" min="1" max="69600" required>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    
+                                    
 
 
 

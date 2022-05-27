@@ -103,4 +103,8 @@ h1, h2 {
     .main-padding {
         padding: 5px;
     }
+
+    .trade-box-inside {
+        width: 50%;
+    }
 }
