@@ -44,3 +44,4 @@ I have taken a mobile first design approach
 - Cloud Imperium for creating [Star Citizen](https://tinyurl.com/2yet2hz9)
 - https://www.w3schools.com/colors/color_tryit.asp?color=DarkSlateGray
 - https://fonts.google.com/specimen/Michroma#standard-styles
+- https://fontawesome.com/
