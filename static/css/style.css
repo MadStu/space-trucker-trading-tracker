@@ -11,7 +11,7 @@ body {
     min-height: 100vh;
     background-color: DarkSlateGray;
     color: ivory;
-    max-width: 900px;
+    max-width: 912px;
     margin: auto;
 }
 
@@ -43,6 +43,10 @@ h1, h2 {
     padding-bottom: 5px;
 }
 
+.lower-button-padding {
+    padding-top: 5px;
+}
+
 .main-padding {
     padding: 15px;
 }
@@ -67,7 +71,7 @@ h1, h2 {
     width: 50%;
 }
 
-.form-select {
+.form-select, .form-control {
     background-color: #181D27;
     color: ivory;
 }

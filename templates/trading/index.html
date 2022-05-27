@@ -49,7 +49,7 @@
         </div>
 
         <div class="gap-2 d-md-flex justify-content-center top-button-padding">
-                <form class="btn btn-primary sttt-button shadow-none btn-lg btn-block" name="reset_profit" id="reset_profit"
+            <form class="btn btn-primary sttt-button shadow-none btn-lg btn-block" name="reset_profit" id="reset_profit"
                 method="POST" action="">
                 {% csrf_token %}
                 <input type="hidden" name="session_key" value="{{ session_key }}">
@@ -58,14 +58,14 @@
 
             {% if user.is_authenticated %}
             {% else %}
-            
 
-                <a class="btn btn-primary sttt-button sttt-button-25 shadow-none btn-lg btn-block"
+
+            <a class="btn btn-primary sttt-button sttt-button-25 shadow-none btn-lg btn-block"
                 href="{% url 'account_signup' %}" role="button">Register</a>
 
-                <a class="btn btn-primary sttt-button sttt-button-25 shadow-none btn-lg btn-block"
+            <a class="btn btn-primary sttt-button sttt-button-25 shadow-none btn-lg btn-block"
                 href="{% url 'account_login' %}" role="button">Log In</a>
-            
+
             {% endif %}
         </div>
     </nav>
@@ -148,20 +148,20 @@
 
                                     <div class="container">
                                         <div class="row">
-                                        <div class="col-md-6 trade-box-inside">
-                                            <label for="form_buy_price">Buy Price</label>
+                                            <div class="col-md-6 trade-box-inside">
+                                                <label for="form_buy_price">Buy Price</label>
+                                            </div>
+                                            <div class="col-md-6 trade-box-inside">
+                                                <input class="form-control input-lg" type="number" size="5" name="form_buy_price" id="form_buy_price"
+                                                    autocomplete="off" value="{{ populate_price }}" min="0.01" max="500"
+                                                    step="0.01" required>
+                                            </div>
                                         </div>
-                                        <div class="col-md-6 trade-box-inside">
-                                            <input type="number" size="5" name="form_buy_price" id="form_buy_price"
-                                            autocomplete="off" value="{{ populate_price }}" min="0.01" max="500" step="0.01"
-                                            required>
-                                        </div>
-                                    </div>
                                     </div>
 
-                                        
-                                        
-                                    
+
+
+
 
 
 
@@ -170,22 +170,23 @@
                                 <div class="p-2">
 
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 trade-box-inside">
-            <label for="form_buy_amount">Units</label>
-        </div>
-        <div class="col-md-6 trade-box-inside">
-            <input type="number" size="5" name="form_buy_amount" id="form_buy_amount"
-                                        autocomplete="off" value="{{ populate_amount }}" min="1" max="69600" required>
-        </div>
-    </div>
-</div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-6 trade-box-inside">
+                                                <label for="form_buy_amount">Units</label>
+                                            </div>
+                                            <div class="col-md-6 trade-box-inside">
+                                                <input class="form-control input-lg" type="number" size="5" name="form_buy_amount"
+                                                    id="form_buy_amount" autocomplete="off"
+                                                    value="{{ populate_amount }}" min="1" max="69600" required>
+                                            </div>
+                                        </div>
+                                    </div>
 
 
 
-                                    
-                                    
+
+
 
 
 
@@ -250,21 +251,21 @@
                             <div class="d-flex flex-column">
                                 <div class="p-2">
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-6 trade-box-inside">
-            <label for="form_sell_price">Sell Price</label>
-        </div>
-        <div class="col-md-6 trade-box-inside">
-            <input type="number" size="5" name="form_sell_price" id="form_sell_price"
-                                        autocomplete="off" value="{{ populate_price }}" min="0.01" max="500" step="0.01"
-                                        required>
-        </div>
-    </div>
-</div>
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-md-6 trade-box-inside">
+                                                <label for="form_sell_price">Sell Price</label>
+                                            </div>
+                                            <div class="col-md-6 trade-box-inside">
+                                                <input class="form-control input-lg" type="number" size="5" name="form_sell_price"
+                                                    id="form_sell_price" autocomplete="off" value="{{ populate_price }}"
+                                                    min="0.01" max="500" step="0.01" required>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                                    
-                                    
+
+
 
 
                                 </div>
@@ -277,14 +278,15 @@
                                                 <label for="form_sell_amount">Units</label>
                                             </div>
                                             <div class="col-md-6 trade-box-inside">
-                                                <input type="number" size="5" name="form_sell_amount" id="form_sell_amount"
-                                        autocomplete="off" value="{{ populate_amount }}" min="1" max="69600" required>
+                                                <input class="form-control input-lg" type="number" size="5" name="form_sell_amount"
+                                                    id="form_sell_amount" autocomplete="off"
+                                                    value="{{ populate_amount }}" min="1" max="69600" required>
                                             </div>
                                         </div>
                                     </div>
 
-                                    
-                                    
+
+
 
 
 
@@ -402,7 +404,7 @@
     {% if user.is_authenticated %}
 
     <div class="navbar-dark bg-dark">
-        <div class="justify-content-center">
+        <div class="justify-content-center top-button-padding lower-button-padding">
 
 
             <a class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
@@ -411,64 +413,61 @@
 
         </div>
     </div>
-    {% else %}
-
-
     {% endif %}
 
     <br><br>
 
-<section class="main-padding">
+    <section class="main-padding">
 
 
-    <div>
-        <table>
-            <tr>
-                <th>Commodity</th>
-                <th>My Cost</th>
-                <th>Units</th>
-                <th>Sale Value</th>
-                <th>Due Profit</th>
-            </tr>
-            {% for trade in trades %}
-            <tr>
-                <td><span
-                        onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')"><u>{{ trade.commodity }}</u></span>
-                </td>
-                <td>{{ trade.cost|floatformat:0|intcomma }}</td>
-                <td>{{ trade.amount|intcomma }}</td>
-                <td>{{ trade.value|floatformat:0|intcomma }}</td>
-                <td>{{ trade.profit|floatformat:0|intcomma }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td>No Trades</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-                <td>0</td>
-            </tr>
-            {% endfor %}
-            <tr>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr>
-                <td>Current Stock:</td>
-                <td>{{ total_cost|intcomma }}</td>
-                <td>{{ total_cargo|intcomma }}</td>
-                <td>{{ total_value|intcomma }}</td>
-                <td>{{ total_profit|intcomma }}</td>
-            </tr>
-        </table>
+        <div>
+            <table>
+                <tr>
+                    <th>Commodity</th>
+                    <th>My Cost</th>
+                    <th>Units</th>
+                    <th>Sale Value</th>
+                    <th>Due Profit</th>
+                </tr>
+                {% for trade in trades %}
+                <tr>
+                    <td><span
+                            onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')"><u>{{ trade.commodity }}</u></span>
+                    </td>
+                    <td>{{ trade.cost|floatformat:0|intcomma }}</td>
+                    <td>{{ trade.amount|intcomma }}</td>
+                    <td>{{ trade.value|floatformat:0|intcomma }}</td>
+                    <td>{{ trade.profit|floatformat:0|intcomma }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No Trades</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>0</td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Current Stock:</td>
+                    <td>{{ total_cost|intcomma }}</td>
+                    <td>{{ total_cargo|intcomma }}</td>
+                    <td>{{ total_value|intcomma }}</td>
+                    <td>{{ total_profit|intcomma }}</td>
+                </tr>
+            </table>
 
 
-    </div>
+        </div>
 
-</section>
+    </section>
     <br><br>
     <footer class="main-padding">
         <div>
