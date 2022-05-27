@@ -96,6 +96,26 @@ h1, h2 {
     color: ivory;
 }
 
+footer {
+    text-align: right;
+    font-size: x-small;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+footer a {
+    font-weight: 600;
+}
+
+.footer-thanks {
+    text-align: left;
+    font-size: small;
+}
+
+.footer-links {
+    font-size: small;
+}
+
 /* Media queries */
 
 /* For screen sizes from 768px wide and down */
