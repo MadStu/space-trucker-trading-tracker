@@ -92,6 +92,10 @@ h1, h2 {
     width: 100%;
 }
 
+.table-dark {
+    color: ivory;
+}
+
 /* Media queries */
 
 /* For screen sizes from 768px wide and down */
@@ -110,5 +114,9 @@ h1, h2 {
 
     .trade-box-inside {
         width: 50%;
+    }
+
+    .table-dark {
+        font-size: small;
     }
 }

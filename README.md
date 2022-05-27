@@ -31,14 +31,13 @@ I have taken a mobile first design approach
     - Solved. It was working with sell trades, but I'd forgot to create the variable in the right place for the buy trades.
 
 ### Todo
-- Main Styling
+- Main Styling <
 - Admin Area
 - Readme
 - Single login social accounts
 - Refactor Code again
 - Error messages
 - Option to choose unit amount size by ship
-- Recall user's previous trading price instead of using the sotred commodity prices
 
 ### Credits
 - [UEX](https://uexcorp.space/) for providing an amazing API.

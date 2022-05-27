@@ -398,38 +398,19 @@
 
     </main>
 
-
-
-
-    {% if user.is_authenticated %}
-
-    <div class="navbar-dark bg-dark">
-        <div class="justify-content-center top-button-padding lower-button-padding">
-
-
-            <a class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
-                href="{% url 'account_logout' %}" role="button">Log Out</a>
-
-
-        </div>
-    </div>
-    {% endif %}
-
-    <br><br>
-
-    <section class="main-padding">
-
-
-        <div>
-            <table>
+    <section>
+        <table class="table table-sm table-bordered table-hover table-dark table-striped">
+            <thead class="thead-dark">
                 <tr>
                     <th>Commodity</th>
-                    <th>My Cost</th>
+                    <th>Cost</th>
                     <th>Units</th>
-                    <th>Sale Value</th>
-                    <th>Due Profit</th>
+                    <th>Value</th>
+                    <th>Due</th>
                 </tr>
-                {% for trade in trades %}
+            </thead>
+            <tbody>
+            {% for trade in trades %}
                 <tr>
                     <td><span
                             onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')"><u>{{ trade.commodity }}</u></span>
@@ -449,26 +430,29 @@
                 </tr>
                 {% endfor %}
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                <tr>
                     <td>Current Stock:</td>
                     <td>{{ total_cost|intcomma }}</td>
                     <td>{{ total_cargo|intcomma }}</td>
                     <td>{{ total_value|intcomma }}</td>
                     <td>{{ total_profit|intcomma }}</td>
                 </tr>
-            </table>
+            </tbody>
+        </table>
+</section>
+
+    {% if user.is_authenticated %}
+    <section class="navbar-dark bg-dark">
+        <div class="justify-content-center top-button-padding lower-button-padding">
+
+
+            <a class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
+                href="{% url 'account_logout' %}" role="button">Log Out</a>
 
 
         </div>
-
     </section>
-    <br><br>
+    {% endif %}
+
     <footer class="main-padding">
         <div>
             <p>{{ time_now }} | Server Time<br>
