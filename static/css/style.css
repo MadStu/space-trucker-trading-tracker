@@ -16,16 +16,18 @@ body {
 }
 
 a {
-    text-decoration: none;
-    color: ivory;
-}
-
-a:hover, a:active {
-    color: lightpink;
     text-decoration: underline;
+    color: ivory;
+    font-weight: 600;
 }
 
-h1, h2 {
+a:hover,
+a:active {
+    color: lightpink;
+}
+
+h1,
+h2 {
     font-family: 'Michroma', sans-serif;
 }
 
@@ -52,18 +54,16 @@ h1, h2 {
     color: #212529;
 }
 
-.sttt-button:hover, .sttt-button:active {
+.sttt-button:hover,
+.sttt-button:active {
     text-decoration: none;
     background-color: #212529;
     border-color: #212529;
     color: ivory;
 }
 
-.sttt-button-25 {
-    width: 50%;
-}
-
-.form-select, .form-control {
+.form-select,
+.form-control {
     background-color: #181D27;
     color: ivory;
 }
@@ -99,25 +99,10 @@ h1, h2 {
     font-size: x-small;
 }
 
-.lower-login a {
-    font-weight: 600;
-    text-decoration: underline;
-}
-
-
-
 footer {
     font-size: x-small;
     padding-right: 30px;
     padding-left: 30px;
-}
-
-footer a {
-    font-weight: 600;
-}
-
-.footer-thanks a {
-    font-weight: 600;
 }
 
 .footer-links {
@@ -127,8 +112,10 @@ footer a {
 /* Media queries */
 
 /* For screen sizes from 768px wide and down */
-@media screen and (max-width: 768px){
-    .sttt-button-25, .btn, .btn-primary {
+@media screen and (max-width: 768px) {
+
+    .btn,
+    .btn-primary {
         width: 100%;
     }
 
@@ -147,6 +134,7 @@ footer a {
     .table-dark {
         font-size: small;
     }
+
     footer img {
         width: 50px;
     }

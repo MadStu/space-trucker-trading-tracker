@@ -6,166 +6,186 @@
 {% load static %}
 {% load humanize %}
 
-    <main class="main-padding">
+<main class="main-padding">
 
-        <div>
-            <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="in_commodity"
-                id="in_commodity" onChange="return setFields()">
-                {% for commodity in commodity_data|dictsort:"profit" reversed %}
-                <option data-buy="{{ commodity.trade_price_buy|floatformat:2 }}"
-                    data-sell="{{ commodity.trade_price_sell|floatformat:2 }}" value="{{ commodity.name }}"
-                    {% if commodity.name == populate_commodity %} selected{% endif %}>{{ commodity.name }}</option>
-                {% endfor %}
-            </select>
-        </div>
+    <div>
+        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="in_commodity"
+            id="in_commodity" onChange="return setFields()">
+            {% for commodity in commodity_data|dictsort:"profit" reversed %}
+            <option data-buy="{{ commodity.trade_price_buy|floatformat:2 }}"
+                data-sell="{{ commodity.trade_price_sell|floatformat:2 }}" value="{{ commodity.name }}"
+                {% if commodity.name == populate_commodity %} selected{% endif %}>{{ commodity.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
 
-        <div class="container">
-            <div class="row d-flex justify-content-center">
+    <div class="container">
+        <div class="row d-flex justify-content-center">
 
-                <div class="p-2 col-md-6 trade-box">
-                    <div class="col-md-12">
-                        <form name="trade_buy_form" id="trade_buy_form" method="POST" action="">
-                            <div class="d-flex flex-column">
-                                <div class="p-2">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-6 trade-box-inside">
-                                                <label for="form_buy_price">Buy Price</label>
-                                            </div>
-                                            <div class="col-md-6 trade-box-inside">
-                                                <input class="form-control input-lg" type="number" size="5"
-                                                    name="form_buy_price" id="form_buy_price" autocomplete="off"
-                                                    value="{{ populate_price }}" min="0.01" max="500" step="0.01"
-                                                    required>
-                                            </div>
+            <div class="p-2 col-md-6 trade-box">
+                <div class="col-md-12">
+                    <form name="trade_buy_form" id="trade_buy_form" method="POST" action="">
+                        <div class="d-flex flex-column">
+                            <div class="p-2">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 trade-box-inside">
+                                            <label for="form_buy_price">Buy Price</label>
+                                        </div>
+                                        <div class="col-md-6 trade-box-inside">
+                                            <input class="form-control input-lg" type="number" size="5"
+                                                name="form_buy_price" id="form_buy_price" autocomplete="off"
+                                                value="{{ populate_price }}" min="0.01" max="500" step="0.01" required>
                                         </div>
                                     </div>
-                                </div>
-
-                                <div class="p-2">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-6 trade-box-inside">
-                                                <label for="form_buy_amount">Units</label>
-                                            </div>
-                                            <div class="col-md-6 trade-box-inside">
-                                                <input class="form-control input-lg" type="number" size="5"
-                                                    name="form_buy_amount" id="form_buy_amount" autocomplete="off"
-                                                    value="{{ populate_amount }}" min="1" max="69600" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="p-2">
-                                    <button
-                                        class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
-                                        type="submit">BUY <i class="fa-solid fa-arrow-turn-down fa-flip"
-                                            style="--fa-animation-duration: 3s;"></i></button>
-                                </div>
-
-                            </div>
-                            {% csrf_token %}
-                            <input type="hidden" name="session_key" id="session_key" value="{{ session_key }}">
-                            <input type="hidden" name="form_buy_commodity" id="form_buy_commodity"
-                                value="{{ populate_commodity }}">
-                            <input type="hidden" name="form_buy" value="True">
-                        </form>
-                    </div>
-                </div>
-
-                <div class="p-2 col-md-6 trade-box sell-box">
-                    <div class="col-md-12">
-                        <form name="trade_sell_form" id="trade_sell_form" method="POST" action="">
-                            <div class="d-flex flex-column">
-                                <div class="p-2">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-6 trade-box-inside">
-                                                <label for="form_sell_price">Sell Price</label>
-                                            </div>
-                                            <div class="col-md-6 trade-box-inside">
-                                                <input class="form-control input-lg" type="number" size="5"
-                                                    name="form_sell_price" id="form_sell_price" autocomplete="off"
-                                                    value="{{ populate_price }}" min="0.01" max="500" step="0.01"
-                                                    required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="p-2">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-md-6 trade-box-inside">
-                                                <label for="form_sell_amount">Units</label>
-                                            </div>
-                                            <div class="col-md-6 trade-box-inside">
-                                                <input class="form-control input-lg" type="number" size="5"
-                                                    name="form_sell_amount" id="form_sell_amount" autocomplete="off"
-                                                    value="{{ populate_amount }}" min="1" max="69600" required>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="p-2">
-                                    <button
-                                        class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
-                                        type="submit">SELL <i class="fa-solid fa-arrow-turn-up fa-flip"
-                                            style="--fa-animation-duration: 3s;"></i></button>
                                 </div>
                             </div>
-                            {% csrf_token %}
-                            <input type="hidden" name="session_key" value="{{ session_key }}">
-                            <input type="hidden" name="form_sell_commodity" id="form_sell_commodity"
-                                value="{{ populate_commodity }}">
-                            <input type="hidden" name="form_buy" value="False">
-                        </form>
-                    </div>
-                </div>
 
+                            <div class="p-2">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 trade-box-inside">
+                                            <label for="form_buy_amount">Units</label>
+                                        </div>
+                                        <div class="col-md-6 trade-box-inside">
+                                            <input class="form-control input-lg" type="number" size="5"
+                                                name="form_buy_amount" id="form_buy_amount" autocomplete="off"
+                                                value="{{ populate_amount }}" min="1" max="69600" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="p-2">
+                                <button class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
+                                    type="submit">BUY <i class="fa-solid fa-arrow-turn-down fa-flip"
+                                        style="--fa-animation-duration: 3s;"></i></button>
+                            </div>
+
+                        </div>
+                        {% csrf_token %}
+                        <input type="hidden" name="session_key" id="session_key" value="{{ session_key }}">
+                        <input type="hidden" name="form_buy_commodity" id="form_buy_commodity"
+                            value="{{ populate_commodity }}">
+                        <input type="hidden" name="form_buy" value="True">
+                    </form>
+                </div>
             </div>
+
+            <div class="p-2 col-md-6 trade-box sell-box">
+                <div class="col-md-12">
+                    <form name="trade_sell_form" id="trade_sell_form" method="POST" action="">
+                        <div class="d-flex flex-column">
+                            <div class="p-2">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 trade-box-inside">
+                                            <label for="form_sell_price">Sell Price</label>
+                                        </div>
+                                        <div class="col-md-6 trade-box-inside">
+                                            <input class="form-control input-lg" type="number" size="5"
+                                                name="form_sell_price" id="form_sell_price" autocomplete="off"
+                                                value="{{ populate_price }}" min="0.01" max="500" step="0.01" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-2">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6 trade-box-inside">
+                                            <label for="form_sell_amount">Units</label>
+                                        </div>
+                                        <div class="col-md-6 trade-box-inside">
+                                            <input class="form-control input-lg" type="number" size="5"
+                                                name="form_sell_amount" id="form_sell_amount" autocomplete="off"
+                                                value="{{ populate_amount }}" min="1" max="69600" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-2">
+                                <button class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
+                                    type="submit">SELL <i class="fa-solid fa-arrow-turn-up fa-flip"
+                                        style="--fa-animation-duration: 3s;"></i></button>
+                            </div>
+                        </div>
+                        {% csrf_token %}
+                        <input type="hidden" name="session_key" value="{{ session_key }}">
+                        <input type="hidden" name="form_sell_commodity" id="form_sell_commodity"
+                            value="{{ populate_commodity }}">
+                        <input type="hidden" name="form_buy" value="False">
+                    </form>
+                </div>
+            </div>
+
         </div>
+    </div>
 
-    </main>
+</main>
 
-    <section>
-        <table class="table table-sm table-bordered table-hover table-dark table-striped">
-            <thead class="thead-dark">
-                <tr>
-                    <th>Commodity</th>
-                    <th>Cost</th>
-                    <th>Units</th>
-                    <th>Value</th>
-                    <th>Due</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for trade in trades %}
-                <tr onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')">
-                    <td>{{ trade.commodity }}</td>
-                    <td>{{ trade.cost|floatformat:0|intcomma }}</td>
-                    <td>{{ trade.amount|intcomma }}</td>
-                    <td>{{ trade.value|floatformat:0|intcomma }}</td>
-                    <td>{{ trade.profit|floatformat:0|intcomma }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td>No Cargo On Board</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                </tr>
-                {% endfor %}
-                <tr>
-                    <td>Current Stock:</td>
-                    <td>{{ total_cost|intcomma }}</td>
-                    <td>{{ total_cargo|intcomma }}</td>
-                    <td>{{ total_value|intcomma }}</td>
-                    <td>{{ total_profit|intcomma }}</td>
-                </tr>
-            </tbody>
-        </table>
+<section>
+    <table class="table table-sm table-bordered table-hover table-dark table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>Commodity</th>
+                <th>Cost</th>
+                <th>Units</th>
+                <th>Value</th>
+                <th>Due</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for trade in trades %}
+            <tr onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')">
+                <td>{{ trade.commodity }}</td>
+                <td>{{ trade.cost|floatformat:0|intcomma }}</td>
+                <td>{{ trade.amount|intcomma }}</td>
+                <td>{{ trade.value|floatformat:0|intcomma }}</td>
+                <td>{{ trade.profit|floatformat:0|intcomma }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td>No Cargo On Board</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td>Current Stock:</td>
+                <td>{{ total_cost|intcomma }}</td>
+                <td>{{ total_cargo|intcomma }}</td>
+                <td>{{ total_value|intcomma }}</td>
+                <td>{{ total_profit|intcomma }}</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<div class="mt-auto">
+    <section class="navbar-dark bg-dark align-items-center">
+        {% if user.is_authenticated %}
+        <form class="justify-content-center top-button-padding lower-button-padding" method="post"
+            action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <button class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
+                type="submit">Logout <i class="fa-solid fa-arrow-right-from-bracket fa-beat"
+                    style="--fa-animation-duration: 3s;"></i></button>
+        </form>
+        {% else %}
+
+        <p class="lower-login lower-login-top">The Space Trucker Trading Trucker app uses a browser cookie to keep
+            track of the trades in the database that belong to you. If your browser does not accept cookies, please
+            log in via google. If you're unable to log in via Google, please <a
+                href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Log In</a>.</p>
+        {% endif %}
     </section>
-
-    {%endblock%}
+    <p class="lower-login lower-button-padding">> {{ time_now }} | Server Time<br>
+        > {{ last_updated }} | Last Update from <a href="https://uexcorp.space/" target="_blank">UEX</a></p>
+</div>
+{%endblock%}
