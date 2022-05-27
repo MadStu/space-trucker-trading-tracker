@@ -88,10 +88,23 @@ h1, h2 {
     color: ivory;
 }
 
-.lower-login {
+.lower-login-top {
     padding-top: 15px;
+    padding-bottom: 0px;
+}
+
+.lower-login {
+    padding-left: 30px;
+    padding-right: 30px;
     font-size: x-small;
 }
+
+.lower-login a {
+    font-weight: 600;
+    text-decoration: underline;
+}
+
+
 
 footer {
     font-size: x-small;
@@ -105,6 +118,10 @@ footer {
 
 .footer-thanks {
     text-align: right;
+}
+
+.footer-thanks a {
+    font-weight: 600;
 }
 
 .footer-links {
