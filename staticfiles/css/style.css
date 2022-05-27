@@ -37,12 +37,18 @@ h1, h2 {
     font-family: 'Michroma', sans-serif;
 }
 
+.top-button-padding {
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 5px;
+}
+
 .main-padding {
     padding: 15px;
 }
 
 .sttt-button {
-    width: 50%;
+    width: 100%;
     background-color: rgb(204, 216, 41);
     border-color: #212529;
     border-width: 3px;
@@ -58,7 +64,7 @@ h1, h2 {
 }
 
 .sttt-button-25 {
-    width: 25%;
+    width: 50%;
 }
 
 .form-select {
@@ -86,7 +92,7 @@ h1, h2 {
 
 /* For screen sizes from 768px wide and down */
 @media screen and (max-width: 768px){
-    .sttt-button-25, .sttt-button, .btn, .btn-primary {
+    .sttt-button-25, .btn, .btn-primary {
         width: 100%;
     }
 
