@@ -33,14 +33,15 @@ I have taken a mobile first design approach
 ### Todo
 - Main Styling
 - Admin Area
+- Login templates
 - Readme
-- Single login social accounts <
+- favicon
 - Refactor Code again
 - Error messages
 - Option to choose unit amount size by ship
-- Change session names
 - Code auto deletion of old trades
 - Create new user db entries with their ship details and past 5 trades
+- set footer to sit at bottom
 
 ### Credits
 - [UEX](https://uexcorp.space/) for providing an amazing API.

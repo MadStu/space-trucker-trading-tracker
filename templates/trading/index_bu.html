@@ -1,10 +1,55 @@
-{% extends "trading/base.html" %}
-
-{% block content %}
-
 {% load socialaccount %}
 {% load static %}
 {% load humanize %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Space Trucker Trading Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="d-flex flex-column h-100 main-bg">
+
+    <header>
+        <div class="d-flex justify-content-center">
+            <div class="p-2 justify-content-center text-center">
+                <h1>Space Trucker <span class="header-block">Trading Tracker</span></h1>
+            </div>
+        </div>
+    </header>
+
+    <nav class="navbar-dark bg-dark">
+
+        <div class="d-flex justify-content-center">
+            <div class="p-2">
+                <h2>
+                    <span id="user_profit">{{ user_profit|intcomma }}</span> aUEC<br>
+                </h2>
+            </div>
+        </div>
+
+        <div class="gap-2 d-md-flex justify-content-center top-button-padding">
+            <form class="btn btn-primary sttt-button shadow-none btn-lg btn-block" name="reset_profit" id="reset_profit"
+                method="POST" action="">
+                {% csrf_token %}
+                <input type="hidden" name="session_key" value="{{ session_key }}">
+                <input type="hidden" name="reset_profit" value=True>Reset Profit <i
+                    class="fa-solid fa-arrows-rotate fa-flip" style="--fa-animation-duration: 3s;"></i>
+            </form>
+            {% if user.is_authenticated %}{% else %}
+            <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% provider_login_url 'google' %}"
+                role="button">Log In via Google   <i class="fa-solid fa-arrow-right-to-bracket fa-beat" style="--fa-animation-duration: 3s;"></i></a>
+            {% endif %}
+        </div>
+
+    </nav>
 
     <main class="main-padding">
 
@@ -168,4 +213,47 @@
         </table>
     </section>
 
-    {%endblock%}
+    <section class="navbar-dark bg-dark align-items-center">
+        {% if user.is_authenticated %}
+        <form class="justify-content-center top-button-padding lower-button-padding" method="post"
+            action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            {% if redirect_field_value %}
+            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+            {% endif %}
+            <button class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
+                type="submit">Logout   <i class="fa-solid fa-arrow-right-from-bracket fa-beat" style="--fa-animation-duration: 3s;"></i></button>
+        </form>
+        {% else %}
+        
+        <p class="lower-login lower-login-top">The Space Trucker Trading Trucker app uses a browser cookie to keep
+            track of the trades in the database that belong to you. If your browser does not accept cookies, please
+            log in with google instead. If you're unable to log in with Google, please <a href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Login</a>.</p>
+        {% endif %}
+    </section>
+
+    <footer>
+        <br>
+        <div>
+            <p>> I'm extremely grateful to the team at <a href="https://uexcorp.space/" target="_blank">UEX Corp</a> for the use of
+                    their API. Thank you! o7</p></span>
+        </div>
+        <div>
+            <p class="text-center">Visit this project's <a href="https://github.com/MadStu/space-trucker/"
+                    target="_blank">GitHub</a> repository<br>
+                &copy; <a href="https://www.linkedin.com/in/sturaynor/" target="_blank">Stuart Raynor</a> 2022 <span class="header-block">(Player
+                Name: <b>Max_Hamilton</b>)</span></p>
+        </div>
+        <div>
+            <p>> {{ time_now }} | Server Time<br>> | {{ last_updated }} | Last Update from <a href="https://uexcorp.space/" target="_blank">UEX</a></p>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+    <script src="https://kit.fontawesome.com/e4f75593c5.js" crossorigin="anonymous"></script>
+</body>
+
+</html>

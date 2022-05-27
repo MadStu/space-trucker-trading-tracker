@@ -90,7 +90,7 @@ h1, h2 {
 
 .lower-login-top {
     padding-top: 15px;
-    padding-bottom: 0px;
+    padding-bottom: 15px;
 }
 
 .lower-login {
@@ -112,12 +112,8 @@ footer {
     padding-left: 30px;
 }
 
-.footer-links a {
+footer a {
     font-weight: 600;
-}
-
-.footer-thanks {
-    text-align: right;
 }
 
 .footer-thanks a {
