@@ -31,13 +31,16 @@ I have taken a mobile first design approach
     - Solved. It was working with sell trades, but I'd forgot to create the variable in the right place for the buy trades.
 
 ### Todo
-- Main Styling <
+- Main Styling
 - Admin Area
 - Readme
-- Single login social accounts
+- Single login social accounts <
 - Refactor Code again
 - Error messages
 - Option to choose unit amount size by ship
+- Change session names
+- Code auto deletion of old trades
+- Create new user db entries with their ship details and past 5 trades
 
 ### Credits
 - [UEX](https://uexcorp.space/) for providing an amazing API.
