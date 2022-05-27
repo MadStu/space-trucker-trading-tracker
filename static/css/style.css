@@ -15,17 +15,9 @@ body {
     margin: auto;
 }
 
-p,
-h1,
-h2,
-h3,
-a,
-table, .h2, .h4 {
-    color: ivory;
-}
-
 a {
     text-decoration: none;
+    color: ivory;
 }
 
 a:hover, a:active {
@@ -96,19 +88,23 @@ h1, h2 {
     color: ivory;
 }
 
+.lower-login {
+    padding-top: 15px;
+    font-size: x-small;
+}
+
 footer {
-    text-align: right;
     font-size: x-small;
     padding-right: 30px;
     padding-left: 30px;
 }
 
-footer a {
+.footer-links a {
     font-weight: 600;
 }
 
 .footer-thanks {
-    font-size: small;
+    text-align: right;
 }
 
 .footer-links {
@@ -137,5 +133,8 @@ footer a {
 
     .table-dark {
         font-size: small;
+    }
+    footer img {
+        width: 50px;
     }
 }

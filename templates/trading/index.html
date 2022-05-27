@@ -26,6 +26,7 @@
     </header>
 
     <nav class="navbar-dark bg-dark">
+
         <div class="d-flex justify-content-center">
             <div class="p-2">
                 <h2>
@@ -33,6 +34,7 @@
                 </h2>
             </div>
         </div>
+
         <div class="gap-2 d-md-flex justify-content-center top-button-padding">
             <form class="btn btn-primary sttt-button shadow-none btn-lg btn-block" name="reset_profit" id="reset_profit"
                 method="POST" action="">
@@ -41,15 +43,16 @@
                 <input type="hidden" name="reset_profit" value=True>Reset Profit <i
                     class="fa-solid fa-arrows-rotate fa-flip" style="--fa-animation-duration: 3s;"></i>
             </form>
-            {% if user.is_authenticated %}
-            {% else %}
+            {% if user.is_authenticated %}{% else %}
             <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% provider_login_url 'google' %}"
                 role="button">Log In via Google   <i class="fa-solid fa-arrow-right-to-bracket fa-beat" style="--fa-animation-duration: 3s;"></i></a>
             {% endif %}
         </div>
+
     </nav>
 
     <main class="main-padding">
+
         <div>
             <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="in_commodity"
                 id="in_commodity" onChange="return setFields()">
@@ -60,8 +63,10 @@
                 {% endfor %}
             </select>
         </div>
+
         <div class="container">
             <div class="row d-flex justify-content-center">
+
                 <div class="p-2 col-md-6 trade-box">
                     <div class="col-md-12">
                         <form name="trade_buy_form" id="trade_buy_form" method="POST" action="">
@@ -81,6 +86,7 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="p-2">
                                     <div class="container">
                                         <div class="row">
@@ -95,12 +101,14 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="p-2">
                                     <button
                                         class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
                                         type="submit">BUY <i class="fa-solid fa-arrow-turn-down fa-flip"
                                             style="--fa-animation-duration: 3s;"></i></button>
                                 </div>
+
                             </div>
                             {% csrf_token %}
                             <input type="hidden" name="session_key" id="session_key" value="{{ session_key }}">
@@ -110,6 +118,7 @@
                         </form>
                     </div>
                 </div>
+
                 <div class="p-2 col-md-6 trade-box sell-box">
                     <div class="col-md-12">
                         <form name="trade_sell_form" id="trade_sell_form" method="POST" action="">
@@ -158,8 +167,10 @@
                         </form>
                     </div>
                 </div>
+
             </div>
         </div>
+
     </main>
 
     <section>
@@ -202,8 +213,8 @@
         </table>
     </section>
 
-    {% if user.is_authenticated %}
-    <section class="navbar-dark bg-dark">
+    <section class="navbar-dark bg-dark align-items-center">
+        {% if user.is_authenticated %}
         <form class="justify-content-center top-button-padding lower-button-padding" method="post"
             action="{% url 'account_logout' %}">
             {% csrf_token %}
@@ -213,17 +224,18 @@
             <button class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
                 type="submit">Logout   <i class="fa-solid fa-arrow-right-from-bracket fa-beat" style="--fa-animation-duration: 3s;"></i></button>
         </form>
+        {% else %}
+        <p class="text-center lower-login">If you're unable to log in with Google, please <a href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Login</a>.</p>
+        {% endif %}
     </section>
-    {% endif %}
 
     <footer>
         <br>
-
         <div>
-            <p class="text-center footer-thanks">The Space Trucker Trading Trucker app uses a browser cookie to keep
+            <p class="">The Space Trucker Trading Trucker app uses a browser cookie to keep
                 track of the trades in the database that belong to you. If your browser doesn't accept cookies, please
                 log in with your google account instead.</p>
-            <p class="text-center footer-thanks">I'm extremely grateful to the team at
+            <p class="footer-thanks">I'm extremely grateful to the team at
                 <span class="header-block"><a href="https://uexcorp.space/" target="_blank">UEX Corp</a> for the use of
                     their API.<br>Thank you! o7</p></span>
         </div>
@@ -231,7 +243,7 @@
             <p class="text-center footer-links">Visit this project's <a href="https://github.com/MadStu/space-trucker/"
                     target="_blank">GitHub</a> repository<br>
                 &copy; <a href="https://www.linkedin.com/in/sturaynor/" target="_blank">Stuart Raynor</a> 2022 (Player
-                Name: Max_Hamilton)</p>
+                Name: <b>Max_Hamilton</b>)</p>
         </div>
         <div>
             <p>Server Time | {{ time_now }}<br>
