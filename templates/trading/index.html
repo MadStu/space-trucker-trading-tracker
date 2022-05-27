@@ -14,11 +14,26 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 
-<body>
+<body class="d-flex flex-column h-100 main-bg">
+
+
+
+    <div class="col-md-6">
+
+    </div>
+
+
+
+
+
+
+
+
+
     <header>
         <div class="d-flex justify-content-center">
             <div class="p-2 justify-content-center text-center">
-                <h1>Space Trucker Trading Tracker</h1>
+                <h1>Space Trucker <span class="header-block">Trading Tracker</span></h1>
             </div>
         </div>
     </header>
@@ -49,28 +64,32 @@
             </div>
             {% endif %}
         </div>
-        <div class="d-grid gap-2 d-md-flex justify-content-center">
+        <div class="gap-2 d-md-flex justify-content-center">
 
 
 
 
-<form class="btn btn-primary sttt-button shadow-none btn-lg btn-block" name="reset_profit" id ="reset_profit" method="POST" action="">
-    {% csrf_token %}
-    <input type="hidden" name="session_key" value="{{ session_key }}">
-    <input type="hidden" name="reset_profit" value=True>Reset Profit
-</form>
+            <form class="btn btn-primary sttt-button shadow-none btn-lg btn-block" name="reset_profit" id="reset_profit"
+                method="POST" action="">
+                {% csrf_token %}
+                <input type="hidden" name="session_key" value="{{ session_key }}">
+                <input type="hidden" name="reset_profit" value=True>Reset Profit
+            </form>
 
 
 
 
-            
+
             {% if user.is_authenticated %}
-            <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% url 'account_logout' %}" role="button">Log Out</a>
+            <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% url 'account_logout' %}"
+                role="button">Log Out</a>
             {% else %}
-            <a class="btn btn-primary sttt-button sttt-button-25 shadow-none btn-lg btn-block" href="{% url 'account_signup' %}" role="button">Register</a>
-            <a class="btn btn-primary sttt-button sttt-button-25 shadow-none btn-lg btn-block" href="{% url 'account_login' %}" role="button">Log In</a>
+            <a class="btn btn-primary sttt-button sttt-button-25 shadow-none btn-lg btn-block"
+                href="{% url 'account_signup' %}" role="button">Register</a>
+            <a class="btn btn-primary sttt-button sttt-button-25 shadow-none btn-lg btn-block"
+                href="{% url 'account_login' %}" role="button">Log In</a>
             {% endif %}
-          </div>
+        </div>
     </nav>
 
 
@@ -104,6 +123,225 @@
                 {% endfor %}
             </select>
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="container">
+            <div class="row d-flex justify-content-center">
+
+
+
+
+
+
+
+
+
+
+
+                <div class="p-2 col-md-6 trade-box">
+                    <div class="col-md-12">
+
+                        <form name="trade_buy_form" id="trade_buy_form" method="POST" action="">
+
+
+
+                            <div class="d-flex flex-column">
+
+                                <div class="p-2">
+
+
+
+
+                                    <label for="form_buy_price">Buy Price</label>
+                                    <input type="number" size="5" name="form_buy_price" id="form_buy_price"
+                                        autocomplete="off" value="{{ populate_price }}" min="0.01" max="500" step="0.01"
+                                        required>
+
+
+
+                                </div>
+
+                                <div class="p-2">
+
+
+
+
+
+
+                                    <label for="form_buy_amount">Units</label>
+                                    <input type="number" size="5" name="form_buy_amount" id="form_buy_amount"
+                                        autocomplete="off" value="{{ populate_amount }}" min="1" max="69600" required>
+
+
+
+
+
+
+                                </div>
+
+                                <div class="p-2">
+
+
+
+
+
+                                    <button
+                                        class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
+                                        type="submit">BUY!</button>
+
+
+
+
+                                </div>
+
+                            </div>
+
+
+                            {% csrf_token %}
+                            <input type="hidden" name="session_key" id="session_key" value="{{ session_key }}">
+                            <input type="hidden" name="form_buy_commodity" id="form_buy_commodity"
+                                value="{{ populate_commodity }}">
+                            <input type="hidden" name="form_buy" value="True">
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div class="p-2 col-md-6 trade-box sell-box">
+                    <div class="col-md-12">
+
+                        <form name="trade_sell_form" id="trade_sell_form" method="POST" action="">
+
+
+
+                            <div class="d-flex flex-column">
+                                <div class="p-2">
+
+
+
+                                    <label for="form_sell_price">Sell Price</label>
+                                    <input type="number" size="5" name="form_sell_price" id="form_sell_price"
+                                        autocomplete="off" value="{{ populate_price }}" min="0.01" max="500" step="0.01"
+                                        required>
+
+
+                                </div>
+
+                                <div class="p-2">
+
+
+
+                                    <label for="form_sell_amount">Units</label>
+                                    <input type="number" size="5" name="form_sell_amount" id="form_sell_amount"
+                                        autocomplete="off" value="{{ populate_amount }}" min="1" max="69600" required>
+
+
+
+
+
+
+
+
+
+
+                                </div>
+
+                                <div class="p-2">
+
+
+
+
+
+
+                                    <button
+                                        class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
+                                        type="submit">SELL!</button>
+
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            {% csrf_token %}
+                            <input type="hidden" name="session_key" value="{{ session_key }}">
+                            <input type="hidden" name="form_sell_commodity" id="form_sell_commodity"
+                                value="{{ populate_commodity }}">
+                            <input type="hidden" name="form_buy" value="False">
+                        </form>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+        </div>
+        {% for error in errors %}
+        <h1>- - - - - {{ error.error_message }} - - - - -</h1>
+        {% endfor %}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -157,69 +395,20 @@
             </table>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div>
-                <form name="trade_buy_form" id="trade_buy_form" method="POST" action="">
-                    <input type="number" size="5" name="form_buy_price" id="form_buy_price" autocomplete="off"
-                        value="{{ populate_price }}" min="0.01" max="500" step="0.01" required>
-                    <input type="number" size="5" name="form_buy_amount" id="form_buy_amount" autocomplete="off"
-                        value="{{ populate_amount }}" min="1" max="69600" required>
-                    {% csrf_token %}
-                    <input type="hidden" name="session_key" id="session_key" value="{{ session_key }}">
-                    <input type="hidden" name="form_buy_commodity" id="form_buy_commodity"
-                        value="{{ populate_commodity }}">
-                    <input type="hidden" name="form_buy" value="True">
-                    <button type="submit">BUY!</button>
-                </form>
-            </div>
-
-            <div>
-                <form name="trade_sell_form" id="trade_sell_form" method="POST" action="">
-                    <input type="number" size="5" name="form_sell_price" id="form_sell_price" autocomplete="off"
-                        value="{{ populate_price }}" min="0.01" max="500" step="0.01" required>
-                    <input type="number" size="5" name="form_sell_amount" id="form_sell_amount" autocomplete="off"
-                        value="{{ populate_amount }}" min="1" max="69600" required>
-                    {% csrf_token %}
-                    <input type="hidden" name="session_key" value="{{ session_key }}">
-                    <input type="hidden" name="form_sell_commodity" id="form_sell_commodity"
-                        value="{{ populate_commodity }}">
-                    <input type="hidden" name="form_buy" value="False">
-                    <button type="submit">SELL!</button>
-                </form>
-            </div>
-
-
-
-            {% for error in errors %}
-            <h1>- - - - - {{ error.error_message }} - - - - -</h1>
-            {% endfor %}
         </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </main>
     <br><br>
@@ -229,7 +418,7 @@
                 {{ last_updated }} | Last Update from <a href="https://uexcorp.space/" target="_blank">UEX</a></p>
         </div>
         <div>
-            <p>Visit this project's <a href="https://github.com/MadStu/space-trucker/" target="_blank">GitHub Page</a></p>
+            <p>Visit this project's <a href="https://github.com/MadStu/space-trucker/" target="_blank">GitHub</a></p>
         </div>
     </footer>
 

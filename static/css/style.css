@@ -52,11 +52,29 @@ h1, h2 {
     color: ivory;
 }
 
+.trade-box {
+    background-color: rgb(94, 214, 130);
+    border-radius: 10px;
+    border: 2px solid #212529;
+}
+
+.sell-box {
+    background-color: coral;
+}
+
+.sttt-button-100 {
+    width: 100%;
+}
+
 /* Media queries */
 
 /* For screen sizes from 768px wide and down */
 @media screen and (max-width: 768px){
     .sttt-button-25, .sttt-button, .btn, .btn-primary {
         width: 100%;
+    }
+
+    .header-block {
+        display: block;
     }
 }
