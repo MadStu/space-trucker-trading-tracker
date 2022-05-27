@@ -173,10 +173,8 @@
             </thead>
             <tbody>
                 {% for trade in trades %}
-                <tr>
-                    <td><span
-                            onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')"><u>{{ trade.commodity }}</u></span>
-                    </td>
+                <tr onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')">
+                    <td>{{ trade.commodity }}</td>
                     <td>{{ trade.cost|floatformat:0|intcomma }}</td>
                     <td>{{ trade.amount|intcomma }}</td>
                     <td>{{ trade.value|floatformat:0|intcomma }}</td>
@@ -234,49 +232,7 @@
                 &copy; <a href="https://www.linkedin.com/in/sturaynor/" target="_blank">Stuart Raynor</a> 2022</p>
         </div>
     </footer>
-
-    <script>
-        document.getElementById('reset_profit').addEventListener('click', function (event) {
-            document.getElementById('reset_profit').submit();
-        });
-
-
-        function setFields() {
-            // Get the selection box
-            var selectBox = document.getElementById("in_commodity");
-            // Get the selected option
-            var selectedOption = selectBox.options[selectBox.selectedIndex];
-            // Get the attribute value
-            var buyValue = selectedOption.getAttribute("data-buy");
-            var sellValue = selectedOption.getAttribute("data-sell");
-            var commodityValue = selectedOption.getAttribute("value");
-            // Get the fields
-            var buyPrice = document.getElementById("form_buy_price");
-            var sellPrice = document.getElementById("form_sell_price");
-            var formBuyCommodity = document.getElementById("form_buy_commodity");
-            var formSellCommodity = document.getElementById("form_sell_commodity");
-            // Insert the values
-            buyPrice.value = buyValue;
-            sellPrice.value = sellValue;
-            formBuyCommodity.value = commodityValue;
-            formSellCommodity.value = commodityValue;
-        };
-
-        function setSelect(commodity, amount) {
-            // Get the fields
-            var selectBox = document.getElementById("in_commodity");
-            var buyAmount = document.getElementById("form_buy_amount");
-            var sellAmount = document.getElementById("form_sell_amount");
-            // Change the selected commodity and insert the unit amounts
-            selectBox.value = commodity;
-            buyAmount.value = amount;
-            sellAmount.value = amount;
-            // Set the price and hidden fields
-            setFields();
-        };
-
-        setFields()
-    </script>
+    <script src="{% static 'js/script.js' %}"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
     </script>
