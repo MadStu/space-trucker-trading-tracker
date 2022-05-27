@@ -2,6 +2,7 @@
 
 body {
     background-color: DarkSlateGray;
+    color: ivory;
 }
 
 p,
@@ -9,16 +10,53 @@ h1,
 h2,
 h3,
 a,
-table {
+table, .h2, .h4 {
     color: ivory;
 }
 
-h1,
-h2 {
+a {
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    color: lightpink;
+    text-decoration: underline;
+}
+
+h1, h2 {
     font-family: 'Michroma', sans-serif;
+}
+
+.sttt-button {
+    width: 50%;
+    background-color: rgb(204, 216, 41);
+    border-color: #212529;
+    border-width: 3px;
+    font-family: 'Michroma', sans-serif;
+    color: #212529;
+}
+
+.sttt-button:hover, .sttt-button:active {
+    text-decoration: none;
+    background-color: #212529;
+    border-color: #212529;
+    color: ivory;
+}
+
+.sttt-button-25 {
+    width: 25%;
 }
 
 .form-select {
     background-color: #181D27;
     color: ivory;
+}
+
+/* Media queries */
+
+/* For screen sizes from 768px wide and down */
+@media screen and (max-width: 768px){
+    .sttt-button-25, .sttt-button, .btn, .btn-primary {
+        width: 100%;
+    }
 }
