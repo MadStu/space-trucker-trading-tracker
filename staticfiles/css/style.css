@@ -11,7 +11,7 @@ body {
     min-height: 100vh;
     background-color: DarkSlateGray;
     color: ivory;
-    max-width: 900px;
+    max-width: 912px;
     margin: auto;
 }
 
@@ -43,6 +43,10 @@ h1, h2 {
     padding-bottom: 5px;
 }
 
+.lower-button-padding {
+    padding-top: 5px;
+}
+
 .main-padding {
     padding: 15px;
 }
@@ -67,7 +71,7 @@ h1, h2 {
     width: 50%;
 }
 
-.form-select {
+.form-select, .form-control {
     background-color: #181D27;
     color: ivory;
 }
@@ -88,6 +92,29 @@ h1, h2 {
     width: 100%;
 }
 
+.table-dark {
+    color: ivory;
+}
+
+footer {
+    text-align: right;
+    font-size: x-small;
+    padding-right: 30px;
+    padding-left: 30px;
+}
+
+footer a {
+    font-weight: 600;
+}
+
+.footer-thanks {
+    font-size: small;
+}
+
+.footer-links {
+    font-size: small;
+}
+
 /* Media queries */
 
 /* For screen sizes from 768px wide and down */
@@ -102,5 +129,13 @@ h1, h2 {
 
     .main-padding {
         padding: 5px;
+    }
+
+    .trade-box-inside {
+        width: 50%;
+    }
+
+    .table-dark {
+        font-size: small;
     }
 }
