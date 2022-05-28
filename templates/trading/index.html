@@ -163,29 +163,4 @@
         </tbody>
     </table>
 </section>
-
-<div class="mt-auto">
-    <section class="navbar-dark bg-dark align-items-center">
-        {% if user.is_authenticated %}
-        <form class="justify-content-center top-button-padding lower-button-padding" method="post"
-            action="{% url 'account_logout' %}">
-            {% csrf_token %}
-            {% if redirect_field_value %}
-            <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
-            {% endif %}
-            <button class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
-                type="submit">Logout <i class="fa-solid fa-arrow-right-from-bracket fa-beat"
-                    style="--fa-animation-duration: 3s;"></i></button>
-        </form>
-        {% else %}
-
-        <p class="lower-login lower-login-top">The Space Trucker Trading Trucker app uses a browser cookie to keep
-            track of the trades in the database that belong to you. If your browser does not accept cookies, please
-            log in via google. If you're unable to log in via Google, please <a
-                href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Log In</a>.</p>
-        {% endif %}
-    </section>
-    <p class="lower-login lower-button-padding">> {{ time_now }} | Server Time<br>
-        > {{ last_updated }} | Last Update from <a href="https://uexcorp.space/" target="_blank">UEX</a></p>
-</div>
 {%endblock%}

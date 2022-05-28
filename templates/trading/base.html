@@ -26,30 +26,46 @@
     </header>
 
     <nav class="navbar-dark bg-dark">
+        {% if request.path == "/" %}
 
-        <div class="d-flex justify-content-center">
-            <div class="p-2">
-                <h2>
-                    <span id="user_profit">{% if user_profit %}{{ user_profit|intcomma }}{% else %}0{% endif %}</span>
-                    aUEC<br>
-                </h2>
+            <div class="d-flex justify-content-center">
+                <div class="p-2">
+                    <h2>
+                        <span id="user_profit">{% if user_profit %}{{ user_profit|intcomma }}{% else %}0{% endif %}</span>
+                        aUEC<br>
+                    </h2>
+                </div>
             </div>
+
+            <div class="gap-2 d-md-flex justify-content-center top-button-padding">
+                <form class="btn btn-primary sttt-button shadow-none btn-lg btn-block" name="reset_profit" id="reset_profit"
+                    method="POST" action="">
+                    {% csrf_token %}
+                    <input type="hidden" name="session_key" value="{{ session_key }}">
+                    <input type="hidden" name="reset_profit" value=True>Reset Profit <i
+                        class="fa-solid fa-arrows-rotate fa-spin" style="--fa-animation-duration: 3s;"></i>
+                </form>
+                {% if user.is_authenticated %}{% else %}
+                <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% provider_login_url 'google' %}"
+                    role="button">Log In via Google <i class="fa-solid fa-arrow-right-to-bracket fa-beat"
+                        style="--fa-animation-duration: 3s;"></i></a>
+                {% endif %}
+            </div>
+        {% else %}
+        <div class="gap-2 d-md-flex justify-content-center top-button-padding">
+            <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% url 'index' %}"
+                role="button">Go Back Home <i class="fa-solid fa-home fa-beat"
+                    style="--fa-animation-duration: 3s;"></i></a>
         </div>
 
+        {% endif %}
+        {% if user.is_superuser %}
         <div class="gap-2 d-md-flex justify-content-center top-button-padding">
-            <form class="btn btn-primary sttt-button shadow-none btn-lg btn-block" name="reset_profit" id="reset_profit"
-                method="POST" action="">
-                {% csrf_token %}
-                <input type="hidden" name="session_key" value="{{ session_key }}">
-                <input type="hidden" name="reset_profit" value=True>Reset Profit <i
-                    class="fa-solid fa-arrows-rotate fa-spin" style="--fa-animation-duration: 3s;"></i>
-            </form>
-            {% if user.is_authenticated %}{% else %}
-            <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% provider_login_url 'google' %}"
-                role="button">Log In via Google <i class="fa-solid fa-arrow-right-to-bracket fa-beat"
+            <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% url 'editor' %}"
+                role="button">Enter the Price Editor <i class="fa-solid fa-pen-to-square fa-beat"
                     style="--fa-animation-duration: 3s;"></i></a>
-            {% endif %}
         </div>
+        {% endif %}
 
     </nav>
 
@@ -57,27 +73,51 @@
     <!-- Content Goes here -->
     {% endblock content %}
 
+    <div class="mt-auto">
+        <section class="navbar-dark bg-dark align-items-center">
+            {% if user.is_authenticated %}
+            <form class="justify-content-center top-button-padding lower-button-padding" method="post"
+                action="{% url 'account_logout' %}">
+                {% csrf_token %}
+                {% if redirect_field_value %}
+                <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+                {% endif %}
+                <button class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
+                    type="submit">Logout <i class="fa-solid fa-arrow-right-from-bracket fa-beat"
+                        style="--fa-animation-duration: 3s;"></i></button>
+            </form>
+            {% else %}
     
-    {% if request.path == "/" %}
-    {% if user.is_superuser %}
-    <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% url 'editor' %}"
-    role="button">Enter the Price Editor <i class="fa-solid fa-pen-to-square fa-beat" style="--fa-animation-duration: 3s;"></i></a>
-    {% endif %}
-    {% else %}
-    <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% url 'index' %}"
-    role="button">Go Back Home <i class="fa-solid fa-home fa-beat" style="--fa-animation-duration: 3s;"></i></a>
-    {% endif %}
+            <p class="lower-login lower-login-top">The Space Trucker Trading Trucker app uses a browser cookie to keep
+                track of the trades in the database that belong to you. If your browser does not accept cookies, please
+                log in via google. If you're unable to log in via Google, please <a
+                    href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Log In</a>.</p>
+            {% endif %}
+        </section>
+    </div>
+
+    
+
 
     <div class="mt-auto">
         <footer>
             <div>
                 <p>> View the <a href="{% url 'prices' %}">Latest prices</a>
-                <br>> I'm extremely grateful to the team at <a href="https://uexcorp.space/" target="_blank">UEX Corp</a>
+                    <br>> I'm extremely grateful to the team at <a href="https://uexcorp.space/" target="_blank">UEX
+                        Corp</a>
                     for the use of their API. Thank you! o7
-                <br>> Visit this project's <a href="https://github.com/MadStu/space-trucker/" target="_blank">GitHub</a>
+                    <br>>
+                    <br>> Visit this project's <a href="https://github.com/MadStu/space-trucker/"
+                        target="_blank">GitHub</a>
                     repository
-                <br>> &copy; <a href="https://www.linkedin.com/in/sturaynor/" target="_blank">Stuart Raynor</a> 2952
-                <br>> Player Name: <b>Max_Hamilton</b></p>
+                    <br>> &copy; <a href="https://www.linkedin.com/in/sturaynor/" target="_blank">Stuart Raynor</a> 2952
+                    <br>> Player Name: <b>Max_Hamilton</b>
+                    {% if request.path == "/" %}
+                    <br>>
+                    <br>> {{ time_now }} | Server Time
+                    <br>> {{ last_updated }} | Last Update from <a href="https://uexcorp.space/" target="_blank">UEX</a>
+                    {% endif %}
+                </p>
             </div>
         </footer>
     </div>
