@@ -31,13 +31,11 @@ I have taken a mobile first design approach
     - Solved. It was working with sell trades, but I'd forgot to create the variable in the right place for the buy trades.
 
 ### Todo
-- Style buy sell forms
-- Admin Area <
+- Style buy sell forms <
 - Readme
 - Refactor Code again
 - Error messages
 - Option to choose unit amount size by ship
-- Code auto deletion of old trades
 - Create new user db entries with their ship details and past 5 trades
 - create about page
 

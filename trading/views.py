@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Max
 from .models import Trade, CommodityPrice, ErrorList, UserProfit
 from .db_interactions import update_commodity_prices, handle_form_data
-from .db_interactions import handle_api_data, commodity_data
+from .db_interactions import handle_api_data, commodity_data, delete_old_trades
 
 
 def index(request):
@@ -48,6 +48,10 @@ def index(request):
     # Check if it's been more than * hours since last update
     # 3600 = 1 hour, 21600 = 6 hours
     if epoch_time - time_in_seconds > last_update:
+
+        # Check for any trades over 14 days old
+        delete_old_trades()
+
         print("Last modified:", update_db.date_modified)
         print("Current Time:", epoch_time)
         print("Retrieving UEX API...")
@@ -211,6 +215,7 @@ def editor(request):
     context = {
         'commodity_data': commodity_data(),
     }
+
     return render(request, "trading/editor.html", context)
 
 
@@ -221,4 +226,5 @@ def prices(request):
     context = {
         'commodity_data': commodity_data(),
     }
+
     return render(request, "trading/prices.html", context)

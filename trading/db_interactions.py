@@ -215,3 +215,23 @@ def user_profit_calc(session, cost, buy):
         up_data.profit += int(cost)
 
     up_data.save()
+
+
+def delete_old_trades():
+    """
+    Remove trades over 14 days old
+
+    function called at the same time as the API (no sooner than every 6 hours)
+    """
+    # Get time in second
+    epoch_time = time.time()
+
+    # Define how many seconds to allow trade to exist
+    # 86400 = 1 day, 1209600 = 14 days
+    days_in_seconds = 1209600
+
+    trades = Trade.objects.all()
+
+    for trade in trades:
+        if trade.time < epoch_time - days_in_seconds:
+            trade.delete()
