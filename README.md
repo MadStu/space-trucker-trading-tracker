@@ -141,3 +141,28 @@ This helped me to realise what features I needed to code on the back-end, just a
 - Save the user's ship to the databases so it remembers.
 - Default the unit amount to the remaining cargo bay space
 
+# Data Model
+
+## Logic Flow
+
+## Libraries Used
+
+# Testing
+
+## Validator Testing 
+
+## Bugs
+
+# Deployment
+
+# Credits 
+
+- I used the amazing API created by the [UEX Corp](https://uexcorp.space/) team.
+- I intially got the colours and what went best with tehm from [w3schools](https://www.w3schools.com/colors/color_tryit.asp?color=DarkSlateGray).
+- I used the Michroma font from [Google Fonts](https://fonts.google.com/specimen/Michroma#standard-styles).
+- The nice little icons in the buttons are from [Font Awesome](https://fontawesome.com/).
+- I often used [W3Schools](https://www.w3schools.com/python/) and [Django docs](https://docs.djangoproject.com/en/4.0/) as a guide for finding the best solutions and using the code in the correct format.
+- I'd also search google which more often than not would show solutions written on [Stack Overflow](https://stackoverflow.com/).
+- I used a wallpaper image of a large cargo ship called a Drake Caterpillar with credits to Cloud Imperium Gaming for creating the [Star Citizen](https://tinyurl.com/2yet2hz9) game.
+
+## Final Notes
