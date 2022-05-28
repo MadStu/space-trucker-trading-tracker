@@ -42,7 +42,7 @@
                 {% csrf_token %}
                 <input type="hidden" name="session_key" value="{{ session_key }}">
                 <input type="hidden" name="reset_profit" value=True>Reset Profit <i
-                    class="fa-solid fa-arrows-rotate fa-flip" style="--fa-animation-duration: 3s;"></i>
+                    class="fa-solid fa-arrows-rotate fa-spin" style="--fa-animation-duration: 3s;"></i>
             </form>
             {% if user.is_authenticated %}{% else %}
             <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% provider_login_url 'google' %}"
@@ -56,6 +56,17 @@
     {% block content %}
     <!-- Content Goes here -->
     {% endblock content %}
+
+    
+    {% if request.path == "/" %}
+    {% if user.is_superuser %}
+    <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% url 'editor' %}"
+    role="button">Enter the Price Editor <i class="fa-solid fa-pen-to-square fa-beat" style="--fa-animation-duration: 3s;"></i></a>
+    {% endif %}
+    {% else %}
+    <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% url 'index' %}"
+    role="button">Go Back Home <i class="fa-solid fa-home fa-beat" style="--fa-animation-duration: 3s;"></i></a>
+    {% endif %}
 
     <div class="mt-auto">
         <footer>

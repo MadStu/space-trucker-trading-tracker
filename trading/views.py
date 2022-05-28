@@ -10,7 +10,7 @@ from .db_interactions import handle_api_data, commodity_data
 
 def index(request):
     """
-    Handles the logic on the index page
+    The main index page where the magic happens
     """
     global form_commodity
     global form_price
@@ -186,3 +186,12 @@ def index(request):
     }
 
     return render(request, "trading/index.html", context)
+
+def editor(request):
+    """
+    The price editor page for use only by the admins
+    """
+    context = {
+        'test': "test"
+    }
+    return render(request, "trading/editor.html", context)

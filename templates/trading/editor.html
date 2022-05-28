@@ -1,0 +1,78 @@
+{% extends "trading/base.html" %}
+
+{% block content %}
+
+{% load socialaccount %}
+{% load static %}
+{% load humanize %}
+
+
+
+
+
+{% if user.is_superuser %}
+<main class="main-padding">
+
+
+    <h2>Price Editor</h2>
+    
+    <p>Hello, admin.</p>
+    
+
+
+    <section>
+        <table class="table table-sm table-bordered table-hover table-dark table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Commodity</th>
+                    <th>Buy Price</th>
+                    <th>Sell Price</th>
+                    <th>Last Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trade in trades %}
+                <tr onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')">
+                    <td>{{ trade.commodity }}</td>
+                    <td>{{ trade.cost|floatformat:0|intcomma }}</td>
+                    <td>{{ trade.amount|intcomma }}</td>
+                    <td>{{ trade.value|floatformat:0|intcomma }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No Data Retrieved</td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+                {% endfor %}
+                <tr>
+                    <td>Current Stock:</td>
+                    <td>{{ total_cost|intcomma }}</td>
+                    <td>{{ total_cargo|intcomma }}</td>
+                    <td>{{ total_value|intcomma }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+
+
+
+</main>
+
+
+
+
+
+
+
+{% else %}
+<div class="main-padding">
+    <h2>Price Editor</h2>
+<p>Dear Citizen. You have entered a restricted area. <a href="/">Leave immediately</a>.</p>
+</div>
+{% endif %}
+
+
+{%endblock%}
