@@ -138,4 +138,8 @@ footer {
     footer img {
         width: 50px;
     }
+
+    .hide-me {
+        display: none;
+    }
 }

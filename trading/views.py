@@ -45,8 +45,7 @@ def index(request):
     if request.user.is_authenticated:
         session_key = request.user.username
 
-    # Check if it's been more than * hours since last update
-    # 3600 = 1 hour, 21600 = 6 hours
+    # Check if it's been more than * seconds since last update
     if epoch_time - time_in_seconds > last_update:
 
         # Check for any trades over 14 days old

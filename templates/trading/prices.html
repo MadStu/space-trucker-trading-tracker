@@ -28,7 +28,7 @@
                         <th>Commodity</th>
                         <th>Buy Price</th>
                         <th>Sell Price</th>
-                        <th>Last Updated</th>
+                        <th class="hide-me">Last Updated</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,14 +37,14 @@
                         <td>{{ commodity.name }}</td>
                         <td>{{ commodity.trade_price_buy|floatformat:2 }}</td>
                         <td>{{ commodity.trade_price_sell|floatformat:2 }}</td>
-                        <td>{{ commodity.date }}</td>
+                        <td class="hide-me">{{ commodity.date }}</td>
                     </tr>
                     {% empty %}
                     <tr>
                         <td>No Data Retrieved</td>
                         <td></td>
                         <td></td>
-                        <td></td>
+                        <td class="hide-me"></td>
                     </tr>
                     {% endfor %}
                 </tbody>

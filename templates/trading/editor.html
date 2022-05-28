@@ -32,7 +32,7 @@
                     <th>Buy Price</th>
                     <th>Sell Price</th>
                     <th>Update</th>
-                    <th>Last Updated</th>
+                    <th class="hide-me">Last Updated</th>
                 </tr>
             </thead>
             <tbody>
@@ -47,7 +47,7 @@
                                 autocomplete="off" value="{{ commodity.trade_price_sell|floatformat:2 }}" min="0.01"
                                 max="500" step="0.01" required></td>
                         <td><button class="btn btn-primary sttt-button btn-sm">Edit</button></td>
-                        <td>{{ commodity.date }}</td>
+                        <td class="hide-me">{{ commodity.date }}</td>
                         <input type="hidden"  name="commodity_id" id="commodity_id" value="{{ commodity.code }}">
                     </tr>
                 </form>
@@ -57,7 +57,7 @@
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td></td>
+                    <td class="hide-me"></td>
                 </tr>
                 {% endfor %}
             </tbody>
