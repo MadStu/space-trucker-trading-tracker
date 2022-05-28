@@ -200,7 +200,7 @@ def editor(request):
 
 def prices(request):
     """
-    The price editor page for use only by the admins
+    The price viewer page is to show the current prices
     """
     context = {
         'commodity_data': commodity_data(),
