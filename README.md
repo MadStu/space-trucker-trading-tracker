@@ -1,46 +1,19 @@
-# The Space Trucker Trading Tracker
+# Space Trucker Trading Tracker
 
-## A Trading Tool for Star Citizen
+## Introduction
 
-https://space-trucker.herokuapp.com/
+The Space Trucker Trading Tracker (STTT) is a cargo inventory management tool made for the citizens of [Star Citizen](https://tinyurl.com/2yet2hz9).
 
-[Star Citizen](https://tinyurl.com/2yet2hz9) is a futuristic, deep space, science fiction game / simulation. This tool allows Star Citizen Traders to keep track of their ship's current cargo inventory and estimated value.
+Star Citizen (SC) is a deep space, science fiction game / simulation set 930 years in the future. The STTT's main purpose allows SC Traders to keep track of their ship's current cargo inventory and estimated value.
 
-I will take a design thinking and agile approach to creating the app.
+The way trading works in SC is you go to one of many locations and you purchase a particular commodity with "alpha United Earth Credits" (aUEC) which is the in-game currency. You then transport that commodity to another location that's in need of it, and sell them for a profit.
 
-I have taken a mobile first design approach
+The STTT is at heart a stock and inventory management tracking system that keeps you up to date with your current inventory, your current financial risk and how much you've made or are due to make on your current trading run. 
 
-### Bugs
-- Entering other values into int form field produces error
-    - Solved. Changed input type to correct input for form validation
-- API limitations meant the request limit had exceeded
-    - Solved. Saved API details to a databsse so doesn't require updating so often
-- Sessions won't work on all browsers due to session id's not staying the same
-    - Solved. Added option for users to register instead of relying on their session cookies
-- Profit tracker will only add and minus the same cost amount
-    - Solved. corrected an incorrect variable used to send to the profit tracker function
-- Resetting profit when entry didn't exist would cause error
-    - Solved. Added a check to see if the record existed
-- Total profit is only being worked out by the commodity database sell price
-    - Solved. Was sending the wrong variable
-- Due Profit wasn't calculating correctly
-    - Solved. Was calculating the wrong price. I compared code with a previous commit to see where I'd made the mistake
-- Static files not loading on Heroku
-    - Solved. I installed whitenoise to allow the app to serve its own static files
-- Error: local variable referenced before assignment
-    - Solved. It was working with sell trades, but I'd forgot to create the variable in the right place for the buy trades.
+The commodity pricing in SC is also determined by demand and supply so the pricing is always changing. An organisation called UEX Corp have agents that regularly check the prices at different locations and provide an API that lists the average commodity prices. The STTT uses this data to provide users with their estimated profit. 
 
-### Todo
-- Readme
-- Refactor Code again
-- Error messages
-- Option to choose unit amount size by ship
-- Create new user db entries with their ship details and past 5 trades
-- create help page <
+I've taken a mobile first design approach with accessibility and ease of use at the top of STTT's priorities. This makes it simple and easy for all space truckers across the galaxy to input the prices and trades from their small screened device without having to switch views on their main monitor and be at risk of piracy.
 
-### Credits
-- [UEX](https://uexcorp.space/) for providing an amazing API.
-- Cloud Imperium for creating [Star Citizen](https://tinyurl.com/2yet2hz9)
-- https://www.w3schools.com/colors/color_tryit.asp?color=DarkSlateGray
-- https://fonts.google.com/specimen/Michroma#standard-styles
-- https://fontawesome.com/
+A deployed version may be found here: [Space Trucker Trading Tracker](https://space-trucker.herokuapp.com/)
+
+![Space Trucker Trading Tracker](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/responsive-website-mockup.png)
