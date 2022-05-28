@@ -59,11 +59,13 @@
 
         {% endif %}
         {% if user.is_superuser %}
+        {% if request.path != "/editor/" %}
         <div class="gap-2 d-md-flex justify-content-center top-button-padding lower-button-padding">
             <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% url 'editor' %}"
                 role="button">Enter the Price Editor <i class="fa-solid fa-pen-to-square fa-beat"
                     style="--fa-animation-duration: 3s;"></i></a>
         </div>
+        {% endif %}
         {% endif %}
 
     </nav>
@@ -82,14 +84,14 @@
                 <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
                 {% endif %}
                 <button class="btn btn-primary sttt-button sttt-button-100 shadow-none btn-lg btn-block"
-                    type="submit">Logout <i class="fa-solid fa-arrow-right-from-bracket fa-beat"
+                    type="submit">Log Out <i class="fa-solid fa-arrow-right-from-bracket fa-beat"
                         style="--fa-animation-duration: 3s;"></i></button>
             </form>
             {% else %}
     
-            <p class="lower-login lower-login-top">The Space Trucker Trading Trucker app uses a browser cookie to keep
+            <p class="lower-login lower-login-top">The Space Trucker Trading Tracker app uses a browser cookie to keep
                 track of the trades in the database that belong to you. If your browser does not accept cookies, please
-                log in via google. If you're unable to log in via Google, please <a
+                log in via Google. If you're unable to log in via Google, please <a
                     href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Log In</a>.</p>
             {% endif %}
         </section>
@@ -98,7 +100,8 @@
     <div class="mt-auto">
         <footer>
             <div>
-                <p>> View the <a href="{% url 'prices' %}">Latest prices</a>
+                <p>
+                    <br>> View the <a href="{% url 'prices' %}">Latest prices</a>
                     <br>> I'm extremely grateful to the team at <a href="https://uexcorp.space/" target="_blank">UEX
                         Corp</a>
                     for the use of their API. Thank you! o7

@@ -37,6 +37,7 @@ I have taken a mobile first design approach
 - Option to choose unit amount size by ship
 - Create new user db entries with their ship details and past 5 trades
 - create help page
+- Style bottom logout div to be at the bottom
 
 ### Credits
 - [UEX](https://uexcorp.space/) for providing an amazing API.
