@@ -1,3 +1,4 @@
+import time
 from .models import Trade, CommodityPrice, ErrorList, UserProfit
 
 
@@ -190,6 +191,7 @@ def commodity_data():
         # Only add legal tradeable commodities to the new list
         if item['profit'] > 0 and item['kind'] != 'Drug':
             if item['trade_price_buy'] > 0:
+                item['date'] = time.ctime(item['date_modified'])
                 commodity_data_list.append(item)
     return commodity_data_list
 

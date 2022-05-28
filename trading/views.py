@@ -187,11 +187,22 @@ def index(request):
 
     return render(request, "trading/index.html", context)
 
+
 def editor(request):
     """
     The price editor page for use only by the admins
     """
     context = {
-        'test': "test"
+        'commodity_data': commodity_data(),
     }
     return render(request, "trading/editor.html", context)
+
+
+def prices(request):
+    """
+    The price editor page for use only by the admins
+    """
+    context = {
+        'commodity_data': commodity_data(),
+    }
+    return render(request, "trading/prices.html", context)

@@ -10,13 +10,12 @@
 
 
 
-{% if user.is_superuser %}
 <main class="main-padding">
 
 
-    <h2>Price Editor</h2>
+    <h2>Price Viewer</h2>
     
-    <p>Hello, admin.</p>
+    <p>Dear Citizen, invest wisely. Your capital may go up as well as down.</p>
     
 
 
@@ -29,23 +28,20 @@
                         <th>Commodity</th>
                         <th>Buy Price</th>
                         <th>Sell Price</th>
-                        <th>Update</th>
                         <th>Last Updated</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {% for commodity in commodity_data|dictsort:"date_modified" %}
+                    {% for commodity in commodity_data|dictsort:"date_modified" reversed %}
                     <tr onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')">
                         <td>{{ commodity.name }}</td>
                         <td>{{ commodity.trade_price_buy|floatformat:2 }}</td>
                         <td>{{ commodity.trade_price_sell|floatformat:2 }}</td>
-                        <td><button class="btn btn-primary sttt-button btn-sm">EDIT</button></td>
                         <td>{{ commodity.date }}</td>
                     </tr>
                     {% empty %}
                     <tr>
                         <td>No Data Retrieved</td>
-                        <td></td>
                         <td></td>
                         <td></td>
                         <td></td>
@@ -62,17 +58,6 @@
 </main>
 
 
-
-
-
-
-
-{% else %}
-<div class="main-padding">
-    <h2>Price Editor</h2>
-<p>Dear Citizen. You have entered a restricted area. <a href="/">Leave immediately</a>.</p>
-</div>
-{% endif %}
 
 
 {%endblock%}
