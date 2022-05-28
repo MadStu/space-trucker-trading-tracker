@@ -18,7 +18,7 @@ A deployed version may be found here: [Space Trucker Trading Tracker](https://sp
 
 ![Space Trucker Trading Tracker](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/responsive-website-mockup.png)
 
-# Instructions for Use and Features
+# Instructions for Use and Existing Features
 
 This app uses session id cookies to associate trades and inventory with the individual user. If your browser blocks cookies then you'll need to log in with your google account.
 
@@ -121,3 +121,23 @@ From all pages you're able log out by pressing the button at the bottom of the p
 And you'll also find a button to return to the main page at the top of each page that isn't the main page.
 
 ![Home Button](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/home-button.png)
+
+# Planning 
+
+I planned to make a Star Citizen trading app that would work on any web browser and be reliable and easy to use enough for the user to want to make it an essential tool when they're trading multiple commodities.
+
+I came up with the name of "Space Trucker Trading Tracker" as it's a bit of a tongue twister but has a nice ring to it. I hope most people would refer to it as STTT for short.
+
+Before writing any code I first drew a wireframe outline on the back of an envelope.
+
+This helped me to realise what features I needed to code on the back-end, just as much as the front-end.
+
+![Wireframe Drawing](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/wireframe.png)
+
+## Features Left to Implement
+
+- Code API to get im-game ships and the cargo bay sizes.
+- Option to choose unit amount by ship size.
+- Save the user's ship to the databases so it remembers.
+- Default the unit amount to the remaining cargo bay space
+
