@@ -153,6 +153,25 @@ This helped me to realise what features I needed to code on the back-end, just a
 
 ## Bugs
 
+- ~~Entering other values into int form field produces error.~~
+  - Solved by changing input type to correct values for form validation.
+- ~~API limitations meant the request limit had exceeded.~~
+    - Solved by saving API details to a database so it doesn't require updating so often.
+- ~~Sessions won't work on all browsers due to session id's not staying the same.~~
+    - Solved by adding the option for users to register instead of relying on browser cookies.
+- ~~Profit tracker will only add and minus the same cost amount.~~
+    - Solved by correcting an incorrect variable used to send to the profit tracker function.
+- ~~Resetting profit when entry didn't exist would cause error.~~
+    - Solved by adding a check to see if the record existed.
+- ~~Total profit is only being worked out by the commodity database sell price.~~
+    - Solved by correcting an incorrect variable.
+- ~~Due Profit wasn't calculating correctly.~~
+    - Solved. It was calculating the wrong price. I compared code with a previous commit to find where I'd made the mistake.
+- ~~Static files not loading on Heroku.~~
+    - Solved by installing whitenoise to allow the app to serve its own static files.
+- ~~Received the Error: local variable referenced before assignment.~~
+    - Solved. It was working with sell trades, but I'd forgot to create the variable in the right place for the buy trades.
+
 # Deployment
 
 # Credits 
