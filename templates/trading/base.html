@@ -31,8 +31,7 @@
             <div class="d-flex justify-content-center">
                 <div class="p-2">
                     <h2>
-                        <span id="user_profit">{% if user_profit %}{{ user_profit|intcomma }}{% else %}0{% endif %}</span>
-                        aUEC<br>
+                        <span id="user_profit">{{ user_profit|intcomma }}</span> aUEC<br>
                     </h2>
                 </div>
             </div>
@@ -52,7 +51,7 @@
                 {% endif %}
             </div>
         {% else %}
-        <div class="gap-2 d-md-flex justify-content-center top-button-padding">
+        <div class="gap-2 d-md-flex justify-content-center top-button-padding lower-button-padding">
             <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% url 'index' %}"
                 role="button">Go Back Home <i class="fa-solid fa-home fa-beat"
                     style="--fa-animation-duration: 3s;"></i></a>
@@ -60,7 +59,7 @@
 
         {% endif %}
         {% if user.is_superuser %}
-        <div class="gap-2 d-md-flex justify-content-center top-button-padding">
+        <div class="gap-2 d-md-flex justify-content-center top-button-padding lower-button-padding">
             <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% url 'editor' %}"
                 role="button">Enter the Price Editor <i class="fa-solid fa-pen-to-square fa-beat"
                     style="--fa-animation-duration: 3s;"></i></a>
@@ -96,9 +95,6 @@
         </section>
     </div>
 
-    
-
-
     <div class="mt-auto">
         <footer>
             <div>
@@ -127,6 +123,7 @@
         integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
     </script>
     <script src="https://kit.fontawesome.com/e4f75593c5.js" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
