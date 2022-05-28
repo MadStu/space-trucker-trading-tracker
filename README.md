@@ -31,7 +31,7 @@ I have taken a mobile first design approach
     - Solved. It was working with sell trades, but I'd forgot to create the variable in the right place for the buy trades.
 
 ### Todo
-- Main Styling
+- Style buy sell forms
 - Admin Area <
 - Readme
 - Refactor Code again
@@ -39,6 +39,7 @@ I have taken a mobile first design approach
 - Option to choose unit amount size by ship
 - Code auto deletion of old trades
 - Create new user db entries with their ship details and past 5 trades
+- create about page
 
 ### Credits
 - [UEX](https://uexcorp.space/) for providing an amazing API.

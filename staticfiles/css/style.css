@@ -128,7 +128,7 @@ footer a {
 
 /* For screen sizes from 768px wide and down */
 @media screen and (max-width: 768px){
-    .sttt-button-25, .btn, .btn-primary {
+    .btn, .btn-primary {
         width: 100%;
     }
 
@@ -146,8 +146,5 @@ footer a {
 
     .table-dark {
         font-size: small;
-    }
-    footer img {
-        width: 50px;
     }
 }

@@ -192,6 +192,22 @@ def editor(request):
     """
     The price editor page for use only by the admins
     """
+    epoch_time = time.time()
+
+    # Handle the received Form data
+    if request.method == 'POST':
+        form_buy_price = request.POST.get('form_buy_price')
+        form_sell_price = request.POST.get('form_sell_price')
+        commodity_id = request.POST.get('commodity_id')
+
+        cp_data = CommodityPrice.objects.get(code=commodity_id)
+
+        cp_data.trade_price_buy = float(form_buy_price)
+        cp_data.trade_price_sell = float(form_sell_price)
+        cp_data.date_modified = int(epoch_time)
+
+        cp_data.save()
+
     context = {
         'commodity_data': commodity_data(),
     }
