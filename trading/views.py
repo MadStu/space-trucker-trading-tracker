@@ -24,8 +24,22 @@ def index(request):
     epoch_time = time.time()
 
     # Get the last API update time
-    update_db = CommodityPrice.objects.get(code='UPDA')
-    last_update = update_db.date_modified
+    if CommodityPrice.objects.filter(code='UPDA').exists():
+        update_db = CommodityPrice.objects.get(code='UPDA')
+        last_update = update_db.date_modified
+    else:
+        # Doesn't exist so insert new Update entry
+        CommodityPrice.objects.create(
+            code='UPDA',
+            name='Time Updated',
+            kind='Epoch Time',
+            trade_price_buy=0,
+            trade_price_sell=0,
+            date_modified=0,
+            profit=0
+        )
+        update_db = CommodityPrice.objects.get(code='UPDA')
+        last_update = 0
 
     # Seconds to make 930 years from now (the current timezone in Star Citizen)
     sc_time = 29348006400
