@@ -248,6 +248,20 @@ I've also asked friends and players of Star Citizen to test the STTT with no err
 
 ## Validator Testing 
 
+- Python
+    - No errors or warnings were returned when passing through [PEP8online](http://pep8online.com/).
+
+- HTML
+
+- CSS
+    - No errors were found when passing through the official [(Jigsaw) validator](https://jigsaw.w3.org/css-validator/validator).
+
+- JavaScript
+    - No errors are shown when passing through the [Beautful Tools Javascript Validator](https://beautifytools.com/javascript-validator.php).
+
+- Accessibility
+    - No errors or contrast errors [Wave](https://wave.webaim.org/report#/https://space-trucker.herokuapp.com/).
+
 ## Bugs
 
 - ~~Entering other values into int form field produces error.~~

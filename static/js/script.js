@@ -21,7 +21,7 @@ function setFields() {
     sellPrice.value = sellValue;
     formBuyCommodity.value = commodityValue;
     formSellCommodity.value = commodityValue;
-};
+}
 
 function setSelect(commodity, amount) {
     // Get the fields
@@ -34,6 +34,6 @@ function setSelect(commodity, amount) {
     sellAmount.value = amount;
     // Set the price and hidden fields
     setFields();
-};
+}
 
-setFields()
+setFields();

@@ -108,7 +108,10 @@ def index(request):
                 up_data.profit = 0
                 up_data.save()
         else:
-            form_buy = True if request.POST.get('form_buy') == "True" else False
+            if request.POST.get('form_buy') == "True":
+                form_buy = True
+            else:
+                form_buy = False
 
             if form_buy:
                 form_commodity = request.POST.get('form_buy_commodity')

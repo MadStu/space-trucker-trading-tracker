@@ -38,7 +38,7 @@
 
             <div class="gap-2 d-md-flex justify-content-center top-button-padding">
                 <form class="btn btn-primary sttt-button shadow-none btn-lg btn-block" name="reset_profit" id="reset_profit"
-                    method="POST" action="">
+                    method="POST">
                     {% csrf_token %}
                     <input type="hidden" name="session_key" value="{{ session_key }}">
                     <input type="hidden" name="reset_profit" value=True>Reset Profit <i
@@ -75,7 +75,7 @@
     {% endblock content %}
 
     <div class="mt-auto">
-        <section class="navbar-dark bg-dark align-items-center">
+        <div class="navbar-dark bg-dark align-items-center">
             {% if user.is_authenticated %}
             <form class="justify-content-center top-button-padding lower-button-padding" method="post"
                 action="{% url 'account_logout' %}">
@@ -94,7 +94,7 @@
                 log in via Google. If you're unable to log in via Google, please <a
                     href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Log In</a>.</p>
             {% endif %}
-        </section>
+            </div>
     </div>
 
     <div class="mt-auto">
