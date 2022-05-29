@@ -1,31 +1,15 @@
 {% extends "trading/base.html" %}
-
 {% block content %}
-
 {% load socialaccount %}
 {% load static %}
 {% load humanize %}
-
-
-
-
-
 {% if user.is_superuser %}
 <main class="main-padding">
-
-
     <h2>Price Editor</h2>
-
     <p>Hello, Data-Gatherer. Enter a commodity's new price into the form and press the edit button to, well, edit!.
     </p>
-
-
-
-
-    
-    <section>
+    <div>
         <table class="table table-sm table-bordered table-hover table-dark table-striped">
-
             <thead class="thead-dark">
                 <tr>
                     <th>Commodity</th>
@@ -37,7 +21,7 @@
             </thead>
             <tbody>
                 {% for commodity in commodity_data|dictsort:"date_modified" %}
-                <form method="POST" action="">
+                <form method="POST">
                     <tr>{% csrf_token %}
                         <td>{{ commodity.name }}</td>
                         <td><input type="number" class="form-control" name="form_buy_price" id="form_buy_price"
@@ -48,7 +32,7 @@
                                 max="500" step="0.01" required></td>
                         <td><button class="btn btn-primary sttt-button btn-sm">Edit</button></td>
                         <td class="hide-me">{{ commodity.date }}</td>
-                        <input type="hidden"  name="commodity_id" id="commodity_id" value="{{ commodity.code }}">
+                        <input type="hidden" name="commodity_id" id="commodity_id" value="{{ commodity.code }}">
                     </tr>
                 </form>
                 {% empty %}
@@ -62,25 +46,12 @@
                 {% endfor %}
             </tbody>
         </table>
-    </section>
-
-
-
-
+    </div>
 </main>
-
-
-
-
-
-
-
 {% else %}
 <div class="main-padding">
     <h2>Price Editor</h2>
     <p>Dear Citizen. You have entered a restricted area. <a href="/">Leave immediately</a>.</p>
 </div>
 {% endif %}
-
-
 {%endblock%}

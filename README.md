@@ -252,7 +252,7 @@ I've also asked friends and players of Star Citizen to test the STTT with no err
     - No errors or warnings were returned when passing through [PEP8online](http://pep8online.com/).
 
 - HTML
-
+    - No errors or warnings to show when passing through the official [W3C Validator](https://validator.w3.org/nu/?doc=https%3A%2F%2Fspace-trucker.herokuapp.com%2F).
 - CSS
     - No errors were found when passing through the official [(Jigsaw) validator](https://jigsaw.w3.org/css-validator/validator).
 
@@ -284,6 +284,26 @@ I've also asked friends and players of Star Citizen to test the STTT with no err
     - Solved. It was working with sell trades, but I'd forgot to create the variable in the right place for the buy trades.
 
 # Deployment
+
+I've deployed it on heroku.com and used the following method.
+
+- The Space Trucker Trading Tracker can be deployed to heroku.com. The steps to deploy are as follows:
+- Sign up or log in to GitHub.com.
+- Navigate to this repository page at https://github.com/MadStu/space-trucker.
+- Press the "Fork" button which will make a copy of this space-trucker repository in your own account.
+- Sign up or log in to heroku.com.
+- Click "New" then "Create new app".
+- Enter an app name, choose your region and then click "Create app".
+- On the next page, go to the Settings Tab.
+- Click on "Add buildpack", add the python build pack, then save changes.
+- Click on "Reveal Config Vars" and enter the following vars without quotes:
+    - Key: "SECRET_KEY" Value: "Enter your own randomly generated key, you could use a 504-bit WPA Key from [randomkeygen.com](https://randomkeygen.com/)"
+    - Key: "UEX_API_KEY" Value: "Enter your API Key from [UEX Corp](https://uexcorp.space/api.html)"
+- Go to the Resources Tab, then search for and add the Heroku Postgres add-on.
+- Click on the Deploy tab at the top, select GitHub and connect to your GitHub account.
+- Search for the repository name (space-trucker) and click the "Connect" button.
+- Scroll down to the Manual deploy section and choose the main branch to deploy from.
+- Click the "Deploy Branch" button which syncs the heroku.com files with the repository.
 
 # Credits 
 

@@ -1,63 +1,40 @@
 {% extends "trading/base.html" %}
-
 {% block content %}
-
 {% load socialaccount %}
 {% load static %}
 {% load humanize %}
 
-
-
-
-
 <main class="main-padding">
-
-
     <h2>Price Viewer</h2>
-    
     <p>Dear Citizen, invest wisely. Your capital may go up as well as down.</p>
-    
-
-
-    <form method="POST" action="">
-        {% csrf_token %}
-        <section>
-            <table class="table table-sm table-bordered table-hover table-dark table-striped">
-                <thead class="thead-dark">
-                    <tr>
-                        <th>Commodity</th>
-                        <th>Buy Price</th>
-                        <th>Sell Price</th>
-                        <th class="hide-me">Last Updated</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for commodity in commodity_data|dictsort:"date_modified" reversed %}
-                    <tr onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')">
-                        <td>{{ commodity.name }}</td>
-                        <td>{{ commodity.trade_price_buy|floatformat:2 }}</td>
-                        <td>{{ commodity.trade_price_sell|floatformat:2 }}</td>
-                        <td class="hide-me">{{ commodity.date }}</td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td>No Data Retrieved</td>
-                        <td></td>
-                        <td></td>
-                        <td class="hide-me"></td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </section>
-    </form>
-
-
-
-
+    <div>
+        <table class="table table-sm table-bordered table-hover table-dark table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Commodity</th>
+                    <th>Buy Price</th>
+                    <th>Sell Price</th>
+                    <th class="hide-me">Last Updated</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commodity in commodity_data|dictsort:"date_modified" reversed %}
+                <tr onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')">
+                    <td>{{ commodity.name }}</td>
+                    <td>{{ commodity.trade_price_buy|floatformat:2 }}</td>
+                    <td>{{ commodity.trade_price_sell|floatformat:2 }}</td>
+                    <td class="hide-me">{{ commodity.date }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>No Data Retrieved</td>
+                    <td></td>
+                    <td></td>
+                    <td class="hide-me"></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </main>
-
-
-
-
 {%endblock%}

@@ -28,28 +28,28 @@
     <nav class="navbar-dark bg-dark">
         {% if request.path == "/" %}
 
-            <div class="d-flex justify-content-center">
-                <div class="p-2">
-                    <h2>
-                        <span id="user_profit">{{ user_profit|intcomma }}</span> aUEC<br>
-                    </h2>
-                </div>
+        <div class="d-flex justify-content-center">
+            <div class="p-2">
+                <h2>
+                    <span id="user_profit">{{ user_profit|intcomma }}</span> aUEC<br>
+                </h2>
             </div>
+        </div>
 
-            <div class="gap-2 d-md-flex justify-content-center top-button-padding">
-                <form class="btn btn-primary sttt-button shadow-none btn-lg btn-block" name="reset_profit" id="reset_profit"
-                    method="POST">
-                    {% csrf_token %}
-                    <input type="hidden" name="session_key" value="{{ session_key }}">
-                    <input type="hidden" name="reset_profit" value=True>Reset Profit <i
-                        class="fa-solid fa-arrows-rotate fa-spin" style="--fa-animation-duration: 3s;"></i>
-                </form>
-                {% if user.is_authenticated %}{% else %}
-                <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% provider_login_url 'google' %}"
-                    role="button">Log In via Google <i class="fa-solid fa-arrow-right-to-bracket fa-beat"
-                        style="--fa-animation-duration: 3s;"></i></a>
-                {% endif %}
-            </div>
+        <div class="gap-2 d-md-flex justify-content-center top-button-padding">
+            <form class="btn btn-primary sttt-button shadow-none btn-lg btn-block" name="reset_profit" id="reset_profit"
+                method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="session_key" value="{{ session_key }}">
+                <input type="hidden" name="reset_profit" value=True>Reset Profit <i
+                    class="fa-solid fa-arrows-rotate fa-spin" style="--fa-animation-duration: 3s;"></i>
+            </form>
+            {% if user.is_authenticated %}{% else %}
+            <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% provider_login_url 'google' %}"
+                role="button">Log In via Google <i class="fa-solid fa-arrow-right-to-bracket fa-beat"
+                    style="--fa-animation-duration: 3s;"></i></a>
+            {% endif %}
+        </div>
         {% else %}
         <div class="gap-2 d-md-flex justify-content-center top-button-padding lower-button-padding">
             <a class="btn btn-primary sttt-button shadow-none btn-lg btn-block" href="{% url 'index' %}"
@@ -88,13 +88,14 @@
                         style="--fa-animation-duration: 3s;"></i></button>
             </form>
             {% else %}
-    
+
             <p class="lower-login lower-login-top">The Space Trucker Trading Tracker app uses a browser cookie to keep
                 track of the trades in the database that belong to you. If your browser does not accept cookies, please
                 log in via Google. If you're unable to log in via Google, please <a
-                    href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Log In</a>.</p>
+                    href="{% url 'account_signup' %}">Register</a> or <a href="{% url 'account_login' %}">Log In</a>.
+            </p>
             {% endif %}
-            </div>
+        </div>
     </div>
 
     <div class="mt-auto">
@@ -103,12 +104,10 @@
                 <p>
                     <br>> View the <a href="{% url 'prices' %}">Latest prices</a>
                     <br>> I'm extremely grateful to the team at <a href="https://uexcorp.space/" target="_blank">UEX
-                        Corp</a>
-                    for the use of their API. Thank you! o7
+                        Corp</a>for the use of their API. Thank you! o7
                     <br>>
                     <br>> Visit this project's <a href="https://github.com/MadStu/space-trucker/"
-                        target="_blank">GitHub</a>
-                    repository
+                        target="_blank">GitHub</a> repository
                     <br>> &copy; <a href="https://www.linkedin.com/in/sturaynor/" target="_blank">Stuart Raynor</a> 2952
                     <br>> Player Name: <b>Max_Hamilton</b>
                     {% if request.path == "/" %}
