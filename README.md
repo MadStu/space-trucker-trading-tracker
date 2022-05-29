@@ -1,5 +1,7 @@
 # Space Trucker Trading Tracker
 
+![Space Trucker Trading Tracker](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/responsive-website-mockup.png)
+
 ## Introduction
 
 The Space Trucker Trading Tracker (STTT) is a cargo inventory management tool made for the citizens of Star Citizen.
@@ -15,8 +17,6 @@ The commodity pricing in SC is also determined by demand and supply so the prici
 I've taken a mobile first design approach with accessibility and ease of use at the top of STTT's priorities. This makes it simple and easy for all space truckers across the galaxy to input the prices and trades from their small screened device without having to switch views on their main monitor and be at risk of piracy. But it's also responsive to work on all devices.
 
 A deployed version may be found here: [Space Trucker Trading Tracker](https://space-trucker.herokuapp.com/)
-
-![Space Trucker Trading Tracker](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/responsive-website-mockup.png)
 
 # Instructions for Use and Existing Features
 
@@ -136,8 +136,8 @@ This helped me to realise what features I needed to code on the back-end, just a
 
 ## Features Left to Implement
 
-- Code API to get im-game ships and the cargo bay sizes.
-- Option to choose unit amount by ship size.
+- Code API retrieval to get in-game ships and the cargo bay size info.
+- User option to choose unit amount by ship size.
 - Save the user's ship to the databases so it remembers.
 - Default the unit amount to the remaining cargo bay space
 
@@ -180,7 +180,7 @@ This helped me to realise what features I needed to code on the back-end, just a
 - I intially got the colours and what went best with tehm from [w3schools](https://www.w3schools.com/colors/color_tryit.asp?color=DarkSlateGray).
 - I used the Michroma font from [Google Fonts](https://fonts.google.com/specimen/Michroma#standard-styles).
 - The nice little icons in the buttons are from [Font Awesome](https://fontawesome.com/).
-- I often used [W3Schools](https://www.w3schools.com/python/) and [Django docs](https://docs.djangoproject.com/en/4.0/) as a guide for finding the best solutions and using the code in the correct format.
+- I often used [W3Schools](https://www.w3schools.com/python/), [Django docs](https://docs.djangoproject.com/en/4.0/) and [Bootstrap Docs](https://getbootstrap.com/docs/5.2/getting-started/introduction/) as a guide for finding the best solutions and using the code in the correct format.
 - I'd also search google which more often than not would show solutions written on [Stack Overflow](https://stackoverflow.com/).
 - I used a wallpaper image of a large cargo ship called a Drake Caterpillar with credits to Cloud Imperium Gaming for creating the [Star Citizen](https://tinyurl.com/2yet2hz9) game.
 
