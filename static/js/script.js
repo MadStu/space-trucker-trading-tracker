@@ -6,11 +6,6 @@ function errorClear() {
     document.getElementById("clear_errors").submit();
 }
 
-var showModal = new bootstrap.Modal(document.getElementById('errorModal'), {
-    backdrop: 'static',
-    keyboard: false
-})
-
 function setFields() {
     // Get the selection box
     var selectBox = document.getElementById("in_commodity");

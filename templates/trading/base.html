@@ -120,6 +120,13 @@
         </footer>
     </div>
 
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
+    </script>
+    <script src="https://kit.fontawesome.com/e4f75593c5.js" crossorigin="anonymous"></script>
+
+    {% if error_list %}
     <!-- Modal -->
     <div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -148,13 +155,11 @@
         </div>
     </div>
 
-    <script src="{% static 'js/script.js' %}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous">
-    </script>
-    <script src="https://kit.fontawesome.com/e4f75593c5.js" crossorigin="anonymous"></script>
-    {% if error_list %}
     <script>
+        var showModal = new bootstrap.Modal(document.getElementById('errorModal'), {
+            backdrop: 'static',
+            keyboard: false
+        })
         showModal.show()
     </script>
     {% endif %}
