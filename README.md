@@ -132,7 +132,7 @@ Before writing any code I first drew a wireframe outline on the back of an envel
 
 This helped me to realise what features I needed to code on the back-end, just as much as the front-end.
 
-![Wireframe Drawing](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/wireframe.png)
+![Wireframe Drawing](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/wireframe.jpg)
 
 ## Features Left to Implement
 
@@ -222,9 +222,29 @@ Prices view
 
 - The prices view is just for information and only sends the commodity_data() list to the template.
 
-## Libraries Used
+## Technologies Used
+
+- Python
+
+- Django
+
+- JavaScript
+
+- HTML
+
+- CSS
+
+- PostgreSQL
+
+- Heroku
+
+- Bootstrap
 
 # Testing
+
+I've tested the code continuously as I've developed it, making sure all functionality works as it should and fix any typos or coding errors as and when they happen in all scenarios.
+
+I've also asked friends and players of Star Citizen to test the STTT with no errors being reported.
 
 ## Validator Testing 
 
