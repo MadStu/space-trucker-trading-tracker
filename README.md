@@ -137,13 +137,86 @@ This helped me to realise what features I needed to code on the back-end, just a
 ## Features Left to Implement
 
 - Code API retrieval to get in-game ships and the cargo bay size info.
-- User option to choose unit amount by ship size.
-- Save the user's ship to the databases so it remembers.
-- Default the unit amount to the remaining cargo bay space
+    - User option to choose unit amount by ship size.
+    - Save the user's ship to the databases so it remembers.
+    - Default the unit amount to the remaining cargo bay space
+- Code API retrieval to get the buy/sell locations for each commodity.
+    - Provide an option for the user to see where to buy or sell.
 
 # Data Model
 
 ## Logic Flow
+
+Index view
+
+- When the main index page loads, the first thing that happens in the view are some variables are defined such as the epoch_time and getting the session key.
+
+- Next the view checks to see if a record exists for the "Time Updated" object.
+    - If it exists, it will retrieve the time of the last update from the UEX API.
+    - If it doesn't exist, it creates one.
+
+- It will then check how much time has elapsed since last API update
+    - If more than 6 hours has elapsed, the API is called again and the time is recorded.
+        - a call to delete_old_trades() is also called to remove trades in the database that are over 14 days old.
+        - A check is carried out to see if the API is working. 
+            - If a status of "OK" is received, handle_api_data() is called to insert teh data into the database.
+            - This function then loops through the commodity data received. 
+                - If a commodity doesn't exist, it's created with the data provided.
+                - If a commodity already exists, the date_modified dates are then compared to see if the prices already in teh database is newer.
+                    - If the data received is newer, then it will update the existing record
+
+- When the index view receives form data by POST method, it checks to see if it was the user pressing the "Reset Profit" button.
+    - If it was the reset button pressed it then checks to see if the user (defined by the session key received) has trades exsting in the database.
+        - If it exists, it then resets the user's profit value to 0
+
+    - If it wasn't the reset button, it was a trade entry into the database and it looks to get the boolean value of whether it was a buy or sell.
+        - If True, it was a buy trade and the variables are assigned accordingly.
+        - If False, it was a sell trade and the variables are assigned accordingly.
+    - The variables that have been assigned are then insterted in to the database using the handle_form_data() function.
+        - handle_form_data() then checks if the user already has a trade with the same commodity.
+            - If it exists, it then gets that object and checks if it's a buy or sell trade.
+                - If a buy trade, the existing commodity amount is updated with the added number of units bought and the cost and profit expected is changed to reflect that.
+                - If a sell trade, a check is made to see if too much cargo has sold than exists in the inventory.
+                    - If too much then an error message is added to the database using the add_error_message() function.
+                        - add_error_message() simply stores an error message into the ErrorList model.
+                    - If it passes this check, the existing commodity amount is reduced to reflect how many the user has remaining in their cargo. The cost and profit are also updated.
+                - Another check is made against the ErrorList model and if there isn't one, it checks the inventory amount.
+                    - If therte is no remaining cargo, then this whole trade object is deleted.
+                    - If there is cargo still remaining, the object is updated with the newly calculated values.
+                - user_profit_calc() is called to update the total profit amount.
+                    - First a check is made, if an object of the profit for that user does not exist, a new one is created.
+                    - The function then updates the user's profit by subtraction if it's a buy trade, or addition if they've sold.
+            - If the commodity doesn't yet exist in the user's trades, then cost and potential profit are calculated and a new record is inserted with the details. With user_profit_calc() being called again to update total profit.
+        - update_commodity_prices() is then called which checks if there's any recorded errors and the user is a superuser.
+            - If the user is a superuser, the commodity price is updated with the values received in the trade form.
+        - After all the form data is handled, the page is redirected back tot he home page.
+
+- Next the index view gets some information from the database to populate the template form in anticipation of what the user will be using.
+    - If a trade objects exist for this user, it gets the most recently traded item and retrieves the details and creates the variable.
+    - If a trade object doesn't exist, we provide it with some default values to populate.
+
+- Next it calculates the totals by looping through all the user's trades and puts them in variables for the template.
+
+- The total profit is next retrieved with a check to see if it exists.
+    If it doesn't exist, a default of 0 is assigned to the template variable.
+
+- Within the context dictionary, variables from the view are assigned for the templates. commodity_data() is also assigned which is a list of all the commodity objects in the CommodityPrice model.
+    - commodity_data() also filters out commodities which are not relevant to star citizen traders.
+
+Editor view
+
+- The editor view receives and handles the POST data when a superuser is editing prices of a commodity from the editor page.
+    - The CommodityPrice object is updated with the new prices, as well as the time being saved to show when it was last updated.
+
+- The context dictionary just sends the commodity_data() list.
+
+Prices view
+
+- The prices view is just for information and only sends the commodity_data() list to the template.
+
+
+
+        
 
 ## Libraries Used
 

@@ -107,7 +107,7 @@ def handle_form_data(
         entry.value = entry.amount * cp_data.trade_price_sell
 
         if not ErrorList.objects.exists():
-            if entry.amount == 0:
+            if entry.amount < 1:
                 entry.delete()
             else:
                 entry.save()

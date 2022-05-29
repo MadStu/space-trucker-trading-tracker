@@ -23,14 +23,6 @@ def index(request):
     # Get the Date/Time in epoch format
     epoch_time = time.time()
 
-    # Seconds to make 930 years from now (the current timezone in Star Citizen)
-    sc_time = 29348006400
-
-    # Retrieve either a unique session key or the user details
-    session_key = request.session._get_or_create_session_key()
-    if request.user.is_authenticated:
-        session_key = request.user.username
-
     # Get the last API update time
     if CommodityPrice.objects.filter(code='UPDA').exists():
         update_db = CommodityPrice.objects.get(code='UPDA')
@@ -49,6 +41,9 @@ def index(request):
         update_db = CommodityPrice.objects.get(code='UPDA')
         last_update = 0
 
+    # Seconds to make 930 years from now (the current timezone in Star Citizen)
+    sc_time = 29348006400
+
     # Friendly Star Citizen date formats
     time_now = time.strftime(
         '%B %-d, %Y %H:%M:%S',
@@ -58,6 +53,11 @@ def index(request):
         '%B %-d, %Y %H:%M:%S',
         time.localtime(last_update+sc_time)
     )
+
+    # Retrieve either a unique session key or the user details
+    session_key = request.session._get_or_create_session_key()
+    if request.user.is_authenticated:
+        session_key = request.user.username
 
     # Check if it's been more than * seconds since last update
     if epoch_time - time_in_seconds > last_update:
