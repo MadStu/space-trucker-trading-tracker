@@ -56,7 +56,7 @@ You'll notice below now that the commodity you bought will appear in a list of y
 
 ![List Of Cargo](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/list-of-trades.png)
 
-Once you've arrive at the selling location, you can simply tap or click the row of the commodity you wish to sell and it will automatically select the right commodity and populate the details into the buy/sell value boxes.
+Once you've arrived at the selling location, you can simply tap or click the row of the commodity you wish to sell and it will automatically select the right commodity and populate the details into the buy/sell value boxes.
 
 ![Trade List Row](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/trade-list-row.png)
 
@@ -64,17 +64,17 @@ Now edit the values to make sure the price and number of units are correct, then
 
 ![Sell Box](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/sell-box.png)
 
-Your total balance at the top will then be updated and that amount of cargo will be removed from your inventory. If you sell all units of that commodity, the commodity will be removed from your cargo list.
+Your total balance at the top will then be updated and that amount of cargo will be deducted from your inventory. If you sell all units of that commodity, the commodity will be deleted from your cargo commodity list.
 
-In the cargo list you'll see some columns with information about the commodites you've bought. The "Cost" is the amount that is what you have invested for that commodity, what it has cost you to buy, and how much you're risking.
+In your list you'll see some columns with information about the commodites you've bought. The "Cost" is the amount that you have invested in that commodity, and how much you're risking.
 
 ![Commodity Cost Column](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/commodity-cost-column.png)
 
-The "Units" column is the amount of units you have of that stock.
+The "Units" column is the amount of units you have of that commodity.
 
 ![Commodity Units Column](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/commodity-units-column.png)
 
-The "Value" column is the estimated sale price for the whole amount of that commodity. The value is calculated based on the average price of the current stock.
+The "Value" column is the estimated sale price for the whole amount of that commodity. The value is calculated based on it's average sell price.
 
 ![Commodity Value Column](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/commodity-value-column.png)
 
@@ -82,7 +82,7 @@ The "Due" column is the profit that you stand to make from selling all of that c
 
 ![Commodity Due Column](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/commodity-due-column.png)
 
-At the bottom of your cargo list you'll see the totals. The total "Due" may not seem like it's calculated correctly, but this is taking into account all of your trades - including the ones you've already sold since your last reset. This helps to show how much profit you expect to made for the entire trade run.
+On the bottom row of your cargo list you'll see the totals. The total "Due" may not seem like it's calculated correctly, but this is taking into account all of your trades - including the ones you've already sold since your last reset. This helps to show how much profit you expect to make for the entire trade run.
 
 ![Commodity Due Total](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/commodity-due-total.png)
 
@@ -110,7 +110,7 @@ In the price editor, just edit the buy / sell values for the commodity you'd lik
 
 ![Price Editor Page](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/price-editor-page.png)
 
-You'll also be able to view the dates last modified ina wider screen view. The commodities are listed in order of date. The oldest prices most urgently in need of update are listed at the top.
+You'll also be able to view the dates last modified in a wider screen view. The commodities are listed in order of date. The oldest prices most urgently in need of update are listed at the top.
 
 ![Price Editor Wide Page](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/price-editor-wide-page.png)
 
@@ -118,19 +118,19 @@ From all pages you're able log out by pressing the button at the bottom of the p
 
 ![Log Out Button](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/log-out-button.png)
 
-And you'll also find a button to return to the main page at the top of each page that isn't the main page.
+And you'll also find a button to return to the main page at the top of each page (unless you're already on that page!)
 
 ![Home Button](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/home-button.png)
 
 # Planning 
 
-I planned to make a Star Citizen trading app that would work on any web browser and be reliable and easy to use enough for the user to want to make it an essential tool when they're trading multiple commodities.
+I planned to make a Star Citizen trading app that would work on any web browser and to be a reliable and easy to use tool for the user to want to make it an invaluable resource when they're trading multiple commodities at once.
 
-I came up with the name of "Space Trucker Trading Tracker" as it's a bit of a tongue twister but has a nice ring to it. I hope most people would refer to it as STTT for short.
+I came up with the name of "Space Trucker Trading Tracker" as it's a bit of a tongue twister but has a nice ring to it. I think most people would refer to it as just STTT.
 
 Before writing any code I first drew a wireframe outline on the back of an envelope.
 
-This helped me to realise what features I needed to code on the back-end, just as much as the front-end.
+Although basic, this helped me to realise what features I needed to code on the back-end, just as much as the front-end.
 
 <img src="https://github.com/MadStu/space-trucker/raw/main/static/readme-images/wireframe.jpg" width="250">
 
@@ -139,7 +139,7 @@ This helped me to realise what features I needed to code on the back-end, just a
 - Code API retrieval to get in-game ships and the cargo bay size info.
     - User option to choose unit amount by ship size.
     - Save the user's ship to the databases so it remembers.
-    - Default the unit amount to the remaining cargo bay space
+    - Default the unit amount to the remaining cargo bay space.
 - Code API retrieval to get the buy/sell locations for each commodity.
     - Provide an option for the user to see where to buy or sell.
 
@@ -157,50 +157,50 @@ The UserProfit model holds the users' total profit.
 
 Index view
 
-- When the main index page loads, the first thing that happens in the view are some variables are defined such as the epoch_time and getting the session key.
+- When the main index page loads, the first thing that happens are some variables are defined such as the epoch_time and getting the session key.
 
 - Next the view checks to see if a record exists for the "Time Updated" object.
     - If it exists, it will retrieve the time of the last update from the UEX API.
     - If it doesn't exist, it creates one.
 
 - It will then check how much time has elapsed since last API update
-    - If more than 6 hours has elapsed, the API is called again and the time is recorded.
-        - a call to delete_old_trades() is also called to remove trades in the database that are over 14 days old.
+    - If more than 6 hours has elapsed, the API is called and the time is recorded.
+        - delete_old_trades() is also called to remove trades in the database that are over 14 days old.
         - A check is carried out to see if the API is working. 
-            - If a status of "OK" is received, handle_api_data() is called to insert teh data into the database.
+            - If a status of "OK" is received, handle_api_data() is called to insert the data into the database.
             - This function then loops through the commodity data received. 
-                - If a commodity doesn't exist, it's created with the data provided.
-                - If a commodity already exists, the date_modified dates are then compared to see if the prices already in teh database is newer.
-                    - If the data received is newer, then it will update the existing record
+                - If a commodity doesn't exist, it's created.
+                - If a commodity already exists, the date_modified dates are then compared to see if the prices already in the database is newer.
+                    - If the data received is newer, then it will update the existing record.
 
 - When the index view receives form data by POST method, it checks to see if it was the user pressing the "Reset Profit" button.
-    - If it was the reset button pressed it then checks to see if the user (defined by the session key received) has trades exsting in the database.
-        - If it exists, it then resets the user's profit value to 0
+    - If it was the reset button pressed it then checks to see if the user (defined by the session key received) has trades already exsting in the database.
+        - If it exists, it then resets the user's profit value to 0.
 
-    - If it wasn't the reset button, it was a trade entry into the database and it looks to get the boolean value of whether it was a buy or sell.
+    - If it wasn't the reset button, then it was a trade entry into the database and it checks the boolean value for whether it was a buy or sell.
         - If True, it was a buy trade and the variables are assigned accordingly.
         - If False, it was a sell trade and the variables are assigned accordingly.
     - The variables that have been assigned are then insterted in to the database using the handle_form_data() function.
         - handle_form_data() then checks if the user already has a trade with the same commodity.
-            - If it exists, it then gets that object and checks if it's a buy or sell trade.
-                - If a buy trade, the existing commodity amount is updated with the added number of units bought and the cost and profit expected is changed to reflect that.
+            - If it exists, it then it gets that object and checks if it's a buy or sell trade.
+                - If a buy trade, the existing commodity amount is updated with the added number of units bought and the cost and profit expected is calculated to reflect that.
                 - If a sell trade, a check is made to see if too much cargo has sold than exists in the inventory.
                     - If too much then an error message is added to the database using the add_error_message() function.
                         - add_error_message() simply stores an error message into the ErrorList model.
-                    - If it passes this check, the existing commodity amount is reduced to reflect how many the user has remaining in their cargo. The cost and profit are also updated.
+                    - If it passes this check, the existing commodity amount is reduced to reflect how many units the user has remaining in their cargo. The cost and profit are also updated.
                 - Another check is made against the ErrorList model and if there isn't one, it checks the inventory amount.
-                    - If therte is no remaining cargo, then this whole trade object is deleted.
+                    - If there is no remaining cargo, then this whole trade object is deleted.
                     - If there is cargo still remaining, the object is updated with the newly calculated values.
                 - user_profit_calc() is called to update the total profit amount.
                     - First a check is made, if an object of the profit for that user does not exist, a new one is created.
                     - The function then updates the user's profit by subtraction if it's a buy trade, or addition if they've sold.
-            - If the commodity doesn't yet exist in the user's trades, then cost and potential profit are calculated and a new record is inserted with the details. With user_profit_calc() being called again to update total profit.
-        - update_commodity_prices() is then called which checks if there's any recorded errors and the user is a superuser.
+            - If the commodity doesn't yet exist in the user's trades, then the cost and potential profit are calculated and a new record is inserted with the details. With user_profit_calc() being called again to update total profit.
+        - update_commodity_prices() is then called which checks if there's any recorded errors and that the user is a superuser.
             - If the user is a superuser, the commodity price is updated with the values received in the trade form.
-        - After all the form data is handled, the page is redirected back tot he home page.
+        - After all the form data is handled, the page is redirected back to the home page.
 
 - Next the index view gets some information from the database to populate the template form in anticipation of what the user will be using.
-    - If a trade objects exist for this user, it gets the most recently traded item and retrieves the details and creates the variable.
+    - If trade objects exist for this user, it gets the most recently traded item and retrieves the details and creates the variable.
     - If a trade object doesn't exist, we provide it with some default values to populate.
 
 - Next it calculates the totals by looping through all the user's trades and puts them in variables for the template.
@@ -254,7 +254,7 @@ I've also asked friends and players of Star Citizen to test the STTT with no err
 - HTML
     - No errors or warnings to show when passing through the official [W3C Validator](https://validator.w3.org/nu/?doc=https%3A%2F%2Fspace-trucker.herokuapp.com%2F).
 - CSS
-    - No errors were found when passing through the official [(Jigsaw) validator](https://jigsaw.w3.org/css-validator/validator).
+    - No errors were found when passing through the official [(Jigsaw) validator](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fspace-trucker.herokuapp.com%2Fstatic%2Fcss%2Fstyle.css).
 
 - JavaScript
     - No errors are shown when passing through the [Beautful Tools Javascript Validator](https://beautifytools.com/javascript-validator.php).
@@ -308,15 +308,15 @@ I've deployed it on heroku.com and used the following method.
 # Credits 
 
 - I used the amazing API created by the [UEX Corp](https://uexcorp.space/) team.
-- I intially got the colours and what went best with tehm from [w3schools](https://www.w3schools.com/colors/color_tryit.asp?color=DarkSlateGray).
+- I intially found the colours and what colours went best with them from [w3schools](https://www.w3schools.com/colors/color_tryit.asp?color=DarkSlateGray).
 - I used the Michroma font from [Google Fonts](https://fonts.google.com/specimen/Michroma#standard-styles).
 - The nice little icons in the buttons are from [Font Awesome](https://fontawesome.com/).
 - I often used [W3Schools](https://www.w3schools.com/python/), [Django docs](https://docs.djangoproject.com/en/4.0/) and [Bootstrap Docs](https://getbootstrap.com/docs/5.2/getting-started/introduction/) as a guide for finding the best solutions and using the code in the correct format.
-- I'd also search google which more often than not would show solutions written on [Stack Overflow](https://stackoverflow.com/).
+- I'd also search google a lot which more often than not would show similar solutions written on [Stack Overflow](https://stackoverflow.com/).
 - I used a wallpaper image of a large cargo ship called a Drake Caterpillar with credits to Cloud Imperium Gaming for creating the [Star Citizen](https://tinyurl.com/2yet2hz9) game.
 
 ## Final Notes
 
-I really do enjoy coding with Python and learning to use Django has been a real eye opener. I can see the potential Django has for creating ultra powerful web apps with it's batteries included libraries.
+I really do enjoy coding with Python and learning to use Django has been a real eye opener. I can see the potential Django has for creating ultra powerful web apps with it's batteries included features.
 
-The links between the MVT was a struggle at first but now I'm nearing the end of the project I'm literally dreaming of how everything ties in together. At the beginning I felt like I'd been thrown in at the deep Django end of the pool! My future projects will be much smoother sailing.
+The links between the MVT was a struggle at first but now I'm nearing the end of the project I'm literally dreaming of how everything ties in together. At the beginning I felt like I'd been thrown in at the deep Django end of the pool, but now I know my future projects will be a lot easier to begin with.
