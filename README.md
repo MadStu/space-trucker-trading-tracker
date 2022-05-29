@@ -145,6 +145,14 @@ This helped me to realise what features I needed to code on the back-end, just a
 
 # Data Model
 
+The Trade model holds all of the users' trade details, the commodity, the amount of units, the price, the profit to expect and the time the trade was made.
+
+The CommodityPrice model holds all of the commodity details received from the UEX API.
+
+The ErrorList model holds a list of errors that may have been encountered.
+
+The UserProfit model holds the users' total profit.
+
 ## Logic Flow
 
 Index view
@@ -213,10 +221,6 @@ Editor view
 Prices view
 
 - The prices view is just for information and only sends the commodity_data() list to the template.
-
-
-
-        
 
 ## Libraries Used
 
