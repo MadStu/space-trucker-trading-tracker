@@ -2,6 +2,15 @@ document.getElementById('reset_profit').addEventListener('click', function (even
     document.getElementById('reset_profit').submit();
 });
 
+function errorClear() {
+    document.getElementById("clear_errors").submit();
+}
+
+var showModal = new bootstrap.Modal(document.getElementById('errorModal'), {
+    backdrop: 'static',
+    keyboard: false
+})
+
 function setFields() {
     // Get the selection box
     var selectBox = document.getElementById("in_commodity");
