@@ -129,6 +129,16 @@ footer {
     font-size: small;
 }
 
+.modal-header, .modal-footer {
+    background-color: crimson;
+}
+
+.modal-body{
+    color: #212529;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
 /* Media queries */
 
 /* For screen sizes from 768px wide and down */

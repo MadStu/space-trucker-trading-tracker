@@ -102,7 +102,12 @@ def index(request):
     # Handle the received Form data
     if request.method == 'POST':
         form_session = request.POST.get('session_key')
-        if request.POST.get('reset_profit'):
+
+        if request.POST.get('clear_errors'):
+            # Delete this user's errors so they don't get displayed again
+            ErrorList.objects.all().filter(error_location=session_key).delete()
+
+        elif request.POST.get('reset_profit'):
             if UserProfit.objects.filter(session=form_session).exists():
                 up_data = UserProfit.objects.get(session=form_session)
                 up_data.profit = 0
