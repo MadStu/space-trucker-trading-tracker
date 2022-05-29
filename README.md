@@ -132,7 +132,7 @@ Before writing any code I first drew a wireframe outline on the back of an envel
 
 This helped me to realise what features I needed to code on the back-end, just as much as the front-end.
 
-<img src="https://github.com/MadStu/space-trucker/raw/main/static/readme-images/wireframe.jpg." width="100">
+<img src="https://github.com/MadStu/space-trucker/raw/main/static/readme-images/wireframe.jpg" width="250">
 
 ## Features Left to Implement
 
@@ -316,3 +316,7 @@ I've deployed it on heroku.com and used the following method.
 - I used a wallpaper image of a large cargo ship called a Drake Caterpillar with credits to Cloud Imperium Gaming for creating the [Star Citizen](https://tinyurl.com/2yet2hz9) game.
 
 ## Final Notes
+
+I really do enjoy coding with Python and learning to use Django has been a real eye opener. I can see the potential Django has for creating ultra powerful web apps with it's batteries included libraries.
+
+The links between the MVT was a struggle at first but now I'm nearing the end of the project I'm literally dreaming of how everything ties in together. At the beginning I felt like I'd been thrown in at the deep Django end of the pool! My future projects will be much smoother sailing.
