@@ -132,7 +132,7 @@ Before writing any code I first drew a wireframe outline on the back of an envel
 
 This helped me to realise what features I needed to code on the back-end, just as much as the front-end.
 
-![Wireframe Drawing](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/wireframe.jpg)
+<img src="https://github.com/MadStu/space-trucker/raw/main/static/readme-images/wireframe.jpg." width="100">
 
 ## Features Left to Implement
 
