@@ -138,7 +138,8 @@ def index(request):
                 form_commodity,
                 form_buy,
                 form_price,
-                epoch_time
+                epoch_time,
+                form_session
             )
             return redirect('index')
 
@@ -162,7 +163,7 @@ def index(request):
         # Default values
         form_commodity = "Laranite"
         form_price = 27.83
-        form_amount = 5000
+        form_amount = 69600
         form_buy = True
 
     # Calculate the totals for display
@@ -184,8 +185,7 @@ def index(request):
     else:
         user_profit = 0
 
-    errors = ErrorList.objects.all()
-    ErrorList.objects.all().delete()
+    error_list = ErrorList.objects.all().filter(error_location=session_key)
     context = {
         'commodity_data': commodity_data(),  # List from db_interactions
         'com': Trade.commodity,
@@ -193,7 +193,6 @@ def index(request):
         'time_now': time_now,
         'last_updated': last_updated,
         'session_key': session_key,
-        'errors': errors,
         'total_cargo': total_cargo,
         'total_value': round(total_value),
         'total_profit': round(total_profit+user_profit+total_cost),
@@ -202,7 +201,8 @@ def index(request):
         'populate_price': float(form_price),
         'populate_amount': int(form_amount),
         'populate_buy': form_buy,
-        'user_profit': int(user_profit)
+        'user_profit': int(user_profit),
+        'error_list': error_list
     }
 
     return render(request, "trading/index.html", context)

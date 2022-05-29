@@ -51,6 +51,7 @@ def handle_form_data(
     """
     Handles the data received submitted on the form
     """
+    error_message = None
 
     # Retrieve CommodityPrice data
     cp_data = CommodityPrice.objects.get(name=form_commodity)
@@ -82,7 +83,8 @@ def handle_form_data(
         else:
             if int(form_amount) > entry.amount:
                 # Sold more than is in cargo hold
-                add_error_message("AMOUNT TOO HIGH", "TOP")
+                msg = "You've tried to sell more cargo than you have in stock."
+                error_message = msg
             else:
                 entry.amount -= int(form_amount)
 
@@ -106,7 +108,9 @@ def handle_form_data(
         # Work out potential stock sell value
         entry.value = entry.amount * cp_data.trade_price_sell
 
-        if not ErrorList.objects.exists():
+        if error_message is not None:
+            add_error_message(error_message, form_session)
+        else:
             if entry.amount < 1:
                 entry.delete()
             else:
@@ -117,35 +121,54 @@ def handle_form_data(
     else:
         # No stock of this commodity on board so create a new record
 
-        # Work out stock sell value
-        value = int(form_amount) * cp_data.trade_price_sell
+        # Check it's a buy trade
+        if form_buy:
 
-        # Work out potential stock profit margin
-        cost = float(form_amount) * float(form_price)
-        profit = (float(form_amount) * cp_data.trade_price_sell) - cost
+            # Work out stock sell value
+            value = int(form_amount) * cp_data.trade_price_sell
 
-        # Insert new trade
-        Trade.objects.create(
-            commodity=form_commodity,
-            price=form_price,
-            amount=form_amount,
-            cost=cost,
-            value=value,
-            profit=profit,
-            session=form_session,
-            time=epoch_time,
-            buy=form_buy,
-            units=form_amount
-        )
-        # Save UserProfit data
-        user_profit_calc(form_session, cost, form_buy)
+            # Work out potential stock profit margin
+            cost = float(form_amount) * float(form_price)
+            profit = (float(form_amount) * cp_data.trade_price_sell) - cost
+
+            # Insert new trade
+            Trade.objects.create(
+                commodity=form_commodity,
+                price=form_price,
+                amount=form_amount,
+                cost=cost,
+                value=value,
+                profit=profit,
+                session=form_session,
+                time=epoch_time,
+                buy=form_buy,
+                units=form_amount
+            )
+            # Save UserProfit data
+            user_profit_calc(form_session, cost, form_buy)
+        else:
+            # Trying to sell something with 0 stock so send a message.
+            add_error_message(
+                "You've tried to sell cargo you don't have in stock.",
+                form_session
+            )
 
 
-def update_commodity_prices(request, commodity, buy, price, epoch_time):
+def update_commodity_prices(
+    request,
+    commodity,
+    buy,
+    price,
+    epoch_time,
+    session_key
+):
     """
     Updates the Commodity prices if the user is an admin
     """
-    if not ErrorList.objects.exists() and request.user.is_superuser:
+
+    if request.user.is_superuser:
+        error_message = None
+
         cp_data = CommodityPrice.objects.get(name=commodity)
 
         # Update existing prices to CommodityPrice
@@ -163,10 +186,12 @@ def update_commodity_prices(request, commodity, buy, price, epoch_time):
 
         # Check for errors
         if cp_data.profit < 0.01:
-            add_error_message("PRICE WAS NOT CORRECT", "TOP")
+            error_message = "The price you entered would not make a profit."
 
         # If no errors, save the data
-        if not ErrorList.objects.exists():
+        if error_message is not None:
+            add_error_message(error_message, session_key)
+        else:
             cp_data.save()
 
 

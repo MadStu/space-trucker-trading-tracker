@@ -18,7 +18,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for commodity in commodity_data|dictsort:"date_modified" reversed %}
+                {% for commodity in commodity_data|dictsort:"profit" reversed %}
                 <tr onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')">
                     <td>{{ commodity.name }}</td>
                     <td>{{ commodity.trade_price_buy|floatformat:2 }}</td>
