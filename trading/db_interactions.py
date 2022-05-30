@@ -195,13 +195,13 @@ def update_commodity_prices(
             cp_data.save()
 
 
-def add_error_message(message, location):
+def add_error_message(message, session):
     """
     Inserts an error message into the database
     """
     ErrorList.objects.create(
         error_message=message,
-        error_location=location
+        session=session
     )
     print(message)
 
