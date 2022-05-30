@@ -28,3 +28,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico')))
 ]
+
+handler404 = 'trading.views.error_404'
+handler500 = 'trading.views.error_500'

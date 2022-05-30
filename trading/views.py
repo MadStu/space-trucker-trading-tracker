@@ -255,8 +255,20 @@ def usage(request):
     """
     Shows the user how to use the STTT
     """
-    context = {
-        'commodity_data': commodity_data(),
-    }
 
-    return render(request, "trading/usage.html", context)
+    return render(request, "trading/usage.html")
+
+
+def error_404(request, exception):
+    """"
+    Shows page for a 404 Error
+    """
+
+    return render(request, 'trading/404.html')
+
+
+def error_500(request):
+    """"
+    Shows page for a 500 Error
+    """
+    return render(request, 'trading/500.html')

@@ -149,6 +149,8 @@ Delete: A user can sell all of that commodity and the object is deleted.
 
 With each action, the change is reflected immediately back to the user's screen with a change of their total profit and an update to their cargo list.
 
+All interation with the site is designed to produce a positive emotional response which I feel has been achieved.
+
 ## Features Left to Implement
 
 - Code API retrieval to get in-game ships and the cargo bay size info.
