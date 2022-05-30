@@ -134,9 +134,20 @@ Although basic, this helped me to realise what features I needed to code on the 
 
 <img src="https://github.com/MadStu/space-trucker/raw/main/static/readme-images/wireframe.jpg" width="250">
 
+Agile practices were used with user stories to help plan and develop new features.
+
 ## Design
 
 The design was for a mobile based app. The typical user will be someone who is playing Star Citizen at their PC, most likely in the evening / night time. So I chose darker colours to be easier on their eyes. The yellow buttons and the red/green trade boxes are a duller, more pastel shade of those colours. Again to be easier on the eyes but to also provide good contrast in the user's low light environment.
+
+CRUD was a major part of how the design was styled and is really how the whole tool works.
+
+Create: The user needs to enter their trade details to create a new object in the database.
+Read: The object is displayed back to the user in their cargo/trade list.
+Update: A user can add or remove a number of units from each of their commodities, updating that object.
+Delete: A user can sell all of that commodity and the object is deleted.
+
+With each action, the change is reflected immediately back to the user's screen with a change of their total profit and an update to their cargo list.
 
 ## Features Left to Implement
 
@@ -147,17 +158,17 @@ The design was for a mobile based app. The typical user will be someone who is p
 - Code API retrieval to get the buy/sell locations for each commodity.
     - Provide an option for the user to see where to buy or sell.
 - Add button for total stock losss due to an accident, piracy or some other cause.
-- Allow players to enter their expenditure. Fuel / Repair costs, ship purchases and upgrades etc.
+- Allow users to enter their expenditure. Fuel / Repair costs, ship purchases and upgrades etc.
 
 # Data Model
 
-The Trade model holds all of the users' trade details, the commodity, the amount of units, the price, the profit to expect and the time the trade was made.
+The Trade model holds all of the user's trade details, the commodity, the amount of units, the price, the profit to expect and the time the trade was made.
 
 The CommodityPrice model holds all of the commodity details received from the UEX API.
 
-The ErrorList model holds a list of errors that may have been encountered.
+The ErrorList model holds a list of errors they produced.
 
-The UserProfit model holds the users' total profit.
+The UserProfit model holds the user's total profit.
 
 ## Logic Flow
 
