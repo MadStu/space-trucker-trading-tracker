@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.db.models import Max
 from .models import Trade, CommodityPrice, ErrorList, UserProfit
 from .db_interactions import update_commodity_prices, handle_form_data
-from .db_interactions import handle_api_data, commodity_data, delete_old_trades
+from .db_interactions import handle_api_data, commodity_data, delete_old_trades, add_error_message
 
 
 def index(request):
@@ -29,7 +29,7 @@ def index(request):
     # Retrieve either a unique session key or the user details
     session_key = request.session._get_or_create_session_key()
     if request.user.is_authenticated:
-        session_key = request.user.username
+        session_key = str(request.user.id)
 
     # Get the last API update time
     if CommodityPrice.objects.filter(code='UPDA').exists():
@@ -106,6 +106,8 @@ def index(request):
         if request.POST.get('clear_errors'):
             # Delete this user's errors so they don't get displayed again
             ErrorList.objects.all().filter(error_location=session_key).delete()
+        elif str(session_key) != str(form_session):
+            add_error_message("Session IDs do not match", session_key)
 
         elif request.POST.get('reset_profit'):
             if UserProfit.objects.filter(session=form_session).exists():

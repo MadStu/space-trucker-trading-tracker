@@ -172,6 +172,8 @@ The ErrorList model holds a list of errors they produced.
 
 The UserProfit model holds the user's total profit.
 
+As the site allows users to be anonymous, the logic uses sessions to differentiate between users. If they are registered, the user id's are entered into the session field's instead.
+
 ![Database Schema Diagram](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/database-schema.png)
 
 ## Logic Flow
