@@ -272,6 +272,23 @@ I've tested the code continuously as I've developed it, making sure all function
 
 I've also asked friends and players of Star Citizen to test the STTT with no errors being reported.
 
+### Tests carried out:
+
+- [x] As an admin user I can edit prices while trading so that the displayed values are up to date and I don't have to enter the editor page.
+    - [x] Entering a buy trade as a superuser I'm able to change the stored buy price of the selected commodity and updates the date it was last modified.
+    - [x] Entering a sell trade as a superuser I'm able to change the stored buy price of the selected commodity and updates the date it was last modified.
+    - [x] Entering prices that would result in a profit value less than 0.01 produces an error.
+- [x] As an admin I can view and edit all commodity prices so that I can keep the prices up to date.
+    - [x] The Price Editor page link is displayed when I'm logged in as a superuser.
+    - [x] The Price Editor page displays the list of commodity.
+    - [x] The commodity list is in reverse order of the date it was last modified.
+    - [x] Entering new prices and tapping the Edit button updates the commodity prices immediately.
+    - [x] The comodity is moved to the bottom of the list and the new prices are displayed.
+    - [x] A link back to home page is displayed.
+
+
+
+
 ## Validator Testing 
 
 - Python
