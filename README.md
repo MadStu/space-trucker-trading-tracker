@@ -319,4 +319,4 @@ I've deployed it on heroku.com and used the following method.
 
 I really do enjoy coding with Python and learning to use Django has been a real eye opener. I can see the potential Django has for creating ultra powerful web apps with it's batteries included features.
 
-The links between the MVT was a struggle at first but now I'm nearing the end of the project I'm literally dreaming of how everything ties in together. At the beginning I felt like I'd been thrown in at the deep Django end of the pool, but now I know my future projects will be a lot easier to begin with.
+The links between the MVC (or MTV) pattern were a struggle at first but now I'm nearing the end of the project I'm literally dreaming of how everything ties in together. At the beginning I felt like I'd been thrown in at the deep Django end of the pool, but now I know my future projects will be a lot easier to begin with.
