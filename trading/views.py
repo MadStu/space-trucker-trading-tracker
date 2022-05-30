@@ -249,3 +249,14 @@ def prices(request):
     }
 
     return render(request, "trading/prices.html", context)
+
+
+def usage(request):
+    """
+    Shows the user how to use the STTT
+    """
+    context = {
+        'commodity_data': commodity_data(),
+    }
+
+    return render(request, "trading/usage.html", context)

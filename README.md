@@ -142,6 +142,8 @@ Although basic, this helped me to realise what features I needed to code on the 
     - Default the unit amount to the remaining cargo bay space.
 - Code API retrieval to get the buy/sell locations for each commodity.
     - Provide an option for the user to see where to buy or sell.
+- Add button for total stock losss due to an accident, piracy or some other cause.
+- Allow players to enter their expenditure. Fuel / Repair costs, ship purchases and upgrades etc.
 
 # Data Model
 
