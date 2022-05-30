@@ -167,6 +167,39 @@
         showModal.show();
     </script>
     {% endif %}
+
+    {% if messages %}
+    <!-- Modal -->
+    <div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header modal-green">
+                    <h5 class="modal-title" id="messageModalLabel">Messages:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <ul>
+                        {% for message in messages %}
+                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="modal-footer modal-green">
+                    <button type="button" class="btn btn-secondary sttt-button shadow-none btn-lg btn-block" data-bs-dismiss="modal">Close <i class="fa-solid fa-xmark fa-beat" style="--fa-animation-duration: 3s;"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var showModal = new bootstrap.Modal(document.getElementById('messageModal'));
+        showModal.show();
+
+        setTimeout(function(){
+            showModal.hide()
+        }, 3000);
+    </script>
+    {% endif %}
 </body>
 
 </html>

@@ -146,6 +146,10 @@ footer {
     background-color: crimson;
 }
 
+.modal-green {
+    background-color: rgb(57, 180, 32);
+}
+
 .modal-body{
     color: #212529;
     font-weight: 500;

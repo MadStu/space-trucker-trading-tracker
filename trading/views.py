@@ -3,6 +3,7 @@ import time
 import requests
 from django.shortcuts import render, redirect
 from django.db.models import Max
+from django.contrib import messages
 from .models import Trade, CommodityPrice, ErrorList, UserProfit
 from .db_interactions import update_commodity_prices, handle_form_data
 from .db_interactions import handle_api_data, commodity_data
@@ -117,6 +118,8 @@ def index(request):
                 up_data = UserProfit.objects.get(session=form_session)
                 up_data.profit = 0
                 up_data.save()
+                msg = "Profit successfully reset."
+                messages.add_message(request, messages.SUCCESS, msg)
         else:
             if request.POST.get('form_buy') == "True":
                 form_buy = True
@@ -139,7 +142,8 @@ def index(request):
                 form_amount,
                 form_buy,
                 form_session,
-                epoch_time
+                epoch_time,
+                request
             )
 
             # Update CommodityPrice data in db_interactions
@@ -237,6 +241,8 @@ def editor(request):
         cp_data.date_modified = int(epoch_time)
 
         cp_data.save()
+        msg = "Commodity successfully updated."
+        messages.add_message(request, messages.SUCCESS, msg)
 
     context = {
         'commodity_data': commodity_data(),

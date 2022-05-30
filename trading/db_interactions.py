@@ -1,4 +1,5 @@
 import time
+from django.contrib import messages
 from .models import Trade, CommodityPrice, ErrorList, UserProfit
 
 
@@ -40,13 +41,15 @@ def handle_api_data(api_display):
             )
 
 
+
 def handle_form_data(
     form_commodity,
     form_price,
     form_amount,
     form_buy,
     form_session,
-    epoch_time
+    epoch_time,
+    request
 ):
     """
     Handles the data received submitted on the form
@@ -117,6 +120,8 @@ def handle_form_data(
                 entry.save()
             # Save UserProfit data
             user_profit_calc(form_session, cost_amount, form_buy)
+            msg = "Trade successfully added."
+            messages.add_message(request, messages.SUCCESS, msg)
 
     else:
         # No stock of this commodity on board so create a new record
@@ -146,6 +151,8 @@ def handle_form_data(
             )
             # Save UserProfit data
             user_profit_calc(form_session, cost, form_buy)
+            msg = "Trade successfully added."
+            messages.add_message(request, messages.SUCCESS, msg)
         else:
             # Trying to sell something with 0 stock so send a message.
             add_error_message(
@@ -193,6 +200,8 @@ def update_commodity_prices(
             add_error_message(error_message, session_key)
         else:
             cp_data.save()
+            msg = "Commodity successfully updated."
+            messages.add_message(request, messages.SUCCESS, msg)
 
 
 def add_error_message(message, session):
