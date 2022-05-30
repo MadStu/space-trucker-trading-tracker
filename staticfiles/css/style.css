@@ -129,11 +129,11 @@ h2 {
 .lower-login {
     padding-left: 30px;
     padding-right: 30px;
-    font-size: x-small;
+    font-size: 11px;
 }
 
 footer {
-    font-size: x-small;
+    font-size: 11px;
     padding-right: 30px;
     padding-left: 30px;
 }
@@ -148,8 +148,8 @@ footer {
 
 .modal-body{
     color: #212529;
-    font-weight: bold;
-    text-transform: capitalize;
+    font-weight: 500;
+    text-transform: uppercase;
 }
 
 /* Media queries */
