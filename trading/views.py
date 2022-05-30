@@ -109,7 +109,8 @@ def index(request):
             ErrorList.objects.all().filter(session=session_key).delete()
         elif str(session_key) != str(form_session):
             # Check both IDs match to verify
-            add_error_message("Session IDs do not match", session_key)
+            msg = "Session IDs do not match, please register or log in."
+            add_error_message(msg, session_key)
 
         elif request.POST.get('reset_profit'):
             if UserProfit.objects.filter(session=form_session).exists():
