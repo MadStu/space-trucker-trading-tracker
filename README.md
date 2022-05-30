@@ -282,6 +282,9 @@ I've also asked friends and players of Star Citizen to test all aspects of the S
     - [x] The Price Editor page link is displayed when I'm logged in as a superuser.
     - [x] The Price Editor page displays the list of commodity.
     - [x] The commodity list is in reverse order of the date it was last modified.
+    - [x] The Last Updated time is displayed.
+    - [x] The Last Updated time is in a readable format and not in the epoch format.
+    - [x] The Last Updated time is hidden when viewing on a smaller screen. 
     - [x] Entering new prices and tapping the Edit button updates the commodity prices immediately.
     - [x] The comodity is moved to the bottom of the list and the new prices are displayed.
     - [x] A link back to home page is displayed.
@@ -298,16 +301,52 @@ I've also asked friends and players of Star Citizen to test all aspects of the S
 - [x] "As a user I can register an account so that my inventory is saved."
     - [x] Clicking the Register link will take me to the registration page.
     - [x] All input fields are validated before submission.
-    - [x] Choosing a username already taken will not allow you to register.
-    - [x] Entering 2 different passwords will not allow you to register.
+    - [x] Choosing a username already taken will not allow me to register.
+    - [x] Entering 2 different passwords will not allow me to register.
     - [x] Email address is not required.
     - [x] If an email address is entered, it's checked for validity.
+- [x] "As a site user I can add newly bought stock into the inventory so that the cargo inventory is always up to date."
+    - [x] Buying 1000 units of any commodity will create a new trade and show that I have 1000 units of that commodity in the commodity list.
+    - [x] Buying 1000 units of the same commodity will update the trade and show that I now have 2000 units of that commodity in stock.
 - [x] "As a site user I can remove stock from inventory when it sells so that cargo inventory is up to date."
     - [x] After buying 1000 units of any commodity, selling 100 units of the same commodity leaves 900 units.
     - [x] Selling 100 units of any other commodity, still leaves 900 units of first commodity.
-    - [x] Pressing the row of the commodity in the trade list populates trade box fields with your remaining units.
-    - [x] Selling all of a particular commodity deletes it entirely from your trade list.
-    
+    - [x] Pressing the row of the commodity in the trade list populates trade box fields with my remaining units.
+    - [x] Selling all of a particular commodity deletes it entirely from my trade list.
+- [x] "As a site user I can view stock estimated value so that I know how much the cargo assets are worth".
+    - [x] After buying any commodity in the trade box, I can view the commodity in the cargo list.
+    - [x] The row the commodity I bought is listed on displays the estimated Value and the profit Due.
+    - [x] Buying another type of commodity adds a second row with the same details.
+    - [x] The bottom row shows the total of the Values of the 2 types of commodity I've purchased.
+    - [x] The bottom row shows the total profit Due of the 2 values plus my total profit at the top of the screen.
+- [x] "As a user I can click one of my trades to quickly populate the form fields so that it saves time and isn't such a chore."
+    - [x] Pressing on a trade populates the Buy Price in the Buy trade box.
+    - [x] Pressing on a trade populates the Sell Price in the Sell trade box.
+- [x] "As a site user I can View current inventory so that I can keep track of cargo stock."
+    - [x] After buying 1000 units of any commodity in the trade box, I can view the commodity in the cargo list.
+    - [x] After buying 1000 units of a different commodity in the trade box, I can also view that commodity in the cargo list.
+    - [x] The cargo list displays a total of 2000 units on the bottom row.
+- [x] "As a site user I can view a list of most profitable commodities so that I know the best commodities to buy and sell."
+    - [x] Pressing the Latest Prices link at the bottom takes me tot he Price Viewer page.
+    - [x] The Price Viewer lists all the commodities.
+    - [x] The commodities are in order of profit margin with the highest margin at the top.
+    - [x] The latest buy / sell prices are displayed.
+    - [x] The Last Updated time is displayed.
+    - [x] The Last Updated time is in a readable format and not in the epoch format.
+    - [x] The Last Updated time is hidden when viewing on a smaller screen. 
+    - [x] A link back to home page is displayed.
+- [x] "As a user I can log in and out from google with 1 click so that I don't have to go through many pages."
+    - [x] Pressing the Log In Via Google button takes me straight to Google's Sign in page where I choose my account.
+    - [x] Pressing my Google account takes me straight back to the STTT main page.
+    - [x] The Log In Via Google button no longer appears.
+    - [x] A Log Out button is shown at the bottom of the page.
+    - [x] Pressing the Log Out button logs me out and reloads teh front page.
+    - [x] The Log Out buttonis no loonger displayed at the bottom.
+    - [x] The Register / Login buttons at the bottom of the page are now showing.
+    - [x] If I log in with a superuser account I can see a "Enter Price Editor" button at the top.
+    - [x] If I log in with a superuser account I can see an "Admin Area" link at the bottom.
+    - [x] Pressing the Admin Area link at the bottom takes me to the default Django admin area.
+
 
 ## Validator Testing 
 
