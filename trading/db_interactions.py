@@ -201,7 +201,7 @@ def add_error_message(message, session):
     """
     ErrorList.objects.create(
         error_message=message,
-        session=session
+        error_location=session
     )
     print(message)
 
