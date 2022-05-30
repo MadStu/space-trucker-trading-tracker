@@ -199,9 +199,11 @@ def update_commodity_prices(
         if error_message is not None:
             add_error_message(error_message, session_key)
         else:
-            cp_data.save()
-            msg = "Commodity successfully updated."
-            messages.add_message(request, messages.SUCCESS, msg)
+            # Check no errors before updating
+            if not ErrorList.objects.filter(session=session_key).exists():
+                cp_data.save()
+                msg = "Commodity successfully updated."
+                messages.add_message(request, messages.SUCCESS, msg)
 
 
 def add_error_message(message, session):
