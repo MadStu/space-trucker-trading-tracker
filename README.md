@@ -270,24 +270,44 @@ Error views
 
 I've tested the code continuously as I've developed it, making sure all functionality works as it should and fix any typos or coding errors as and when they happen in all scenarios.
 
-I've also asked friends and players of Star Citizen to test the STTT with no errors being reported.
+I've also asked friends and players of Star Citizen to test all aspects of the STTT with no errors being reported.
 
 ### Tests carried out:
 
-- [x] As an admin user I can edit prices while trading so that the displayed values are up to date and I don't have to enter the editor page.
+- [x] "As an admin user I can edit prices while trading so that the displayed values are up to date and I don't have to enter the editor page."
     - [x] Entering a buy trade as a superuser I'm able to change the stored buy price of the selected commodity and updates the date it was last modified.
     - [x] Entering a sell trade as a superuser I'm able to change the stored buy price of the selected commodity and updates the date it was last modified.
     - [x] Entering prices that would result in a profit value less than 0.01 produces an error.
-- [x] As an admin I can view and edit all commodity prices so that I can keep the prices up to date.
+- [x] "As an admin I can view and edit all commodity prices so that I can keep the prices up to date."
     - [x] The Price Editor page link is displayed when I'm logged in as a superuser.
     - [x] The Price Editor page displays the list of commodity.
     - [x] The commodity list is in reverse order of the date it was last modified.
     - [x] Entering new prices and tapping the Edit button updates the commodity prices immediately.
     - [x] The comodity is moved to the bottom of the list and the new prices are displayed.
     - [x] A link back to home page is displayed.
-
-
-
+- [x] "As a user I can View my total profit so that I know how much I've earned"
+    - [x] The Total profit is displayed in a prominent position at the top of the page.
+    - [x] When a user enters a buy trade the total profit displayed is offset by the cost of the commodities just bought.
+    - [x] When a user enters a sell trade the total profit displayed is added to by the value of the commodities just sold.
+    - [x] A Reset Profit button is displayed just under the total profit.
+    - [x] Pressing the Reset Profit button will reset the total profit to zero.
+- [x] "As a user I can see current commodity prices by using the dropdown list so that I know how much profit I can make."
+    - [x] The dropdown list is displayed in a prominent position just under the Reset Profit button.
+    - [x] Choosing a commodity from the dropdown list will populate and show the Buy Price input field.
+    - [x] Choosing a commodity from the dropdown list will populate and show the Sell Price input field.
+- [x] "As a user I can register an account so that my inventory is saved."
+    - [x] Clicking the Register link will take me to the registration page.
+    - [x] All input fields are validated before submission.
+    - [x] Choosing a username already taken will not allow you to register.
+    - [x] Entering 2 different passwords will not allow you to register.
+    - [x] Email address is not required.
+    - [x] If an email address is entered, it's checked for validity.
+- [x] "As a site user I can remove stock from inventory when it sells so that cargo inventory is up to date."
+    - [x] After buying 1000 units of any commodity, selling 100 units of the same commodity leaves 900 units.
+    - [x] Selling 100 units of any other commodity, still leaves 900 units of first commodity.
+    - [x] Pressing the row of the commodity in the trade list populates trade box fields with your remaining units.
+    - [x] Selling all of a particular commodity deletes it entirely from your trade list.
+    
 
 ## Validator Testing 
 
