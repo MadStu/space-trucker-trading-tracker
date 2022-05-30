@@ -29,5 +29,7 @@ urlpatterns = [
     path('favicon.ico', RedirectView.as_view(url=staticfiles_storage.url('images/favicon.ico')))
 ]
 
+handler400 = 'trading.views.error_400'
+handler403 = 'trading.views.error_403'
 handler404 = 'trading.views.error_404'
 handler500 = 'trading.views.error_500'

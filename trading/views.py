@@ -255,15 +255,27 @@ def usage(request):
     """
     Shows the user how to use the STTT
     """
-
     return render(request, "trading/usage.html")
+
+
+def error_400(request, exception):
+    """"
+    Shows page for a 400 Error
+    """
+    return render(request, 'trading/400.html')
+
+
+def error_403(request, exception):
+    """"
+    Shows page for a 403 Error
+    """
+    return render(request, 'trading/403.html')
 
 
 def error_404(request, exception):
     """"
     Shows page for a 404 Error
     """
-
     return render(request, 'trading/404.html')
 
 
