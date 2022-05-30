@@ -267,25 +267,69 @@ def error_400(request, exception):
     """"
     Shows page for a 400 Error
     """
-    return render(request, 'trading/400.html')
+    # Retrieve either a unique session key or the user details
+    session_key = request.session._get_or_create_session_key()
+    if request.user.is_authenticated:
+        session_key = str(request.user.id)
+
+    msg = "400 Error! It looks like you've sent a bad request :("
+    add_error_message(msg, session_key)
+    error_list = ErrorList.objects.all().filter(session=session_key)
+    context = {
+        'error_list': error_list
+    }
+    return render(request, 'trading/index.html', context)
 
 
 def error_403(request, exception):
     """"
     Shows page for a 403 Error
     """
-    return render(request, 'trading/403.html')
+    # Retrieve either a unique session key or the user details
+    session_key = request.session._get_or_create_session_key()
+    if request.user.is_authenticated:
+        session_key = str(request.user.id)
+
+    msg = "403 Error! RESTRICTED AREA!"
+    add_error_message(msg, session_key)
+    error_list = ErrorList.objects.all().filter(session=session_key)
+    context = {
+        'error_list': error_list
+    }
+    return render(request, 'trading/index.html', context)
 
 
 def error_404(request, exception):
     """"
     Shows page for a 404 Error
     """
-    return render(request, 'trading/404.html')
+    # Retrieve either a unique session key or the user details
+    session_key = request.session._get_or_create_session_key()
+    if request.user.is_authenticated:
+        session_key = str(request.user.id)
+
+    msg = "404 Error! You're lost in space. This page doesn't exist!"
+    add_error_message(msg, session_key)
+    error_list = ErrorList.objects.all().filter(session=session_key)
+    context = {
+        'error_list': error_list
+    }
+    return render(request, 'trading/index.html', context)
 
 
 def error_500(request):
     """"
     Shows page for a 500 Error
     """
-    return render(request, 'trading/500.html')
+    # Retrieve either a unique session key or the user details
+    session_key = request.session._get_or_create_session_key()
+    if request.user.is_authenticated:
+        session_key = str(request.user.id)
+
+    msg = "500 Error! Server error! Our own little 30k :("
+    add_error_message(msg, session_key)
+    error_list = ErrorList.objects.all().filter(session=session_key)
+    context = {
+        'error_list': error_list
+    }
+    return render(request, 'trading/index.html', context)

@@ -148,7 +148,7 @@
                 </div>
                 <div class="modal-footer">
                     <form onclick="errorClear()" class="btn btn-primary sttt-button shadow-none btn-lg btn-block"
-                        name="clear_errors" id="clear_errors" method="POST">
+                        name="clear_errors" id="clear_errors" method="POST" action="{% url 'index' %}">
                         {% csrf_token %}
                         <input type="hidden" name="session_key" value="{{ session_key }}">
                         <input type="hidden" name="clear_errors" value=True>Clear Errors <i
