@@ -106,8 +106,9 @@ def index(request):
 
         if request.POST.get('clear_errors'):
             # Delete this user's errors so they don't get displayed again
-            ErrorList.objects.all().filter(error_location=session_key).delete()
+            ErrorList.objects.all().filter(session=session_key).delete()
         elif str(session_key) != str(form_session):
+            # Check both IDs match to verify
             add_error_message("Session IDs do not match", session_key)
 
         elif request.POST.get('reset_profit'):
@@ -193,7 +194,7 @@ def index(request):
     else:
         user_profit = 0
 
-    error_list = ErrorList.objects.all().filter(error_location=session_key)
+    error_list = ErrorList.objects.all().filter(session=session_key)
     context = {
         'commodity_data': commodity_data(),  # List from db_interactions
         'com': Trade.commodity,

@@ -32,7 +32,7 @@ class CommodityPrice(models.Model):
 
 class ErrorList(models.Model):
     error_message = models.CharField(max_length=150, null=False, blank=False)
-    error_location = models.CharField(max_length=150, null=False, blank=False)
+    session = models.CharField(max_length=150, null=False, blank=False)
 
     def __str__(self):
         return self.error_message
