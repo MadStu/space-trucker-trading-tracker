@@ -149,7 +149,7 @@ def handle_form_data(
         else:
             # Trying to sell something with 0 stock so send a message.
             add_error_message(
-                "You've tried to sell cargo you don't have in stock.",
+                "You've tried to sell more cargo than you have in stock.",
                 form_session
             )
 

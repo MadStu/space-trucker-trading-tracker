@@ -174,7 +174,7 @@ The ErrorList model holds a list of errors they produced.
 
 The UserProfit model holds the user's total profit.
 
-As the site allows users to be anonymous, the logic uses sessions to differentiate between users. If they are registered, the user id's are entered into the session field's instead.
+As the site allows users to be anonymous, the logic uses sessions to differentiate between users. If they are registered, the user id's are entered into the modal session field's instead.
 
 ![Database Schema Diagram](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/database-schema.png)
 
@@ -246,6 +246,14 @@ Editor view
 Prices view
 
 - The prices view is just for information and only sends the commodity_data() list to the template.
+
+Usage view
+
+- This is a view just as a message to the users. It just tells them how to use the STTT and doesn't require any logic.
+
+Error views
+
+- The rest of the views just handle any errors that a user might experience. The most comon is probably the 404 error if they've entered an address that doesn't exist. No logic required here.
 
 ## Technologies Used
 
