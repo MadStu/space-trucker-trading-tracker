@@ -26,13 +26,13 @@ The Space Trucker Trading Tracker (STTT) is a cargo inventory management tool ma
 
 Star Citizen (SC) is a deep space, science fiction game / simulation set 930 years in the future. The STTT's main purpose allows SC Traders to keep track of their ship's current cargo inventory and estimated value.
 
-The way trading works in SC is you go to one of many locations and you purchase a particular commodity with "alpha United Earth Credits" (aUEC) which is the in-game currency. You then transport that commodity to another location that's in need of it, and sell them for a profit.
+The way trading works in SC is you go to one of many locations and you purchase a particular commodity with "alpha United Earth Credits" (aUEC) which is the in-game currency. You then transport that commodity to another location where it's in demand, and sell them for a profit.
 
-The STTT is at heart a stock and inventory management tracking system that keeps you up to date with your current inventory, your current financial risk and how much you've made or are due to make on your current trading run. 
+The STTT is, at heart, a stock and inventory management tracking system that keeps you up to date with your current inventory, your current financial risk and how much you've made (or are due to make) on your current trading run.
 
-The commodity pricing in SC is also determined by demand and supply so the pricing is always changing. An organisation called UEX Corp have agents that regularly check the prices at different locations and provide an API that lists the average commodity prices. The STTT uses this data to populate the price inputs and provide users with their estimated profit. 
+The commodity pricing in SC is also determined by demand and supply so the pricing is always changing. An organisation called UEX Corp have agents that regularly check the prices at different locations and provide an API that lists the average commodity prices. The STTT uses this data to populate the price inputs and provide users with their estimated profit.
 
-I've taken a mobile first design approach with accessibility and ease of use at the top of STTT's priorities. This makes it simple and easy for all space truckers across the galaxy to input the prices and trades from their small screened device without having to switch views on their main monitor and be at risk of piracy. But it's also responsive to work on all devices.
+I've taken a mobile first design approach with accessibility and ease of use at the top of STTT's priorities. This makes it simple and easy for all space truckers across the galaxy to input the prices and trades from their small screened device without having to switch views on their main monitor and be at risk of piracy. But the STTT is also responsive to work on all devices.
 
 A deployed version may be found here: [Space Trucker Trading Tracker](https://space-trucker.herokuapp.com/)
 
@@ -142,9 +142,9 @@ And you'll also find a button to return to the main page at the top of each page
 
 # Planning 
 
-I planned to make a Star Citizen trading app that would work on any web browser and to be a reliable and easy to use tool for the user to want to make it an invaluable resource when they're trading multiple commodities at once.
+I planned to make a Star Citizen trading app that would work on any web browser and to be a robust and easy to use tool for the user to want to make it an invaluable resource when they're trading multiple commodities at once.
 
-I came up with the name of "Space Trucker Trading Tracker" as it's a bit of a tongue twister but has a nice ring to it. I think most people would refer to it as just STTT.
+I came up with the name "Space Trucker Trading Tracker" as it's a bit of a tongue twister but has a nice ring to it. I think most people would refer to it as just the STTT.
 
 Before writing any code I first drew a wireframe outline on the back of an envelope.
 
@@ -190,10 +190,10 @@ CRUD was a major part of how the design was styled and is really how the whole t
 
 Create: The user needs to enter their trade details to create a new object in the database.
 Read: The object is displayed back to the user in their cargo/trade list.
-Update: A user can add or remove a number of units from each of their commodities, updating that object.
-Delete: A user can sell all of that commodity and the object is deleted.
+Update: A user can add or remove a number of units from each of their commodities.
+Delete: A user can sell all of a single commodity and the object is deleted.
 
-With each action, the change is reflected immediately back to the user's screen with a change of their total profit and an update to their cargo list.
+With each action, the change is reflected immediately back to the user's screen with a change of their total profit and an update to their cargo list. A friendly message modal that timeouts after 3 seconds is also displayed to confirm the entry.
 
 All interation with the site is designed to produce a positive emotional response.
 
@@ -218,9 +218,11 @@ The ErrorList model holds a list of errors they produced.
 
 The UserProfit model holds the user's total profit.
 
-As the site allows users to be anonymous, the logic uses sessions to differentiate between users. If they are registered, the user id's are entered into the modal session field's instead.
+As the site allows users to be anonymous, the logic uses sessions to differentiate between users. If they are registered, the user id's are entered into the model's session table instead.
 
-CRUD is both central and essential to the whole app working correctly. Users are notified with an error message if they've failed to create, update or delete an object. The user will immediately see the successful creation, update or deletion of their object reflected on screen.
+CRUD is both central and essential to the whole app working correctly. Users are notified with an error message if they've failed to create, update or delete an object. 
+
+The user will also immediately see the successful creation, update or deletion of their object reflected on screen and with a confirmation modal.
 
 ![Database Schema Diagram](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/database-schema.png)
 
@@ -239,18 +241,25 @@ Index view
         - delete_old_trades() is also called to remove trades in the database that are over 14 days old.
         - A check is carried out to see if the API is working. 
             - If a status of "OK" is received, handle_api_data() is called to insert the data into the database.
-            - This function then loops through the commodity data received. 
+            - handle_api_data() then loops through the commodity data received. 
                 - If a commodity doesn't exist, it's created.
                 - If a commodity already exists, the date_modified dates are then compared to see if the prices already in the database is newer.
                     - If the data received is newer, then it will update the existing record.
 
-- When the index view receives form data by POST method, it checks to see if it was the user pressing the "Reset Profit" button.
+- When the index view receives the form data by POST method it checks to see if the user was simply clearing their error list.
+  - If true it clears the errors.
+  
+- It then checks that the sessions keys match between what the form has sent and what the view is expecting.
+  - If they don't match the user is told he needs to register or log in.
+  
+- It then checks to see if it was the user pressing the "Reset Profit" button.
     - If it was the reset button pressed it then checks to see if the user (defined by the session key received) has trades already exsting in the database.
         - If it exists, it then resets the user's profit value to 0.
 
     - If it wasn't the reset button, then it was a trade entry into the database and it checks the boolean value for whether it was a buy or sell.
         - If True, it was a buy trade and the variables are assigned accordingly.
         - If False, it was a sell trade and the variables are assigned accordingly.
+  
     - The variables that have been assigned are then insterted in to the database using the handle_form_data() function.
         - handle_form_data() then checks if the user already has a trade with the same commodity.
             - If it exists, it then it gets that object and checks if it's a buy or sell trade.
@@ -258,16 +267,22 @@ Index view
                 - If a sell trade, a check is made to see if too much cargo has sold than exists in the inventory.
                     - If too much then an error message is added to the database using the add_error_message() function.
                         - add_error_message() simply stores an error message into the ErrorList model.
+  
                     - If it passes this check, the existing commodity amount is reduced to reflect how many units the user has remaining in their cargo. The cost and profit are also updated.
+
                 - Another check is made against the ErrorList model and if there isn't one, it checks the inventory amount.
                     - If there is no remaining cargo, then this whole trade object is deleted.
                     - If there is cargo still remaining, the object is updated with the newly calculated values.
+
                 - user_profit_calc() is called to update the total profit amount.
                     - First a check is made, if an object of the profit for that user does not exist, a new one is created.
                     - The function then updates the user's profit by subtraction if it's a buy trade, or addition if they've sold.
+
             - If the commodity doesn't yet exist in the user's trades, then the cost and potential profit are calculated and a new record is inserted with the details. With user_profit_calc() being called again to update total profit.
+
         - update_commodity_prices() is then called which checks if there's any recorded errors and that the user is a superuser.
             - If the user is a superuser, the commodity price is updated with the values received in the trade form.
+
         - After all the form data is handled, the page is redirected back to the home page.
 
 - Next the index view gets some information from the database to populate the template form in anticipation of what the user will be using.
