@@ -172,6 +172,8 @@ The ErrorList model holds a list of errors they produced.
 
 The UserProfit model holds the user's total profit.
 
+![Database Schema Diagram](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/database-schema.png)
+
 ## Logic Flow
 
 Index view
@@ -326,7 +328,8 @@ I've deployed it on heroku.com and used the following method.
 - I often used [W3Schools](https://www.w3schools.com/python/), [Django docs](https://docs.djangoproject.com/en/4.0/) and [Bootstrap Docs](https://getbootstrap.com/docs/5.2/getting-started/introduction/) as a guide for finding the best solutions and using the code in the correct format.
 - I'd also search google a lot which more often than not would show similar solutions written on [Stack Overflow](https://stackoverflow.com/).
 - I used a wallpaper image of a large cargo ship called a Drake Caterpillar with credits to Cloud Imperium Gaming for creating the [Star Citizen](https://tinyurl.com/2yet2hz9) game.
-- https://www.w3schools.com/howto/howto_css_modals.asp
+- The error modal code was orginally from the bootstrap docs.
+- The Database Schema diagram was created with [Lucid.app](https://lucid.app/).
 
 ## Final Notes
 
