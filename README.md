@@ -136,6 +136,32 @@ Although basic, this helped me to realise what features I needed to code on the 
 
 Agile practices were used with user stories to help plan and develop new features.
 
+## User Stories
+
+#### As an admin user I can edit prices while trading so that the displayed values are up to date and I don't have to enter the editor page.
+
+#### As an admin I can view and edit all commodity prices so that I can keep the prices up to date.
+
+#### As a user I can View my total profit so that I know how much I've earned.
+
+#### As a user I can see current commodity prices by using the dropdown list so that I know how much profit I can make.
+
+#### As a user I can register an account so that my inventory is saved.
+
+#### As a user I can log in and out from google with 1 click so that I don't have to go through many pages.
+
+#### As a site user I can add newly bought stock into the inventory so that the cargo inventory is always up to date.
+
+#### As a site user I can remove stock from inventory when it sells so that cargo inventory is up to date.
+
+#### As a site user I can View current inventory so that I can keep track of cargo stock.
+
+#### As a user I can click one of my trades to quickly populate the form fields so that it saves time and isn't such a chore.
+
+#### As a site user I can view stock estimated value so that I know how much the cargo assets are worth.
+
+#### As a site user I can view a list of most profitable commodities so that I know the best commodities to buy and sell.
+
 ![User Stories](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/user-stories.png)
 
 ## Design
@@ -349,7 +375,7 @@ I've also asked friends and players of Star Citizen to test all aspects of the S
 - [x] The bottom row shows the total profit Due of the 2 values plus my total profit at the top of the screen.
 
 #### "As a site user I can view a list of most profitable commodities so that I know the best commodities to buy and sell."
-- [x] Pressing the Latest Prices link at the bottom takes me tot he Price Viewer page.
+- [x] Pressing the Latest Prices link at the bottom takes me to the Price Viewer page.
 - [x] The Price Viewer lists all the commodities.
 - [x] The commodities are in order of profit margin with the highest margin at the top.
 - [x] The latest buy / sell prices are displayed.
@@ -362,15 +388,12 @@ I've also asked friends and players of Star Citizen to test all aspects of the S
 
 - Python
     - No errors or warnings were returned when passing through [PEP8online](http://pep8online.com/).
-
 - HTML
     - No errors or warnings to show when passing through the official [W3C Validator](https://validator.w3.org/nu/?doc=https%3A%2F%2Fspace-trucker.herokuapp.com%2F).
 - CSS
     - No errors were found when passing through the official [(Jigsaw) validator](https://jigsaw.w3.org/css-validator/validator?uri=https%3A%2F%2Fspace-trucker.herokuapp.com%2Fstatic%2Fcss%2Fstyle.css).
-
 - JavaScript
     - No errors are shown when passing through the [Beautful Tools Javascript Validator](https://beautifytools.com/javascript-validator.php).
-
 - Accessibility
     - No errors or contrast errors [Wave](https://wave.webaim.org/report#/https://space-trucker.herokuapp.com/).
 
