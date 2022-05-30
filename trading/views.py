@@ -5,7 +5,8 @@ from django.shortcuts import render, redirect
 from django.db.models import Max
 from .models import Trade, CommodityPrice, ErrorList, UserProfit
 from .db_interactions import update_commodity_prices, handle_form_data
-from .db_interactions import handle_api_data, commodity_data, delete_old_trades, add_error_message
+from .db_interactions import handle_api_data, commodity_data
+from .db_interactions import delete_old_trades, add_error_message
 
 
 def index(request):
