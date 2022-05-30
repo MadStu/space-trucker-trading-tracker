@@ -9,6 +9,5 @@ https://space-trucker.herokuapp.com/
 - Refactor readme again
 - Option to choose unit amount size by ship
 - Create new user db entries with their ship details and past 5 trades
-- Style bottom logout div to be at the bottom
 - Button for total stock loss due to an accident, piracy or some other cause.
 - Add expenditure
