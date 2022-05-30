@@ -134,6 +134,10 @@ Although basic, this helped me to realise what features I needed to code on the 
 
 <img src="https://github.com/MadStu/space-trucker/raw/main/static/readme-images/wireframe.jpg" width="250">
 
+## Design
+
+The design was for a mobile based app. The typical user will be someone who is playing Star Citizen at their PC, most likely in the evening / night time. So I chose darker colours to be easier on their eyes. The yellow buttons and the red/green trade boxes are a duller, more pastel shade of those colours. Again to be easier on the eyes but to also provide good contrast in the user's low light environment.
+
 ## Features Left to Implement
 
 - Code API retrieval to get in-game ships and the cargo bay size info.
@@ -227,19 +231,12 @@ Prices view
 ## Technologies Used
 
 - Python
-
 - Django
-
 - JavaScript
-
 - HTML
-
 - CSS
-
 - PostgreSQL
-
 - Heroku
-
 - Bootstrap
 
 # Testing
