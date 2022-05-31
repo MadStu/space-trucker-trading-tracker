@@ -33,7 +33,7 @@ DEBUG = False
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-ALLOWED_HOSTS = ['space-trucker.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['space-trucker-trading-tracker.herokuapp.com', 'localhost']
 
 
 # Application definition
