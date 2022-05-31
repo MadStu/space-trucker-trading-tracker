@@ -34,7 +34,7 @@ The commodity pricing in SC is also determined by demand and supply so the prici
 
 I've taken a mobile first design approach with accessibility and ease of use at the top of STTT's priorities. This makes it simple and easy for all space truckers across the galaxy to input the prices and trades from their small screened device without having to switch views on their main monitor and be at risk of piracy. But the STTT is also responsive to work on all devices.
 
-A deployed version may be found here: [Space Trucker Trading Tracker](https://space-trucker.herokuapp.com/)
+A deployed version may be found here: [Space Trucker Trading Tracker](https://space-trucker-trading-tracker.herokuapp.com/)
 
 # Instructions for Use and Existing Features
 
