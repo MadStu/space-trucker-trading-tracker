@@ -69,7 +69,8 @@ def index(request):
         print("Update number:", update_db.update)
         update_db.save()
 
-        if (update_db.update % 4) == 0:
+        # Set every tenth API call to update ships
+        if (update_db.update % 10) == 0:
             ships = True
 
         # Check for any trades over 14 days old
