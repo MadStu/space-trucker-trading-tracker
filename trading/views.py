@@ -6,7 +6,7 @@ from django.db.models import Max
 from django.contrib import messages
 from .models import Trade, CommodityPrice, ErrorList, UserProfit
 from .db_interactions import update_commodity_prices, handle_form_data
-from .db_interactions import handle_api_data, commodity_data
+from .db_interactions import handle_api_data, commodity_data, ship_data
 from .db_interactions import delete_old_trades, add_error_message
 
 
@@ -76,7 +76,7 @@ def index(request):
         update_db.save()
 
         # Check whether to get ships API
-        ships = True
+        ships = False
         if ships:
             api_url = "https://api.uexcorp.space/ships/"
         else:
@@ -198,9 +198,6 @@ def index(request):
         total_profit += trade.profit
         total_cost += trade.cost
 
-    # Get Ships
-    ships = ShipList.objects.all()
-
     # Get currently trading profit
     if UserProfit.objects.filter(session=session_key).exists():
         up_data = UserProfit.objects.get(session=session_key)
@@ -226,7 +223,7 @@ def index(request):
         'populate_buy': form_buy,
         'user_profit': int(user_profit),
         'error_list': error_list,
-        'ships': ships
+        'ships': ship_data()
     }
 
     return render(request, "trading/index.html", context)

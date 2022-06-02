@@ -49,8 +49,9 @@ class UserProfit(models.Model):
 class ShipList(models.Model):
     code = models.CharField(max_length=25, null=False, blank=False)
     name = models.CharField(max_length=150, null=False, blank=False)
-    scu = models.IntegerField()
+    units = models.IntegerField()
     date_modified = models.IntegerField()
+    implemented = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name

@@ -1,6 +1,6 @@
 import time
 from django.contrib import messages
-from .models import Trade, CommodityPrice, ErrorList, UserProfit
+from .models import Trade, CommodityPrice, ErrorList, UserProfit, ShipList
 
 
 def handle_api_data(api_display, ships):
@@ -50,16 +50,18 @@ def handle_api_data(api_display, ships):
                     # Update existing details
                     entry.code = item['code']
                     entry.name = item['name']
-                    entry.scu = (int(item['scu'])*100)
+                    entry.units = (int(item['scu'])*100)
                     entry.date_modified = item['date_modified']
+                    entry.implemented = item['implemented']
                     entry.save()
             else:
                 # Doesn't exist so insert new ship
                 ShipList.objects.create(
                     code=item['code'],
                     name=item['name'],
-                    scu=item['scu'],
-                    date_modified=item['date_modified']
+                    units=(int(item['scu'])*100),
+                    date_modified=item['date_modified'],
+                    implemented=int(item['implemented'])
                 )
 
 
@@ -292,3 +294,16 @@ def delete_old_trades():
     for trade in trades:
         if trade.time < epoch_time - days_in_seconds:
             trade.delete()
+
+
+def ship_data():
+    """
+    Returns a list of ships currently capable of trade
+    """
+    # Create a new list from the database
+    ship_data_list = []
+    for item in ShipList.objects.values():
+        # Only add legal tradeable commodities to the new list
+        if item['units'] > 0 and item['implemented'] == 1:
+            ship_data_list.append(item)
+    return ship_data_list
