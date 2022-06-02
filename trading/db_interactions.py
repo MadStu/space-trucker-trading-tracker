@@ -50,7 +50,7 @@ def handle_api_data(api_display, ships):
                     # Update existing details
                     entry.code = item['code']
                     entry.name = item['name']
-                    entry.scu = item['scu']
+                    entry.scu = (int(item['scu'])*100)
                     entry.date_modified = item['date_modified']
                     entry.save()
             else:

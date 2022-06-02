@@ -198,6 +198,9 @@ def index(request):
         total_profit += trade.profit
         total_cost += trade.cost
 
+    # Get Ships
+    ships = ShipList.objects.all()
+
     # Get currently trading profit
     if UserProfit.objects.filter(session=session_key).exists():
         up_data = UserProfit.objects.get(session=session_key)
@@ -222,7 +225,8 @@ def index(request):
         'populate_amount': int(form_amount),
         'populate_buy': form_buy,
         'user_profit': int(user_profit),
-        'error_list': error_list
+        'error_list': error_list,
+        'ships': ships
     }
 
     return render(request, "trading/index.html", context)
