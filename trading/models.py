@@ -41,6 +41,7 @@ class ErrorList(models.Model):
 class UserProfit(models.Model):
     session = models.CharField(max_length=150, blank=False, default=0)
     profit = models.IntegerField(default=0)
+    ship_code = models.CharField(max_length=25, null=False, blank=False, default="CATERP")
 
     def __str__(self):
         return self.session
@@ -48,6 +49,7 @@ class UserProfit(models.Model):
 
 class ShipList(models.Model):
     code = models.CharField(max_length=25, null=False, blank=False)
+    manufacturer = models.CharField(max_length=150, null=False, blank=False, default="DRAKE")
     name = models.CharField(max_length=150, null=False, blank=False)
     units = models.IntegerField()
     date_modified = models.IntegerField()

@@ -255,7 +255,7 @@ def commodity_data():
     return commodity_data_list
 
 
-def user_profit_calc(session, cost, buy):
+def user_profit_calc(session, cost, buy, ship_code):
     """
     Handle the UserProfit queries
     """
@@ -263,10 +263,12 @@ def user_profit_calc(session, cost, buy):
     if not UserProfit.objects.filter(session=session).exists():
 
         # Insert new record
-        UserProfit.objects.create(session=session, profit=0)
+        UserProfit.objects.create(session=session, profit=0, ship_code=ship_code)
 
     # Retrieve UserProfit data
     up_data = UserProfit.objects.get(session=session)
+
+    up_data.ship_code = ship_code
 
     if buy:
         up_data.profit -= int(cost)
