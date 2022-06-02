@@ -10,6 +10,7 @@ def handle_api_data(api_display, ships):
     # Loop through the records
     for item in api_display:
         if not ships:
+            print("Updating Commodities...")
             # Not ships so must be a commodity update
             # Calculate the profit and round down to 2 decimal places
             item['profit'] = round(
@@ -33,7 +34,7 @@ def handle_api_data(api_display, ships):
                     entry.profit = item['profit']
 
                 # Sync the update number
-                entry.update = update_db.profit
+                entry.update = update_db.update
 
                 # Save the updated record
                 entry.save()
@@ -47,11 +48,12 @@ def handle_api_data(api_display, ships):
                     trade_price_sell=item['trade_price_sell'],
                     date_modified=item['date_modified'],
                     profit=item['profit'],
-                    update=update_db.profit
+                    update=update_db.update
                 )
         else:
             # Update Ships
             # Check if the record exists
+            print("Updating Ships...")
             if ShipList.objects.filter(code=item['code']).exists():
                 entry = ShipList.objects.get(code=item['code'])
 
@@ -321,7 +323,7 @@ def delete_old_commodity():
 
     # Delete commodity if older than 3 API cycles
     for commodity in commodities:
-        if commodity.update < update_db.profit - 3:
+        if commodity.update < update_db.update - 3:
             print("Deleting Comodity:", commodity.name)
             commodity.delete()
 

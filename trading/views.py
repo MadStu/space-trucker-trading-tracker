@@ -18,7 +18,7 @@ def index(request):
     ships = False
 
     # Time since last API call 3600 = 1 hour, 21600 = 6 hours
-    time_in_seconds = 21600
+    time_in_seconds = 3600
 
     # Get the Date/Time in epoch format
     epoch_time = time.time()
@@ -63,9 +63,14 @@ def index(request):
     # Check if it's been more than * seconds since last update
     if epoch_time - time_in_seconds > last_update:
 
+        # Increment the update number
         update_db = CommodityPrice.objects.get(code='UPDA')
-        update_db.profit += 1
+        update_db.update += 1
+        print("Update number:", update_db.update)
         update_db.save()
+
+        if (update_db.update % 4) == 0:
+            ships = True
 
         # Check for any trades over 14 days old
         delete_old_trades()
