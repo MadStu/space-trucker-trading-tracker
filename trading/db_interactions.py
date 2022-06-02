@@ -3,43 +3,64 @@ from django.contrib import messages
 from .models import Trade, CommodityPrice, ErrorList, UserProfit
 
 
-def handle_api_data(api_display):
+def handle_api_data(api_display, ships):
     """
     Handles the data received by the API
     """
     # Loop through the records
     for item in api_display:
-        # Calculate the profit and round down to 2 decimal places
-        item['profit'] = round(
-            item['trade_price_sell'] - item['trade_price_buy'], 2)
+        if not ships:
+            # Calculate the profit and round down to 2 decimal places
+            item['profit'] = round(
+                item['trade_price_sell'] - item['trade_price_buy'], 2)
 
-        # Check if the record exists
-        if CommodityPrice.objects.filter(code=item['code']).exists():
-            entry = CommodityPrice.objects.get(code=item['code'])
+            # Check if the record exists
+            if CommodityPrice.objects.filter(code=item['code']).exists():
+                entry = CommodityPrice.objects.get(code=item['code'])
 
-            # Check if API data is newer than the DB entry
-            if item['date_modified'] > entry.date_modified:
-                # Update existing details
-                entry.code = item['code']
-                entry.name = item['name']
-                entry.kind = item['kind']
-                entry.trade_price_buy = item['trade_price_buy']
-                entry.trade_price_sell = item['trade_price_sell']
-                entry.date_modified = item['date_modified']
-                entry.profit = item['profit']
-                entry.save()
+                # Check if API data is newer than the DB entry
+                if item['date_modified'] > entry.date_modified:
+                    # Update existing details
+                    entry.code = item['code']
+                    entry.name = item['name']
+                    entry.kind = item['kind']
+                    entry.trade_price_buy = item['trade_price_buy']
+                    entry.trade_price_sell = item['trade_price_sell']
+                    entry.date_modified = item['date_modified']
+                    entry.profit = item['profit']
+                    entry.save()
+            else:
+                # Doesn't exist so insert new commodity
+                CommodityPrice.objects.create(
+                    code=item['code'],
+                    name=item['name'],
+                    kind=item['kind'],
+                    trade_price_buy=item['trade_price_buy'],
+                    trade_price_sell=item['trade_price_sell'],
+                    date_modified=item['date_modified'],
+                    profit=item['profit']
+                )
         else:
-            # Doesn't exist so insert new commodity
-            CommodityPrice.objects.create(
-                code=item['code'],
-                name=item['name'],
-                kind=item['kind'],
-                trade_price_buy=item['trade_price_buy'],
-                trade_price_sell=item['trade_price_sell'],
-                date_modified=item['date_modified'],
-                profit=item['profit']
-            )
+            # Check if the record exists
+            if ShipList.objects.filter(code=item['code']).exists():
+                entry = ShipList.objects.get(code=item['code'])
 
+                # Check if API data is newer than the DB entry
+                if item['date_modified'] > entry.date_modified:
+                    # Update existing details
+                    entry.code = item['code']
+                    entry.name = item['name']
+                    entry.scu = item['scu']
+                    entry.date_modified = item['date_modified']
+                    entry.save()
+            else:
+                # Doesn't exist so insert new ship
+                ShipList.objects.create(
+                    code=item['code'],
+                    name=item['name'],
+                    scu=item['scu'],
+                    date_modified=item['date_modified']
+                )
 
 
 def handle_form_data(

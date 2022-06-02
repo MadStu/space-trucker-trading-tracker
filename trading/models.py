@@ -44,3 +44,13 @@ class UserProfit(models.Model):
 
     def __str__(self):
         return self.session
+
+
+class ShipList(models.Model):
+    code = models.CharField(max_length=25, null=False, blank=False)
+    name = models.CharField(max_length=150, null=False, blank=False)
+    scu = models.IntegerField()
+    date_modified = models.IntegerField()
+
+    def __str__(self):
+        return self.name

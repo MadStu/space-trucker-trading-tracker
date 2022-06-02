@@ -75,8 +75,14 @@ def index(request):
         update_db.date_modified = int(epoch_time)
         update_db.save()
 
+        # Check whether to get ships API
+        ships = True
+        if ships:
+            api_url = "https://api.uexcorp.space/ships/"
+        else:
+            api_url = "https://api.uexcorp.space/commodities"
+
         # Connect to UEX API and get latest commodity prices
-        api_url = "https://api.uexcorp.space/commodities"
         headers = {"api_key": os.environ.get("UEX_API_KEY")}
         response = requests.get(api_url, headers=headers)
         api_response = response.json()
@@ -91,7 +97,7 @@ def index(request):
                 time.ctime(epoch_time)
             )
             # Handle the API data in db_interactions
-            handle_api_data(api_display)
+            handle_api_data(api_display, ships)
         else:
             # Tell the logs the API retrieve failed
             print(
