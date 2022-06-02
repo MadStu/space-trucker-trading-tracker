@@ -140,6 +140,7 @@ def index(request):
                 form_commodity = request.POST.get('form_sell_commodity')
                 form_price = request.POST.get('form_sell_price')
                 form_amount = int(request.POST.get('form_sell_amount'))
+            ship = request.POST.get('ship_data')
 
             # Insert the form data in db_interactions
             handle_form_data(
@@ -149,7 +150,8 @@ def index(request):
                 form_buy,
                 form_session,
                 epoch_time,
-                request
+                request,
+                ship
             )
 
             # Update CommodityPrice data in db_interactions

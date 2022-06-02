@@ -34,14 +34,19 @@ function setUnits() {
     var selectedOption = selectBox.options[selectBox.selectedIndex];
     // Get the attribute value
     var units = selectedOption.getAttribute("data-units");
+    var code = selectedOption.getAttribute("data-code");
     // Get the fields
     var buyAmount = document.getElementById("form_buy_amount");
     var sellAmount = document.getElementById("form_sell_amount");
+    var shipCode = document.getElementById("ship_data");
+    var shipCode2 = document.getElementById("ship_data2");
     // Insert the values
     buyAmount.value = units;
     sellAmount.value = units;
     buyAmount.max = units;
     sellAmount.max = units;
+    shipCode.value = code;
+    shipCode2.value = code;
 }
 
 function setSelect(commodity, amount) {

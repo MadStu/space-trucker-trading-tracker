@@ -72,7 +72,8 @@ def handle_form_data(
     form_buy,
     form_session,
     epoch_time,
-    request
+    request,
+    ship_code
 ):
     """
     Handles the data received submitted on the form
@@ -142,7 +143,7 @@ def handle_form_data(
             else:
                 entry.save()
             # Save UserProfit data
-            user_profit_calc(form_session, cost_amount, form_buy)
+            user_profit_calc(form_session, cost_amount, form_buy, ship_code)
             msg = "Trade successfully added."
             messages.add_message(request, messages.SUCCESS, msg)
 
@@ -173,7 +174,7 @@ def handle_form_data(
                 units=form_amount
             )
             # Save UserProfit data
-            user_profit_calc(form_session, cost, form_buy)
+            user_profit_calc(form_session, cost, form_buy, ship_code)
             msg = "Trade successfully added."
             messages.add_message(request, messages.SUCCESS, msg)
         else:
