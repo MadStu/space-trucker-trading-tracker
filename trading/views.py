@@ -19,6 +19,9 @@ def index(request):
     global form_amount
     global form_buy
 
+    # Check whether to get ships API
+    ships = False
+
     # Time since last API call 3600 = 1 hour, 21600 = 6 hours
     time_in_seconds = 21600
 
@@ -75,8 +78,6 @@ def index(request):
         update_db.date_modified = int(epoch_time)
         update_db.save()
 
-        # Check whether to get ships API
-        ships = False
         if ships:
             api_url = "https://api.uexcorp.space/ships/"
         else:
@@ -204,8 +205,10 @@ def index(request):
     if UserProfit.objects.filter(session=session_key).exists():
         up_data = UserProfit.objects.get(session=session_key)
         user_profit = up_data.profit
+        user_ship = up_data.ship_code
     else:
         user_profit = 0
+        user_ship = "CATERP"
 
     error_list = ErrorList.objects.all().filter(session=session_key)
     context = {
@@ -225,7 +228,8 @@ def index(request):
         'populate_buy': form_buy,
         'user_profit': int(user_profit),
         'error_list': error_list,
-        'ships': ship_data()
+        'ships': ship_data(),
+        'user_ship': user_ship
     }
 
     return render(request, "trading/index.html", context)

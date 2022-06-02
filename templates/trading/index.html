@@ -23,7 +23,8 @@
                 <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="in_ship"
                     id="in_ship" onChange="return setUnits()">
                     {% for ship in ships|dictsort:"units" reversed %}
-                    <option data-units={{ ship.units }} data-code={{ ship.code }} value="{{ ship.name }}">{{ ship.name }}</option>
+                    <option data-units={{ ship.units }} data-code={{ ship.code }} value="{{ ship.name }}"
+                    {% if ship.code == user_ship %} selected{% endif %}>{{ ship.name }}</option>
                     {% endfor %}
                 </select>
 
