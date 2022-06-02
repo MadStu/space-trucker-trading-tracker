@@ -14,11 +14,6 @@ def index(request):
     """
     The main index page where the magic happens
     """
-    global form_commodity
-    global form_price
-    global form_amount
-    global form_buy
-
     # Check whether to get ships API
     ships = False
 

@@ -33,18 +33,26 @@ function setUnits() {
     // Get the selected option
     var selectedOption = selectBox.options[selectBox.selectedIndex];
     // Get the attribute value
-    var units = selectedOption.getAttribute("data-units");
+    var totalSpace = selectedOption.getAttribute("data-units");
     var code = selectedOption.getAttribute("data-code");
     // Get the fields
     var buyAmount = document.getElementById("form_buy_amount");
     var sellAmount = document.getElementById("form_sell_amount");
     var shipCode = document.getElementById("ship_data");
     var shipCode2 = document.getElementById("ship_data2");
+    var totalOnBoard = document.getElementById("total_cargo").innerHTML;
+
+    // Calculate the values
+    // Total space - cargo on board = space left
+    var spaceLeft = parseInt(totalSpace) - parseInt(totalOnBoard.replace(/,/g, ''));
+
     // Insert the values
-    buyAmount.value = units;
-    sellAmount.value = units;
-    buyAmount.max = units;
-    sellAmount.max = units;
+    buyAmount.value = spaceLeft;  // Buy units
+    buyAmount.max = spaceLeft;  // Set max on the form input
+    sellAmount.value = totalOnBoard.replace(/,/g, '');  // Sell units
+    sellAmount.max = totalOnBoard.replace(/,/g, '');  // Set max on the form input
+
+    // Send the ship code in a hidden form input
     shipCode.value = code;
     shipCode2.value = code;
 }
