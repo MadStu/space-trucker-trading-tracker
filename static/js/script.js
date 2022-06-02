@@ -27,6 +27,23 @@ function setFields() {
     formSellCommodity.value = commodityValue;
 }
 
+function setUnits() {
+    // Get the selection box
+    var selectBox = document.getElementById("in_ship");
+    // Get the selected option
+    var selectedOption = selectBox.options[selectBox.selectedIndex];
+    // Get the attribute value
+    var units = selectedOption.getAttribute("data-units");
+    // Get the fields
+    var buyAmount = document.getElementById("form_buy_amount");
+    var sellAmount = document.getElementById("form_sell_amount");
+    // Insert the values
+    buyAmount.value = units;
+    sellAmount.value = units;
+    buyAmount.max = units;
+    sellAmount.max = units;
+}
+
 function setSelect(commodity, amount) {
     // Get the fields
     var selectBox = document.getElementById("in_commodity");
@@ -41,3 +58,4 @@ function setSelect(commodity, amount) {
 }
 
 setFields();
+setUnits()

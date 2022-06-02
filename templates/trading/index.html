@@ -8,16 +8,28 @@
 
 <main class="main-padding">
 
-    <div>
-        <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="in_commodity"
-            id="in_commodity" onChange="return setFields()">
-            {% for commodity in commodity_data|dictsort:"profit" reversed %}
-            <option data-buy="{{ commodity.trade_price_buy|floatformat:2 }}"
-                data-sell="{{ commodity.trade_price_sell|floatformat:2 }}" value="{{ commodity.name }}"
-                {% if commodity.name == populate_commodity %} selected{% endif %}>{{ commodity.name }}</option>
-            {% endfor %}
-        </select>
-    </div>
+    <div class="container">
+        <div class="row justify-content-center">
+
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="in_commodity"
+                    id="in_commodity" onChange="return setFields()">
+                    {% for commodity in commodity_data|dictsort:"profit" reversed %}
+                    <option data-buy="{{ commodity.trade_price_buy|floatformat:2 }}"
+                        data-sell="{{ commodity.trade_price_sell|floatformat:2 }}" value="{{ commodity.name }}"
+                        {% if commodity.name == populate_commodity %} selected{% endif %}>{{ commodity.name }}</option>
+                    {% endfor %}
+                </select>
+
+                <select class="form-select form-select-lg mb-3" aria-label=".form-select-lg example" name="in_ship"
+                id="in_ship" onChange="return setUnits()">
+
+                    <option data-units=69600 value="Hercules C2" selected>Hercules C2</option>
+                    <option data-units=57600 value="Drake Caterpillar">Drake Caterpillar</option>
+
+                </select>
+
+        </div>
+    </div> 
 
     <div class="container">
         <div class="row d-flex justify-content-center">
@@ -50,7 +62,7 @@
                                         <div class="col-md-6 trade-box-inside">
                                             <input class="form-control input-lg" type="number"
                                                 name="form_buy_amount" id="form_buy_amount" autocomplete="off"
-                                                value="{{ populate_amount }}" min="1" max="69600" required>
+                                                value="{{ populate_amount }}" min="1" max="{{ populate_amount }}" required>
                                         </div>
                                     </div>
                                 </div>
@@ -98,7 +110,7 @@
                                         <div class="col-md-6 trade-box-inside">
                                             <input class="form-control input-lg" type="number"
                                                 name="form_sell_amount" id="form_sell_amount" autocomplete="off"
-                                                value="{{ populate_amount }}" min="1" max="69600" required>
+                                                value="{{ populate_amount }}" min="1" max="{{ populate_amount }}" required>
                                         </div>
                                     </div>
                                 </div>

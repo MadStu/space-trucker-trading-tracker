@@ -86,6 +86,11 @@ h2 {
     border-width: 1px;
 }
 
+.form-select {
+    width: 48%;
+    margin: 0 2px;
+}
+
 .trade-box {
     background-color: rgb(94, 214, 130);
     border-radius: 10px;
