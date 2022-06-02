@@ -35,6 +35,7 @@ def index(request):
     if CommodityPrice.objects.filter(code='UPDA').exists():
         update_db = CommodityPrice.objects.get(code='UPDA')
         last_update = update_db.date_modified
+
     else:
         # Doesn't exist so insert new Update entry
         CommodityPrice.objects.create(
@@ -61,6 +62,10 @@ def index(request):
 
     # Check if it's been more than * seconds since last update
     if epoch_time - time_in_seconds > last_update:
+
+        update_db = CommodityPrice.objects.get(code='UPDA')
+        update_db.profit += 1
+        update_db.save()
 
         # Check for any trades over 14 days old
         delete_old_trades()

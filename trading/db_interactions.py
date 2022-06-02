@@ -10,9 +10,12 @@ def handle_api_data(api_display, ships):
     # Loop through the records
     for item in api_display:
         if not ships:
+            # Not ships so must be a commodity update
             # Calculate the profit and round down to 2 decimal places
             item['profit'] = round(
                 item['trade_price_sell'] - item['trade_price_buy'], 2)
+
+            update_db = CommodityPrice.objects.get(code='UPDA')
 
             # Check if the record exists
             if CommodityPrice.objects.filter(code=item['code']).exists():
@@ -28,7 +31,12 @@ def handle_api_data(api_display, ships):
                     entry.trade_price_sell = item['trade_price_sell']
                     entry.date_modified = item['date_modified']
                     entry.profit = item['profit']
-                    entry.save()
+
+                # Sync the update number
+                entry.update = update_db.profit
+
+                # Save the updated record
+                entry.save()
             else:
                 # Doesn't exist so insert new commodity
                 CommodityPrice.objects.create(
@@ -38,9 +46,11 @@ def handle_api_data(api_display, ships):
                     trade_price_buy=item['trade_price_buy'],
                     trade_price_sell=item['trade_price_sell'],
                     date_modified=item['date_modified'],
-                    profit=item['profit']
+                    profit=item['profit'],
+                    update=update_db.profit
                 )
         else:
+            # Update Ships
             # Check if the record exists
             if ShipList.objects.filter(code=item['code']).exists():
                 entry = ShipList.objects.get(code=item['code'])
@@ -297,6 +307,21 @@ def delete_old_trades():
     for trade in trades:
         if trade.time < epoch_time - days_in_seconds:
             trade.delete()
+
+
+def delete_old_commodity():
+    """
+    Remove defunct commodities
+    """
+    # Get Commodity data
+    update_db = CommodityPrice.objects.get(code='UPDA')
+    commodities = CommodityPrice.objects.all()
+
+    # Delete commodity if older than 3 API cycles
+    for commodity in commodities:
+        if commodity.update < update_db.profit - 3:
+            print("Deleting Comodity:", commodity.name)
+            commodity.delete()
 
 
 def ship_data():

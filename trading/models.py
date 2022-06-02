@@ -25,6 +25,7 @@ class CommodityPrice(models.Model):
     trade_price_sell = models.FloatField()
     date_modified = models.IntegerField()
     profit = models.FloatField()
+    update = models.FloatField(default=0)
 
     def __str__(self):
         return self.name
