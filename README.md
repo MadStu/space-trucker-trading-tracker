@@ -119,7 +119,7 @@ If you'd like to see the last date the prices were updated, you'll need to view 
 
 ![Latest Prices Wide Page](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/latest-prices-wide-page.png)
 
-If you're granted admin privilidges you'll also be able to manually edit the commodity prices. Just press the button to take you to the Price Editor.
+If you're granted admin priviliges you'll also be able to manually edit the commodity prices. Just press the button to take you to the Price Editor.
 
 ![Price Editor Button](https://github.com/MadStu/space-trucker/raw/main/static/readme-images/price-editor-button.png)
 
