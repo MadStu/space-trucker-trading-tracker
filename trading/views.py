@@ -1,25 +1,17 @@
-import os
 import time
-import requests
 from django.shortcuts import render, redirect
 from django.db.models import Max
 from django.contrib import messages
 from .models import Trade, CommodityPrice, ErrorList, UserProfit
 from .db_interactions import update_commodity_prices, handle_form_data
-from .db_interactions import handle_api_data, commodity_data, ship_data
-from .db_interactions import delete_old_trades, add_error_message
+from .db_interactions import commodity_data, ship_data, add_error_message
+from .api_call import call_the_api
 
 
 def index(request):
     """
     The main index page where the magic happens
     """
-    # Check whether to get ships API
-    ships = False
-
-    # Time since last API call 3600 = 1 hour, 21600 = 6 hours
-    time_in_seconds = 3600
-
     # Get the Date/Time in epoch format
     epoch_time = time.time()
 
@@ -59,60 +51,6 @@ def index(request):
         '%B %-d, %Y %H:%M:%S',
         time.localtime(last_update+sc_time)
     )
-
-    # Check if it's been more than * seconds since last update
-    if epoch_time - time_in_seconds > last_update:
-
-        # Increment the update number
-        update_db = CommodityPrice.objects.get(code='UPDA')
-        update_db.update += 1
-        print("Update number:", update_db.update)
-        update_db.save()
-
-        # Set every tenth API call to update ships
-        if (update_db.update % 10) == 0:
-            ships = True
-
-        # Check for any trades over 14 days old
-        delete_old_trades()
-
-        print("Last modified:", update_db.date_modified)
-        print("Current Time:", epoch_time)
-        print("Retrieving UEX API...")
-
-        # Update last date modified in DB
-        update_db.date_modified = int(epoch_time)
-        update_db.save()
-
-        if ships:
-            api_url = "https://api.uexcorp.space/ships/"
-        else:
-            api_url = "https://api.uexcorp.space/commodities"
-
-        # Connect to UEX API and get latest commodity prices
-        headers = {"api_key": os.environ.get("UEX_API_KEY")}
-        response = requests.get(api_url, headers=headers)
-        api_response = response.json()
-
-        # Check API is working
-        if api_response['code'] == 200:
-            api_display = api_response['data']
-            print(
-                "API Retrieve Successful",
-                api_response['code'],
-                api_response['status'],
-                time.ctime(epoch_time)
-            )
-            # Handle the API data in db_interactions
-            handle_api_data(api_display, ships)
-        else:
-            # Tell the logs the API retrieve failed
-            print(
-                "API Retrieve Failed",
-                api_response['code'],
-                api_response['status'],
-                time.ctime(epoch_time)
-            )
 
     # Handle the received Form data
     if request.method == 'POST':
@@ -286,6 +224,17 @@ def usage(request):
     Shows the user how to use the STTT
     """
     return render(request, "trading/usage.html")
+
+
+def api_call(request):
+    """
+    The price viewer page is to show the current prices
+    """
+    context = {
+        'api_call': call_the_api()
+    }
+
+    return render(request, "trading/apicall.html", context)
 
 
 def error_400(request, exception):
