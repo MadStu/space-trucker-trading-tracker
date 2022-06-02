@@ -41,16 +41,17 @@ function setUnits() {
     var shipCode = document.getElementById("ship_data");
     var shipCode2 = document.getElementById("ship_data2");
     var totalOnBoard = document.getElementById("total_cargo").innerHTML;
+    totalOnBoard = totalOnBoard.replace(/,/g, '');
 
     // Calculate the values
     // Total space - cargo on board = space left
-    var spaceLeft = parseInt(totalSpace) - parseInt(totalOnBoard.replace(/,/g, ''));
+    var spaceLeft = parseInt(totalSpace) - totalOnBoard;
 
     // Insert the values
     buyAmount.value = spaceLeft;  // Buy units
     buyAmount.max = spaceLeft;  // Set max on the form input
-    sellAmount.value = totalOnBoard.replace(/,/g, '');  // Sell units
-    sellAmount.max = totalOnBoard.replace(/,/g, '');  // Set max on the form input
+    sellAmount.value = totalOnBoard;  // Sell units
+    sellAmount.max = totalOnBoard;  // Set max on the form input
 
     // Send the ship code in a hidden form input
     shipCode.value = code;
