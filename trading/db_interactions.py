@@ -73,6 +73,8 @@ def handle_api_data(api_display, ships):
                     date_modified=item['date_modified'],
                     implemented=int(item['implemented'])
                 )
+    # Delete old commodities after API handling has completed
+    delete_old_commodity()
 
 
 def handle_form_data(
