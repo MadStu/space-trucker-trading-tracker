@@ -14,7 +14,7 @@ from pathlib import Path
 import os
 import dj_database_url
 
-if os.path.exists('vars.py'):
+if os.path.exists('../vars.py'):
     from vars import SECRET_CODE, DATABASE_URL, DEVELOPMENT
 else:
     SECRET_CODE = os.environ.get('SECRET_KEY')
