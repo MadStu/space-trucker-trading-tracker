@@ -72,4 +72,4 @@ function setSelect(commodity, amount) {
 }
 
 setFields();
-setUnits()
+setUnits();
