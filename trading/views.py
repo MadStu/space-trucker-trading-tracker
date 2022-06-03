@@ -228,7 +228,7 @@ def usage(request):
 
 def api_call(request):
     """
-    The price viewer page is to show the current prices
+    Calls the api function to update commodity prices
     """
     context = {
         'api_call': call_the_api()

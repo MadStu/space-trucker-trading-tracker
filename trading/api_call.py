@@ -5,7 +5,6 @@ from .db_interactions import delete_old_trades, delete_old_commodity
 from .models import CommodityPrice, ShipList
 
 
-
 def call_the_api():
     """
     Api Call Function
@@ -105,7 +104,6 @@ def handle_api_data(api_display, ships):
     # Loop through the records
     for item in api_display:
         if not ships:
-            print("Updating Commodities...")
             # Not ships so must be a commodity update
             # Calculate the profit and round down to 2 decimal places
             item['profit'] = round(
@@ -148,7 +146,6 @@ def handle_api_data(api_display, ships):
         else:
             # Update Ships
             # Check if the record exists
-            print("Updating Ships...")
             if ShipList.objects.filter(code=item['code']).exists():
                 entry = ShipList.objects.get(code=item['code'])
 
