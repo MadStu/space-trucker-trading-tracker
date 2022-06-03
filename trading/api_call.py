@@ -13,7 +13,7 @@ def call_the_api():
     ships = False
 
     # Time since last API call 3600 = 1 hour, 21600 = 6 hours
-    time_in_seconds = os.environ.get("UPDATE_TIME")
+    time_in_seconds = int(os.environ.get("UPDATE_TIME"))
 
     # Get the Date/Time in epoch format
     epoch_time = time.time()
