@@ -19,7 +19,7 @@ def call_the_api():
     ships = False
 
     # Time since last API call 3600 = 1 hour, 21600 = 6 hours
-    time_in_seconds = int(os.environ.get("UPDATE_TIME"))
+    time_in_seconds = int(UPDATE_TIME)
 
     # Get the Date/Time in epoch format
     epoch_time = time.time()
@@ -73,7 +73,7 @@ def call_the_api():
             api_url = "https://api.uexcorp.space/commodities"
 
         # Connect to UEX API and get latest commodity prices
-        headers = {"api_key": os.environ.get("UEX_API_KEY")}
+        headers = {"api_key": UEX_API_KEY}
         response = requests.get(api_url, headers=headers)
         api_response = response.json()
 
