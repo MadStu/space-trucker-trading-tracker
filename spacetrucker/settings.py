@@ -14,6 +14,8 @@ from pathlib import Path
 import os
 import dj_database_url
 
+local_db = False
+
 if os.path.exists('../vars.py'):
     from vars import SECRET_CODE, DATABASE_URL, DEVELOPMENT
     local_db = True
