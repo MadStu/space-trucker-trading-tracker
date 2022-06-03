@@ -4,6 +4,12 @@ import requests
 from .db_interactions import delete_old_trades, delete_old_commodity
 from .models import CommodityPrice, ShipList
 
+if os.path.exists('../vars.py'):
+    from vars import UEX_API_KEY, UPDATE_TIME
+else:
+    UEX_API_KEY = os.environ.get('UEX_API_KEY')
+    UPDATE_TIME = os.environ.get('UPDATE_TIME')
+
 
 def call_the_api():
     """
