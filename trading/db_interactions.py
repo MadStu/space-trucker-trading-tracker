@@ -245,9 +245,9 @@ def delete_old_commodity():
     update_db = CommodityPrice.objects.get(code='UPDA')
     commodities = CommodityPrice.objects.all()
 
-    # Delete commodity if older than 3 API cycles
+    # Delete commodity if older than 12 API cycles
     for commodity in commodities:
-        if commodity.update < update_db.update - 3:
+        if commodity.update < update_db.update - 12:
             print("Deleting Comodity:", commodity.name)
             commodity.delete()
 

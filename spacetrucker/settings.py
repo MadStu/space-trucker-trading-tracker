@@ -13,7 +13,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-from os.path import exists
 
 local_db = False
 
@@ -21,7 +20,7 @@ path_to_file = 'vars.py'
 path = Path(path_to_file)
 
 if path.is_file():
-    from vars import SECRET_CODE, DATABASE_URL, DEVELOPMENT
+    from vars import SECRET_CODE, DATABASE_URL, DEVELOPMENT, DATABASE_PATH
     local_db = True
 else:
     SECRET_CODE = os.environ.get('SECRET_KEY')
@@ -107,20 +106,20 @@ WSGI_APPLICATION = 'spacetrucker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
-# if local_db:
-#     print ("LOCAL DB")
-#     DATABASES = {
-#         'default': {
-#             'ENGINE': 'django.db.backends.sqlite3',
-#             'NAME': BASE_DIR / 'db.sqlite3',
-#         }
-#     }
+if local_db:
+    print ("LOCAL DB")
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': DATABASE_PATH,
+        }
+    }
 
-# else:
-#     print ("EXTERNAL DB")
-DATABASES = {
-    'default': dj_database_url.parse(DATABASE_URL)
-}
+else:
+    print ("EXTERNAL DB")
+    DATABASES = {
+        'default': dj_database_url.parse(DATABASE_URL)
+    }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
