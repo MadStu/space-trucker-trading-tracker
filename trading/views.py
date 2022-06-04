@@ -70,7 +70,7 @@ def index(request):
                 up_data.profit = 0
                 up_data.save()
                 msg = "Profit successfully reset."
-                messages.add_message(request, messages.SUCCESS, msg)
+                # messages.add_message(request, messages.SUCCESS, msg)
         else:
             if request.POST.get('form_buy') == "True":
                 form_buy = True

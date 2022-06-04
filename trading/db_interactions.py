@@ -83,7 +83,7 @@ def handle_form_data(
             # Save UserProfit data
             user_profit_calc(form_session, cost_amount, form_buy, ship_code)
             msg = "Trade successfully added."
-            messages.add_message(request, messages.SUCCESS, msg)
+            # messages.add_message(request, messages.SUCCESS, msg)
 
     else:
         # No stock of this commodity on board so create a new record
@@ -114,7 +114,7 @@ def handle_form_data(
             # Save UserProfit data
             user_profit_calc(form_session, cost, form_buy, ship_code)
             msg = "Trade successfully added."
-            messages.add_message(request, messages.SUCCESS, msg)
+            # messages.add_message(request, messages.SUCCESS, msg)
         else:
             # Trying to sell something with 0 stock so send a message.
             add_error_message(
