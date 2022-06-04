@@ -20,7 +20,7 @@
     <header>
         <div class="d-flex justify-content-center">
             <div class="p-2 justify-content-center">
-                <h1 class="heading-text text-center">Space Trucker <span class="header-block">Trading Tracker</span></h1>
+                <h1 class="heading-text text-center"  onclick="openFullscreen();">Space Trucker <span class="header-block">Trading Tracker</span></h1>
                 <p class="top-subline">A Tool for Star Citizen Traders</p>
             </div>
         </div>
@@ -198,6 +198,28 @@
         }, 1000);
     </script>
     {% endif %}
+    <script>
+        var elem = document.documentElement;
+        function openFullscreen() {
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen();
+            } else if (elem.webkitRequestFullscreen) { /* Safari */
+                elem.webkitRequestFullscreen();
+            } else if (elem.msRequestFullscreen) { /* IE11 */
+                elem.msRequestFullscreen();
+            }
+        }
+
+        function closeFullscreen() {
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) { /* Safari */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE11 */
+                document.msExitFullscreen();
+            }
+        }
+    </script>
 </body>
 
 </html>

@@ -43,7 +43,6 @@ X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 ALLOWED_HOSTS = ['space-trucker-trading-tracker.herokuapp.com', 'spacetrucker.app']
 
-
 # Application definition
 
 INSTALLED_APPS = [
