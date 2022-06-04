@@ -198,36 +198,6 @@
         }, 1000);
     </script>
     {% endif %}
-    <script>
-        var elem = document.documentElement;
-        function openFullscreen() {
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen();
-            } else if (elem.webkitRequestFullscreen) { /* Safari */
-                elem.webkitRequestFullscreen();
-            } else if (elem.msRequestFullscreen) { /* IE11 */
-                elem.msRequestFullscreen();
-            }
-            var headerTitle = document.getElementById("header-title");
-            headerTitle.classList.add("hide-me");
-            var headerSub = document.getElementById("header-subline");
-            headerSub.innerHTML = "SpaceTrucker.app";
-        }
-
-        function closeFullscreen() {
-            if (document.exitFullscreen) {
-                document.exitFullscreen();
-            } else if (document.webkitExitFullscreen) { /* Safari */
-                document.webkitExitFullscreen();
-            } else if (document.msExitFullscreen) { /* IE11 */
-                document.msExitFullscreen();
-            }
-            var headerTitle = document.getElementById("header-title");
-            headerTitle.classList.remove("hide-me");
-            var headerSub = document.getElementById("header-subline");
-            headerSub.innerHTML = "A Tool for Star Citizen Traders";
-        }
-    </script>
 </body>
 
 </html>
