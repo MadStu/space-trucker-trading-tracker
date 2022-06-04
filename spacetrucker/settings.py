@@ -97,7 +97,6 @@ WSGI_APPLICATION = 'spacetrucker.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 if local_db:
-    print ("LOCAL DB")
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',
@@ -106,7 +105,6 @@ if local_db:
     }
 
 else:
-    print ("EXTERNAL DB")
     DATABASES = {
         'default': dj_database_url.parse(DATABASE_URL)
     }
