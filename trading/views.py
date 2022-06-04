@@ -105,6 +105,8 @@ def index(request):
                 form_commodity,
                 form_buy,
                 form_price,
+                0,
+                False,
                 epoch_time,
                 form_session
             )
@@ -185,21 +187,27 @@ def editor(request):
     """
     epoch_time = time.time()
 
+    # Retrieve either a unique session key or the user details
+    session_key = request.session._get_or_create_session_key()
+    if request.user.is_authenticated:
+        session_key = str(request.user.id)
+
     # Handle the received Form data
     if request.method == 'POST':
         form_buy_price = request.POST.get('form_buy_price')
         form_sell_price = request.POST.get('form_sell_price')
         commodity_id = request.POST.get('commodity_id')
 
-        cp_data = CommodityPrice.objects.get(code=commodity_id)
-
-        cp_data.trade_price_buy = float(form_buy_price)
-        cp_data.trade_price_sell = float(form_sell_price)
-        cp_data.date_modified = int(epoch_time)
-
-        cp_data.save()
-        msg = "Commodity successfully updated."
-        messages.add_message(request, messages.SUCCESS, msg)
+        update_commodity_prices(
+            request,
+            commodity_id,
+            None,
+            form_buy_price,
+            form_sell_price,
+            True,
+            epoch_time,
+            session_key
+        )
 
     context = {
         'commodity_data': commodity_data(),
