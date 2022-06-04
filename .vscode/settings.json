@@ -26,5 +26,9 @@
    "editor.defaultFormatter": "HookyQR.beautify",
    "[html]": {
       "editor.defaultFormatter": "vscode.html-language-features"
-   }
+   },
+   "[python]": {
+      "editor.defaultFormatter": "ms-python.python"
+   },
+   "python.formatting.provider": "black"
 }

@@ -27,16 +27,9 @@ else:
     DATABASE_URL = os.environ.get('DATABASE_URL')
     DEVELOPMENT = False
 
-# DATABASE_URL = "postgres://dcalydmqfltexz:478e7a67f262ca20defc7dbda8584094d9f9d567a3b77f365daf9132ff130565@ec2-54-246-185-161.eu-west-1.compute.amazonaws.com:5432/d1crj8q2fqnvag"
-# SECRET_CODE = "$i=3Ihg9*T9O~he%!uYJ5-znD[euT|m%1vX5{,_Jm~tFlZ+LRmd`/&B(dO3u(Ul"
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
-
-
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = SECRET_CODE
