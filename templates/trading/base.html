@@ -21,7 +21,7 @@
         <div class="d-flex justify-content-center">
             <div class="p-2 justify-content-center">
                 <h1 id="header-title" class="heading-text text-center"  onclick="openFullscreen();">Space Trucker <span class="header-block">Trading Tracker</span></h1>
-                <p class="top-subline">A Tool for Star Citizen Traders</p>
+                <p id="header-subline" class="top-subline"  onclick="closeFullscreen();">A Tool for Star Citizen Traders</p>
             </div>
         </div>
     </header>
@@ -210,6 +210,8 @@
             }
             var headerTitle = document.getElementById("header-title");
             headerTitle.classList.add("hide-me");
+            var headerSub = document.getElementById("header-subline");
+            headerSub.innerHTML = "SpaceTrucker.app";
         }
 
         function closeFullscreen() {
@@ -220,6 +222,10 @@
             } else if (document.msExitFullscreen) { /* IE11 */
                 document.msExitFullscreen();
             }
+            var headerTitle = document.getElementById("header-title");
+            headerTitle.classList.remove("hide-me");
+            var headerSub = document.getElementById("header-subline");
+            headerSub.innerHTML = "A Tool for Star Citizen Traders";
         }
     </script>
 </body>
