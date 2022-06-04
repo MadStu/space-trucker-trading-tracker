@@ -11,7 +11,8 @@ def handle_form_data(
     form_session,
     epoch_time,
     request,
-    ship_code
+    ship_code,
+    commodity_code
 ):
     """
     Handles the data received submitted on the form
@@ -81,7 +82,7 @@ def handle_form_data(
             else:
                 entry.save()
             # Save UserProfit data
-            user_profit_calc(form_session, cost_amount, form_buy, ship_code)
+            user_profit_calc(form_session, cost_amount, form_buy, ship_code, commodity_code)
             msg = "Trade successfully added."
             # messages.add_message(request, messages.SUCCESS, msg)
 
@@ -112,7 +113,7 @@ def handle_form_data(
                 units=form_amount
             )
             # Save UserProfit data
-            user_profit_calc(form_session, cost, form_buy, ship_code)
+            user_profit_calc(form_session, cost, form_buy, ship_code, commodity_code)
             msg = "Trade successfully added."
             # messages.add_message(request, messages.SUCCESS, msg)
         else:
@@ -201,7 +202,7 @@ def commodity_data():
     return commodity_data_list
 
 
-def user_profit_calc(session, cost, buy, ship_code):
+def user_profit_calc(session, cost, buy, ship_code, commodity_code):
     """
     Handle the UserProfit queries
     """
@@ -209,7 +210,12 @@ def user_profit_calc(session, cost, buy, ship_code):
     if not UserProfit.objects.filter(session=session).exists():
 
         # Insert new record
-        UserProfit.objects.create(session=session, profit=0, ship_code=ship_code)
+        UserProfit.objects.create(
+            session=session,
+            profit=0,
+            ship_code=ship_code,
+            commodity_code=commodity_code
+        )
 
     # Retrieve UserProfit data
     up_data = UserProfit.objects.get(session=session)

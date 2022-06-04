@@ -43,6 +43,7 @@ class UserProfit(models.Model):
     session = models.CharField(max_length=150, blank=False, default=0)
     profit = models.IntegerField(default=0)
     ship_code = models.CharField(max_length=25, null=False, blank=False, default="CATERP")
+    commodity_code = models.CharField(max_length=25, null=False, blank=False, default="Titanium")
 
     def __str__(self):
         return self.session

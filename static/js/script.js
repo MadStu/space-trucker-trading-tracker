@@ -18,13 +18,17 @@ function setFields() {
     // Get the fields
     var buyPrice = document.getElementById("form_buy_price");
     var sellPrice = document.getElementById("form_sell_price");
+    var commodityCode = document.getElementById("commodity_code");
+    var commodityCode2 = document.getElementById("commodity_code2");
     var formBuyCommodity = document.getElementById("form_buy_commodity");
     var formSellCommodity = document.getElementById("form_sell_commodity");
     // Insert the values
     buyPrice.value = buyValue;
     sellPrice.value = sellValue;
     formBuyCommodity.value = commodityValue;
-    formSellCommodity.value = commodityValue;
+    formSellCommodity.value = commodityValue;    
+    commodityCode.value = commodityValue;
+    commodityCode2.value = commodityValue;
 }
 
 function setUnits() {

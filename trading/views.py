@@ -86,6 +86,7 @@ def index(request):
                 form_price = request.POST.get('form_sell_price')
                 form_amount = int(request.POST.get('form_sell_amount'))
             ship = request.POST.get('ship_data')
+            commodity_code = request.POST.get('commodity_code')
 
             # Insert the form data in db_interactions
             handle_form_data(
@@ -96,7 +97,8 @@ def index(request):
                 form_session,
                 epoch_time,
                 request,
-                ship
+                ship,
+                commodity_code
             )
 
             # Update CommodityPrice data in db_interactions
@@ -111,6 +113,15 @@ def index(request):
                 form_session
             )
             return redirect('index')
+
+    # Get currently trading profit
+    if UserProfit.objects.filter(session=session_key).exists():
+        up_data = UserProfit.objects.get(session=session_key)
+        user_profit = up_data.profit
+        user_ship = up_data.ship_code
+    else:
+        user_profit = 0
+        user_ship = "CATERP"
 
     # Get the user's last trade to retrieve the values
     # Check if user has a trade entry
@@ -130,7 +141,7 @@ def index(request):
         form_buy = entry.buy
     else:
         # Default values
-        form_commodity = "Laranite"
+        form_commodity = up_data.commodity_code
         form_price = 27.83
         form_amount = 69600
         form_buy = True
@@ -146,15 +157,6 @@ def index(request):
         total_value += trade.value
         total_profit += trade.profit
         total_cost += trade.cost
-
-    # Get currently trading profit
-    if UserProfit.objects.filter(session=session_key).exists():
-        up_data = UserProfit.objects.get(session=session_key)
-        user_profit = up_data.profit
-        user_ship = up_data.ship_code
-    else:
-        user_profit = 0
-        user_ship = "CATERP"
 
     error_list = ErrorList.objects.all().filter(session=session_key)
     context = {
