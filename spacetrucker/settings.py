@@ -13,10 +13,14 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from os.path import exists
 
 local_db = False
 
-if os.path.exists('../vars.py'):
+path_to_file = 'vars.py'
+path = Path(path_to_file)
+
+if path.is_file():
     from vars import SECRET_CODE, DATABASE_URL, DEVELOPMENT
     local_db = True
 else:
@@ -24,6 +28,8 @@ else:
     DATABASE_URL = os.environ.get('DATABASE_URL')
     DEVELOPMENT = False
 
+# DATABASE_URL = "postgres://dcalydmqfltexz:478e7a67f262ca20defc7dbda8584094d9f9d567a3b77f365daf9132ff130565@ec2-54-246-185-161.eu-west-1.compute.amazonaws.com:5432/d1crj8q2fqnvag"
+# SECRET_CODE = "$i=3Ihg9*T9O~he%!uYJ5-znD[euT|m%1vX5{,_Jm~tFlZ+LRmd`/&B(dO3u(Ul"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,7 +47,7 @@ DEBUG = DEVELOPMENT
 
 X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-ALLOWED_HOSTS = ['space-trucker-trading-tracker.herokuapp.com', 'spacetrucker.app', 'space-trucker.sturaynor.com']
+ALLOWED_HOSTS = ['space-trucker-trading-tracker.herokuapp.com', 'spacetrucker.app', 'sturaynor.com']
 
 # Application definition
 
@@ -102,6 +108,7 @@ WSGI_APPLICATION = 'spacetrucker.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 # if local_db:
+#     print ("LOCAL DB")
 #     DATABASES = {
 #         'default': {
 #             'ENGINE': 'django.db.backends.sqlite3',
@@ -110,6 +117,7 @@ WSGI_APPLICATION = 'spacetrucker.wsgi.application'
 #     }
 
 # else:
+#     print ("EXTERNAL DB")
 DATABASES = {
     'default': dj_database_url.parse(DATABASE_URL)
 }

@@ -9,4 +9,5 @@ node_modules/
 cloudinary_python.txt
 db.sqlite3
 vars.py
+vars_prod.py
 update-sttt.sh
