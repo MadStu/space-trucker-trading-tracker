@@ -20,7 +20,7 @@
     <header>
         <div class="d-flex justify-content-center">
             <div class="p-2 justify-content-center">
-                <h1 class="heading-text text-center"  onclick="openFullscreen();">Space Trucker <span class="header-block">Trading Tracker</span></h1>
+                <h1 id="header-title" class="heading-text text-center"  onclick="openFullscreen();">Space Trucker <span class="header-block">Trading Tracker</span></h1>
                 <p class="top-subline">A Tool for Star Citizen Traders</p>
             </div>
         </div>
@@ -208,6 +208,8 @@
             } else if (elem.msRequestFullscreen) { /* IE11 */
                 elem.msRequestFullscreen();
             }
+            var headerTitle = document.getElementById("header-title");
+            headerTitle.classList.add("hide-me");
         }
 
         function closeFullscreen() {
