@@ -221,6 +221,7 @@ def user_profit_calc(session, cost, buy, ship_code, commodity_code):
     up_data = UserProfit.objects.get(session=session)
 
     up_data.ship_code = ship_code
+    up_data.commodity_code = commodity_code
 
     if buy:
         up_data.profit -= int(cost)

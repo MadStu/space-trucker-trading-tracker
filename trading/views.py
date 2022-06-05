@@ -119,9 +119,11 @@ def index(request):
         up_data = UserProfit.objects.get(session=session_key)
         user_profit = up_data.profit
         user_ship = up_data.ship_code
+        form_commodity = up_data.commodity_code
     else:
         user_profit = 0
         user_ship = "CATERP"
+        form_commodity = "Gold"
 
     # Get the user's last trade to retrieve the values
     # Check if user has a trade entry
@@ -141,7 +143,6 @@ def index(request):
         form_buy = entry.buy
     else:
         # Default values
-        form_commodity = up_data.commodity_code
         form_price = 27.83
         form_amount = 69600
         form_buy = True
