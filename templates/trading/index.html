@@ -152,7 +152,7 @@
         </thead>
         <tbody>
             {% for trade in trades|dictsort:"amount" reversed %}
-            <tr onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')">
+            <tr class="trade-row" onclick="return setSelect('{{ trade.commodity }}', '{{ trade.amount }}')">
                 <td>{{ trade.commodity }}</td>
                 <td>{{ trade.cost|floatformat:0|intcomma }}</td>
                 <td>{{ trade.amount|intcomma }}</td>

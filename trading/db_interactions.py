@@ -196,7 +196,7 @@ def commodity_data():
     for item in CommodityPrice.objects.values():
         # Only add legal tradeable commodities to the new list
         if item['profit'] > 0 and item['kind'] != 'Drug':
-            if item['trade_price_buy'] > 0:
+            if item['trade_price_buy'] > 0 and item['kind'] != 'Temporary':
                 item['date'] = time.ctime(item['date_modified'])
                 commodity_data_list.append(item)
     return commodity_data_list

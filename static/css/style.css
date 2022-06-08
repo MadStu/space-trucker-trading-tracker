@@ -41,6 +41,11 @@ h2 {
     margin: 0;
 }
 
+
+.heading-text, .trade-row {
+    cursor: pointer;
+}
+
 .top-subline {
     text-align: right;
 }
