@@ -40,11 +40,11 @@ def handle_form_data(
             entry.amount += int(form_amount)
 
             # Work out stock cost and potential profit margin
-            cost = float(form_amount) * float(form_price)
+            cost = int(form_amount) * int(form_price)
             entry.cost += int(cost)
             entry.profit += (
-                float(form_amount) * cp_data.trade_price_sell
-            ) - cost
+                Decimal(form_amount) * Decimal(cp_data.trade_price_sell)
+            ) - Decimal(cost)
             cost_amount = cost
 
         else:
@@ -56,13 +56,12 @@ def handle_form_data(
                 entry.amount -= int(form_amount)
 
                 # Work out stock cost and profit margin
-                cost = float(form_amount) * cp_data.trade_price_buy
+                cost = Decimal(form_amount) * Decimal(cp_data.trade_price_buy)
                 entry.cost -= int(cost)
-                entry.profit -= (
-                    float(form_amount) * cp_data.trade_price_sell
-                ) - cost
-                cost_amount = float(form_amount) * cp_data.trade_price_sell
-                cost_amount = float(form_amount) * float(form_price)
+                entry.profit -= int(
+                    Decimal(int(form_amount) * cp_data.trade_price_sell)
+                ) - int(cost)
+                cost_amount = Decimal(form_amount) * Decimal(form_price)
 
         # Update price paid and current time
         entry.price = form_price
@@ -73,7 +72,7 @@ def handle_form_data(
         entry.units = form_amount
 
         # Work out potential stock sell value
-        entry.value = entry.amount * cp_data.trade_price_sell
+        entry.value = Decimal(entry.amount) * Decimal(cp_data.trade_price_sell)
 
         if error_message is not None:
             add_error_message(error_message, form_session)
@@ -97,8 +96,8 @@ def handle_form_data(
             value = int(form_amount) * cp_data.trade_price_sell
 
             # Work out potential stock profit margin
-            cost = float(form_amount) * float(form_price)
-            profit = (float(form_amount) * cp_data.trade_price_sell) - cost
+            cost = Decimal(form_amount) * Decimal(form_price)
+            profit = (Decimal(form_amount) * Decimal(cp_data.trade_price_sell)) - Decimal(cost)
 
             # Insert new trade
             Trade.objects.create(
