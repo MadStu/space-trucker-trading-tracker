@@ -145,20 +145,19 @@ def update_commodity_prices(
 
         if editor:
             # Update existing prices to CommodityPrice
-            cp_data.trade_price_buy = float(price)
-            cp_data.trade_price_sell = float(sell)
+            cp_data.trade_price_buy = Decimal(price)
+            cp_data.trade_price_sell = Decimal(sell)
         else:
             # Update existing prices to CommodityPrice
             if buy:
                 # Update if Buying
-                cp_data.trade_price_buy = float(price)
+                cp_data.trade_price_buy = Decimal(price)
             else:
                 # Update if Selling
-                cp_data.trade_price_sell = float(price)
+                cp_data.trade_price_sell = Decimal(price)
 
         # Calculate profit from new price values
-        cp_data.profit = round(
-            cp_data.trade_price_sell - cp_data.trade_price_buy, 2)
+        cp_data.profit = Decimal(cp_data.trade_price_sell) - Decimal(cp_data.trade_price_buy)
         cp_data.date_modified = int(epoch_time)
 
         # Check for errors
