@@ -2,6 +2,7 @@ import time
 from django.shortcuts import render, redirect
 from django.db.models import Max
 from django.contrib import messages
+from decimal import Decimal
 from .models import Trade, CommodityPrice, ErrorList, UserProfit
 from .db_interactions import update_commodity_prices, handle_form_data
 from .db_interactions import commodity_data, ship_data, add_error_message
