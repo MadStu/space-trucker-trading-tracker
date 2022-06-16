@@ -1,5 +1,6 @@
 import time
 from django.contrib import messages
+from decimal import Decimal
 from .models import Trade, CommodityPrice, ErrorList, UserProfit, ShipList
 
 
@@ -39,10 +40,10 @@ def handle_form_data(
             entry.amount += int(form_amount)
 
             # Work out stock cost and potential profit margin
-            cost = float(form_amount) * float(form_price)
+            cost = Decimal(form_amount) * Decimal(form_price)
             entry.cost += int(cost)
             entry.profit += (
-                float(form_amount) * cp_data.trade_price_sell
+                Decimal(form_amount) * cp_data.trade_price_sell
             ) - cost
             cost_amount = cost
 
@@ -55,13 +56,13 @@ def handle_form_data(
                 entry.amount -= int(form_amount)
 
                 # Work out stock cost and profit margin
-                cost = float(form_amount) * cp_data.trade_price_buy
+                cost = Decimal(form_amount) * cp_data.trade_price_buy
                 entry.cost -= int(cost)
                 entry.profit -= (
-                    float(form_amount) * cp_data.trade_price_sell
+                    Decimal(form_amount) * cp_data.trade_price_sell
                 ) - cost
-                cost_amount = float(form_amount) * cp_data.trade_price_sell
-                cost_amount = float(form_amount) * float(form_price)
+                cost_amount = Decimal(form_amount) * cp_data.trade_price_sell
+                cost_amount = Decimal(form_amount) * Decimal(form_price)
 
         # Update price paid and current time
         entry.price = form_price
@@ -96,8 +97,8 @@ def handle_form_data(
             value = int(form_amount) * cp_data.trade_price_sell
 
             # Work out potential stock profit margin
-            cost = float(form_amount) * float(form_price)
-            profit = (float(form_amount) * cp_data.trade_price_sell) - cost
+            cost = Decimal(form_amount) * Decimal(form_price)
+            profit = (Decimal(form_amount) * cp_data.trade_price_sell) - cost
 
             # Insert new trade
             Trade.objects.create(
@@ -145,16 +146,16 @@ def update_commodity_prices(
 
         if editor:
             # Update existing prices to CommodityPrice
-            cp_data.trade_price_buy = float(price)
-            cp_data.trade_price_sell = float(sell)
+            cp_data.trade_price_buy = Decimal(price)
+            cp_data.trade_price_sell = Decimal(sell)
         else:
             # Update existing prices to CommodityPrice
             if buy:
                 # Update if Buying
-                cp_data.trade_price_buy = float(price)
+                cp_data.trade_price_buy = Decimal(price)
             else:
                 # Update if Selling
-                cp_data.trade_price_sell = float(price)
+                cp_data.trade_price_sell = Decimal(price)
 
         # Calculate profit from new price values
         cp_data.profit = round(

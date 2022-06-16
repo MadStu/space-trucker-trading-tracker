@@ -172,7 +172,7 @@ def index(request):
         'total_profit': round(total_profit+user_profit+total_cost),
         'total_cost': round(total_cost),
         'populate_commodity': form_commodity,
-        'populate_price': float(form_price),
+        'populate_price': Decimal(form_price),
         'populate_amount': int(form_amount),
         'populate_buy': form_buy,
         'user_profit': int(user_profit),
