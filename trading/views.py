@@ -2,7 +2,6 @@ import time
 from django.shortcuts import render, redirect
 from django.db.models import Max
 from django.contrib import messages
-from decimal import Decimal
 from .models import Trade, CommodityPrice, ErrorList, UserProfit
 from .db_interactions import update_commodity_prices, handle_form_data
 from .db_interactions import commodity_data, ship_data, add_error_message
@@ -173,7 +172,7 @@ def index(request):
         'total_profit': round(total_profit+user_profit+total_cost),
         'total_cost': round(total_cost),
         'populate_commodity': form_commodity,
-        'populate_price': Decimal(form_price),
+        'populate_price': float(form_price),
         'populate_amount': int(form_amount),
         'populate_buy': form_buy,
         'user_profit': int(user_profit),
